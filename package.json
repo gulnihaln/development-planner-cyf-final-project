@@ -70,8 +70,8 @@
 		"@babel/runtime": "^7.15.4",
 		"express": "^4.17.1",
 		"helmet": "^4.6.0",
-		"mongoose": "^6.0.12",
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"pg": "^8.7.1"
 	},
 	"engines": {
 		"node": "^12 || ^14",

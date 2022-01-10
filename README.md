@@ -13,16 +13,16 @@
 - [x] [Heroku] deployment
 - [x] [Cloud Foundry] deployment
 - [x] [Docker] build
-- [x] [MongoDB] database with [Mongoose]
+- [x] [Postgres] database with [node-postgres]
 
 ## Setup
 
 Pick one member of the team to own the repository and pipeline. That person should do the following:
 
-1.  Click the "Use this template" button above (see [GitHub's docs][1]) to create your team repository, and name it something appropriate for your project.
-2.  Set up a Mongo database, e.g. on [MongoDB Atlas], and get the connection URI.
+1.  Click the "Use this template" button above (see [GitHub's docs][1]) to create your team repository, select "Include all branches" and name it something appropriate for your project.
+2.  In your new repo, go to "Settings", then "Branches", then switch the default branch to `postgres` (_optional_: you can now delete the old `main` branch and rename `postgres` to `main`, `master` or whatever else you'd like) - see [GitHub's docs][2] again
 3.  In your repo, click the "Deploy to Heroku" button at the top of the README and create a Heroku account when prompted.
-4.  Fill in the name of the application, select Europe, enter the `MONGODB_URI` environment variable and then click "Deploy App".
+4.  Fill in the name of the application, select Europe and then click "Deploy App".
 5.  Once it has deployed successfully, click the "Manage app" button to view the application details.
 6.  Go to the "Deploy" tab, select "Connect to GitHub" and choose your repo.
 7.  Click "Enable automatic deploys".
@@ -68,6 +68,7 @@ principles are followed:
 See the guidance in the [wiki].
 
 [1]: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template
+[2]: https://docs.github.com/en/github/administering-a-repository/managing-branches-in-your-repository
 [babel]: https://babeljs.io/
 [cloud foundry]: https://www.cloudfoundry.org/
 [collaborators]: https://help.github.com/en/articles/inviting-collaborators-to-a-personal-repository
@@ -75,10 +76,9 @@ See the guidance in the [wiki].
 [eslint]: https://eslint.org/
 [express]: https://expressjs.com/
 [heroku]: https://www.heroku.com/
-[mongodb]: https://www.mongodb.com
-[mongodb atlas]: https://www.mongodb.com/cloud/atlas
-[mongoose]: https://mongoosejs.com/
 [node]: https://nodejs.org/en/
+[node-postgres]: https://node-postgres.com/
+[postgres]: https://www.postgresql.org/
 [prettier]: https://prettier.io/
 [pull request]: https://help.github.com/en/articles/about-pull-requests
 [react]: https://reactjs.org/
