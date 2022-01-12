@@ -7,6 +7,8 @@ const About = () => (
 				see the wiki:
 			</p>
 			<a href="https://github.com/textbook/starter-kit/wiki">Wiki</a>
+			<h1>Helll world</h1>
+
 		</div>
 	</main>
 );
