@@ -1,15 +1,10 @@
 import { Route, Switch } from "react-router-dom";
-
-import About from "./pages/About";
-import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 const App = () => (
 	<Switch>
 		<Route path="/" exact>
-			<Home />
-		</Route>
-		<Route path="/about/this/site">
-			<About />
+			<Login />
 		</Route>
 	</Switch>
 );
