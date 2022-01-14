@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 
-const dbUrl = process.env.DATABASE_URL || "postgres://localhost:5432/dev_planner";
+const dbUrl = process.env.DATABASE_URL || "postgres://postgres:14536@localhost:5432/dev_planner";
 
 const pool = new Pool({
 	connectionString: dbUrl,
