@@ -208,35 +208,35 @@ router.put("/users/:user_id/plans/:plan_id", (req, res) => {
 });
 
 // Delete a plan form specific user with plan id <==== have a problem
-router.delete("users/:user_id/plans/:plan_id", async (req, res) => {
-	const { user_id, plan_id } = req.params;
+// router.delete("users/:user_id/plans/:plan_id", async (req, res) => {
+// 	const { user_id, plan_id } = req.params;
 
-	if (!user_id || !plan_id) {
-		res
-			.status(404)
-			.json({ status: 404, msg: "We couldn't find a plan with this id!" });
-	}
+// 	if (!user_id || !plan_id) {
+// 		res
+// 			.status(404)
+// 			.json({ status: 404, msg: "We couldn't find a plan with this id!" });
+// 	}
 
-	try {
-		const deleteGoal = await pool.query("DELETE FROM goals WHERE plan_id=$1", [
-			plan_id,
-		]);
+// 	try {
+// 		const deleteGoal = await pool.query("DELETE FROM goals WHERE plan_id=$1", [
+// 			plan_id,
+// 		]);
 
-		const deleteFeedback = await pool.query(
-			"DELETE FROM feedbacks WHERE plan_id=$1",
-			[plan_id]
-		);
+// 		const deleteFeedback = await pool.query(
+// 			"DELETE FROM feedbacks WHERE plan_id=$1",
+// 			[plan_id]
+// 		);
 
-		const result = await pool.query(
-			"DELETE FROM plans WHERE plans.id=$1 AND user_id=$2",
-			[plan_id, user_id]
-		);
+// 		const deletePlan = await pool.query(
+// 			"DELETE FROM plans WHERE plans.id=$1 AND user_id=$2",
+// 			[plan_id, user_id]
+// 		);
 
-		res.json({ Success: "Plan has been deleted" });
-	} catch (err) {
-		res.status(500).send("server error");
-	}
-});
+// 		res.json({ Success: "Plan has been deleted" });
+// 	} catch (err) {
+// 		res.status(500).send("server error");
+// 	}
+// });
 
 // GET goals form specific user id
 router.get("/users/:user_id/goals", (req, res) => {
@@ -341,7 +341,7 @@ router.get("/users/:user_id/feedbacks", async (req, res) => {
 	const { user_id } = req.params;
 	try {
 		const feedback_req = await pool.query(
-			`SELECT graduate.first_name, graduate.id, p.description, f.description, f.id, mentors.first_nameFROM feedbacks as f 
+			`SELECT graduate.first_name, graduate.id, p.description, f.description, f.id, mentors.first_name FROM feedbacks as f 
 				INNER JOIN plans  as p ON p.id = f.plan_id INNER JOIN users as graduate ON graduate.id = p.user_id
 				INNER JOIN users as mentors ON f.user_id= mentors.id where mentors.id = $1
 					ORDER BY f.create_date`,
@@ -349,53 +349,53 @@ router.get("/users/:user_id/feedbacks", async (req, res) => {
 		);
 		res.json(feedback_req.rows);
 	} catch (err) {
-		res.status(500).json("server error");
+		res.status(500).json(err.message);
 	}
 });
 
 // POST feedback form specific user id (mentor)
-router.post("/users/:user_id/feedbacks", async (req, res) => {
-	const { id } = req.body;
-	const { user_id } = req.params;
+// router.post("/users/:user_id/plans/:plan_id/feedbacks", async (req, res) => {
+// 	const { description } = req.body;
+// 	const { user_id, plan_id } = req.params;
 
-	try {
-		await pool.query(
-			"INSERT INTO feedbacks(plan_id, user_id) VALUES ($1,$2)",
-			[id, user_id]
-		);
+// 	try {
+// 		await pool.query(
+// 			"INSERT INTO feedbacks(plan_id, user_id, description) VALUES ($1,$2, $3)",
+// 			[user_id, plan_id, description]
+// 		);
 
-		res.json("feedback send successfully");
-	} catch (err) {
-		res.status(500).json(err, "server error");
-	}
-});
+// 		res.json("feedback send successfully");
+// 	} catch (err) {
+// 		res.status(500).json(err, "server error");
+// 	}
+// });
 
 // UPDATE feedback form specific user id (mentor) and user plan_id
-router.put("/users/:user_id/:plan_id/feedbacks", async (req, res) => {
-	const { description } = req.body;
-	const { plan_id, user_id } = req.params;
+// router.put("/users/:user_id/:plan_id/feedbacks", async (req, res) => {
+// 	const { description } = req.body;
+// 	const { plan_id, user_id } = req.params;
 
-	try {
-		await pool.query(
-			"UPDATE feedbacks SET description=$1 WHERE plan_id=$2 AND users_id=$3",
-			[description, plan_id, user_id]
-		);
+// 	try {
+// 		await pool.query(
+// 			"UPDATE feedbacks SET description=$1 WHERE plan_id=$2 AND users_id=$3",
+// 			[description, plan_id, user_id]
+// 		);
 
-		res.json("feedback send successfully");
-	} catch (err) {
-		res.status(500).send(err, "server error");
-	}
-});
+// 		res.json("feedback send successfully");
+// 	} catch (err) {
+// 		res.status(500).send(err, "server error");
+// 	}
+// });
 
 // GET all feedbacks form specific user id
-router.get("/users/:user_id/feedbacks", async (req, res) => {
-	try {
-		const feedbacks = await pool.query("",[req.params.user_id]);
-		res.json(feedbacks.rows);
-	} catch (err) {
-		res.status(500).send(err, "server error");
-	}
-});
+// router.get("/users/:user_id/feedbacks", async (req, res) => {
+// 	try {
+// 		const feedbacks = await pool.query("",[req.params.user_id]);
+// 		res.json(feedbacks.rows);
+// 	} catch (err) {
+// 		res.status(500).send(err, "server error");
+// 	}
+// });
 
 // PUT a feedback from specific plan id
 router.put("/user/:user_id/:plan_id/feedbacks", async (req, res) => {
