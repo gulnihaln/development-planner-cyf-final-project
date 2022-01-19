@@ -1,0 +1,40 @@
+.home-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+}
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.intro-p {
+    display:none;
+}
+.intro-img {
+    display:flex;
+    justify-self: stretch;
+    width: 100%;
+}
+.button-primary {
+    margin-top: 30px;
+    width: 100%;
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 768px) {
+    .home-container {
+    grid-template-columns: 1fr 1fr;
+    }
+    .intro-p {
+    display:block;
+    }
+    .intro-img {
+        display:none;
+    }
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
+}
