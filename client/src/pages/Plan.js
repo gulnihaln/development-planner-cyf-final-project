@@ -1,11 +1,8 @@
 import Button from "@mui/material/Button";
 import "../styles/Plan.css";
-import DropdownMenu from "../utils/DropdownMenu";
+import DropdownMenuFeedback from "../utils/DropdownMenuFeedback";
 import PlanTitle from "../utils/PlanTitle";
 import Goals from "../components/Goals";
-// import { ThemeProvider } from "styled-components";
-// import { makeStyles } from "@mui/styles";
-// import { useTheme } from "@material-ui/core/styles";
 
 const fakeGoals = [
 	{
@@ -36,30 +33,17 @@ const fakeGoals = [
 	},
 ];
 
-// const useStyle = makeStyles((theme) => ({
-// 	root: {
-// 		width: "300px",
-// 	},
-// }));
-
 export default function Plan() {
-	// const theme = useTheme();
-	// const classes = useStyle();
 	return (
 		<>
-			{/* <ThemeProvider
-			theme={theme} */}
-			{/* // className={classes.root} */}
-			{/* > */}
 			<section className="plan-container">
 				<div className="plan-intro-container">
 					<div className="title-progress-container">
-						{/* <h2>{fakeTasks[0].title}</h2> */}
 						<PlanTitle />
 						<article className="progress-bar"></article>
 					</div>
 					<div className="feedback-buttons">
-						<DropdownMenu />
+						<DropdownMenuFeedback />
 						<div className="invite-feedback">
 							<Button
 								variant="outlined"
@@ -88,7 +72,6 @@ export default function Plan() {
 			<section className="goals-container">
 				<Goals fakeGoals={fakeGoals} />
 			</section>
-			{/* </ThemeProvider> */}
 		</>
 	);
 }
