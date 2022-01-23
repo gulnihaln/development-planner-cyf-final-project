@@ -8,7 +8,7 @@ const options = ["Invite reviewer", "See Feedbacks"];
 
 const ITEM_HEIGHT = 48;
 
-export default function DropdownMenu () {
+export default function DropdownMenuFeedback () {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
