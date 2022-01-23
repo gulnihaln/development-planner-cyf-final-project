@@ -1,37 +1,34 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-import DropdownMenu from "../utils/DropdownMenu";
-
-const Item = styled(Paper)(({ theme }) => ({
-	...theme.typography.body2,
-	textAlign: "center",
-	color: theme.palette.text.secondary,
-	height: 60,
-	lineHeight: "60px",
-    width: 300,
-}));
-
-const lightTheme = createTheme({ palette: { mode: "light" } });
+import DropdownMenuTask from "../utils/DropdownMenuTask";
+import Box from "@mui/material/Box";
+import CardHeader from "@mui/material/CardHeader";
+import Card from "@mui/material/Card";
 
 export default function TaskTicket ({ tasks }) {
 	return (
-		<div>
+		<Box>
 			{tasks.map((task) => {
-                return (
-									<Grid key={task.id}>
-										{[lightTheme].map((theme, index) => (
-											<Grid item xs={6} key={index}>
-												<ThemeProvider theme={theme}>
-													<Item elevation={3}>{task.title}</Item>
-												</ThemeProvider>
-												<DropdownMenu />
-											</Grid>
-										))}
-									</Grid>
-								);
+				return (
+					<Card key={task.id}
+					sx={{ width: "90%" }}
+					>
+						<CardHeader
+							action={
+								<Box
+									sx={{
+										display: "flex",
+										flexDirection: "column",
+										padding: 0,
+									}}
+								>
+									<DropdownMenuTask />
+								</Box>
+							}
+							subheader={task.title}
+						/>
+					</Card>
+				);
 			})}
-		</div>
+		</Box>
 	);
 }
