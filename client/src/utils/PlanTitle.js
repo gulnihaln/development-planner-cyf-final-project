@@ -1,28 +1,18 @@
 import { Typography, InputBase } from "@mui/material";
-// import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-// const useStyle = makeStyles((theme) => ({
-//     editableTitleContainer: {
-//         margin: theme.spacing(1),
-//         display: "flex",
-//     },
-//     editableTitle: {
-//         flexGrow: 1,
-//     },
-// }));
 export default function PlanTitle() {
     const [open, setOpen] = useState(false);
-    // const classes = useStyle();
+    const [title, setTitle] = useState("Untitled");
     return (
         <div>
             {open ? (
             <div>
                 <InputBase
-                    value="Untitled"
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
                     inputProps = {{
-                        // className: classes.input,
                     }}
                     fullWidth
                     onBlur={() => setOpen(!open)}
@@ -30,13 +20,11 @@ export default function PlanTitle() {
             </div>
             ) : (
             <div
-            // className={classes.editableTitleContainer}
             >
                 <Typography
                     onclick={setOpen(!open)}
-                    // className={classes.editableTitle}
                     >
-                    Untitled
+                    {title}
                 </Typography>
                 <MoreVertIcon />
             </div>

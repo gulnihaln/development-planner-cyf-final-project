@@ -1,7 +1,8 @@
 import GoalCard from "./GoalCard";
 import { useState } from "react";
 import AddGoalButton from "./AddGoalButton";
-
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 
 export default function Goals ({ fakeGoals }) {
 	const [goals, setGoals] = useState(fakeGoals);
@@ -17,11 +18,23 @@ export default function Goals ({ fakeGoals }) {
 	}
 	console.log(goals);
 	return (
-		<div className="goals-container">
-			{goals.map((goal, index) => {
-				return <GoalCard key={index} fakeGoal={goal} />;
-			})}
-			<AddGoalButton newGoalHandle={newGoalHandle} />
-		</div>
+		<Container>
+			<Grid container spacing={3} sx={{ marginTop: 1 }}>
+					{goals.map((goal, index) => {
+						return (
+							<Grid
+								key={index}
+								item
+								lg={5}
+								md={6}
+								xs={12}
+							>
+								<GoalCard fakeGoal={goal} />
+							</Grid>
+						);
+					})}
+				<AddGoalButton newGoalHandle={newGoalHandle} />
+			</Grid>
+		</Container>
 	);
 }

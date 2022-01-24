@@ -5,13 +5,15 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import Paper from "@mui/material/Paper";
 import TaskTicket from "./TaskTicket";
 import AddTaskIcon from "./AddTaskIcon";
+import Box from "@mui/material/Box";
+import DropdownMenuGoal from "../utils/DropdownMenuGoal";
+import EditableInput from "../utils/EditableInput";
 
 export default function GoalCard({ fakeGoal }) {
 	const [goal, setGoal] = useState(fakeGoal);
@@ -25,16 +27,34 @@ export default function GoalCard({ fakeGoal }) {
 				goal_id: goal.id,
 				title: value,
 			});
-			// console.log(prev);
 			return { ...prev };
 		});
 	}
 	return (
-		<Card key={goal.id} sx={{ maxWidth: 400 }}>
-			<CardHeader title={goal.title}></CardHeader>
-			<IconButton aria-label="settings">
-				<MoreVertIcon />
-			</IconButton>
+		<Card
+			className="goal-card"
+			key={goal.id}
+			sx={{
+				p: "2px 4px",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				backgroundColor: "#F9F9F9",
+			}}
+		>
+			<Box
+				sx={{
+					p: "2px 4px",
+					display: "flex",
+					justifyContent: "space-between",
+					width: "100%",
+				}}
+			>
+				<Box>
+					<EditableInput title={goal.title} />
+				</Box>
+				<DropdownMenuGoal />
+			</Box>
 			<CardContent>
 				<TaskTicket tasks={goal.tasks} />
 			</CardContent>
@@ -43,8 +63,6 @@ export default function GoalCard({ fakeGoal }) {
 				sx={{
 					p: "2px 4px",
 					display: "flex",
-					alignItems: "center",
-					width: 380,
 				}}
 			>
 				<InputBase

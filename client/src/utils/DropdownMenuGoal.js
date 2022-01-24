@@ -4,11 +4,11 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const options = ["Invite reviewer", "See Feedbacks"];
+const options = ["Select Date", "Option"];
 
 const ITEM_HEIGHT = 48;
 
-export default function DropdownMenu () {
+export default function DropdownMenuGoal() {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -19,7 +19,7 @@ export default function DropdownMenu () {
 	};
 
 	return (
-		<div className="dropdown-icon">
+		<div className="dropdown-icon-goal-card">
 			<IconButton
 				aria-label="more"
 				id="long-button"
