@@ -5,13 +5,17 @@ export default function AddGoalButton ({ newGoalHandle }) {
 	return (
 		<div>
 			<Button
-				className="new-goal-button"
+				// className="new-goal-button"
 				onClick={newGoalHandle}
 				variant="outlined"
 				sx={{
 					color: "primary.main",
 					bgColor: "#FFFFFF",
-					borderRadius: 10,
+					borderRadius: 5,
+					marginTop: 3,
+					width: 350,
+					marginLeft: 4,
+					alignSelf: "center",
 				}}
 			>
 				Add New Goal
