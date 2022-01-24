@@ -13,7 +13,7 @@ import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import DropdownMenuGoal from "../utils/DropdownMenuGoal";
 import EditableInput from "../utils/EditableInput";
-import StartAndEndDate from "./StartAndEndDate";
+
 
 export default function GoalCard({ fakeGoal }) {
 	const [goal, setGoal] = useState(fakeGoal);

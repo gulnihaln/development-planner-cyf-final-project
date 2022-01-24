@@ -14,10 +14,13 @@ const apiRoot = "/api";
 const staticDir = path.join(__dirname, "static");
 
 const app = express();
-
+const cors = require("cors");
+router.use(cors());
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(morgan("dev"));
+
+
 
 if (app.get("env") === "production") {
 	app.enable("trust proxy");
