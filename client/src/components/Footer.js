@@ -4,6 +4,9 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import { IconButton } from "@mui/material";
+import Link from "@mui/material/Link";
 
 
 export default function Footer () {
@@ -24,14 +27,24 @@ export default function Footer () {
 						setValue(newValue);
 					}}
 				>
-					<BottomNavigationAction label="Home" />
-					<BottomNavigationAction label="Account" />
+					<BottomNavigationAction label="About Team" />
+					<BottomNavigationAction
+						label={
+							<Link href="https://github.com/gulnihaln/development-planner-cyf-final-project" target="blank_">
+								<IconButton>
+									<GitHubIcon />
+								</IconButton>
+							</Link>
+						}
+					></BottomNavigationAction>
+					<BottomNavigationAction label="Contact us" />
 				</BottomNavigation>
 				<Typography
 					variant="subtitle2"
-					gutterBottom component="div"
+					gutterBottom
+					component="div"
 					sx={{ textAlign: "center", fontSize: "small" }}
-					>
+				>
 					&copy; Copyright CodeYourFuture. All rights reserved.
 				</Typography>
 			</Paper>
