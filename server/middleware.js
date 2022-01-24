@@ -1,5 +1,45 @@
 import helmet from "helmet";
 import path from "path";
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+export const auth = (req, res, next) => {
+	const accessToken = req.header("token");
+	if (!accessToken) {
+		return res.status(403).json("Not Authorized..!");
+	}
+	try {
+		const payload = jwt.verify(accessToken, process.env.accessSecretKey);
+		req.user_id = payload.user;
+		next();
+	} catch (err) {
+		console.error(err.message);
+		return res.status(403).json(err.message);
+	}
+};
+
+export const validInfo = (req, res, next) => {
+	const { email, first_name, password } = req.body;
+	const validEmail = (email) => {
+		return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+	};
+
+	if (req.path === "/register") {
+		console.log(!email.length);
+		if (![email, first_name, password].every(Boolean)) {
+			return res.status(401).json("Missing Credentials");
+		} else if (!validEmail(email)) {
+			return res.status(401).json("Invalid Email");
+		}
+	} else if (req.path === "/users/login") {
+		if (![email, password].every(Boolean)) {
+			return res.status(401).json("Missing Credentials");
+		} else if (!validEmail(email)) {
+			return res.status(401).json("Invalid Email");
+		}
+	}
+	next();
+};
 
 export const configuredHelmet = () =>
 	helmet({
