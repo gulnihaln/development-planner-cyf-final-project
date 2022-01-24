@@ -50,9 +50,9 @@ export default function GoalCard({ fakeGoal }) {
 					width: "100%",
 				}}
 			>
-				<CardHeader>
+				<Box>
 					<EditableInput title={goal.title} />
-				</CardHeader>
+				</Box>
 				<DropdownMenuGoal />
 			</Box>
 			<CardContent>

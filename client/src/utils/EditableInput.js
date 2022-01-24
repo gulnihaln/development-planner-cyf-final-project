@@ -24,7 +24,6 @@ const EditableInput = () => {
           <Typography onClick={() => setOpen(!open)} sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <EditOutlinedIcon sx={{ color: "#9e9e9e" }} onClick={() => setOpen(!open)} />
         </Box>
       )}
     </div>
