@@ -3,6 +3,8 @@ import "../styles/Plan.css";
 import DropdownMenuFeedback from "../utils/DropdownMenuFeedback";
 import PlanTitle from "../utils/PlanTitle";
 import Goals from "../components/Goals";
+import FeedbackDrawer from "../components/FeedbackDrawer";
+import Box from "@mui/material/Box";
 
 const fakeGoals = [
 	{
@@ -63,6 +65,7 @@ export default function Plan() {
 									borderRadius: 10,
 								}}
 							>
+								<FeedbackDrawer />
 								See Feedbacks
 							</Button>
 						</div>
