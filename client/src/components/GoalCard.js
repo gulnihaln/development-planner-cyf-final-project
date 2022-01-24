@@ -13,6 +13,7 @@ import TaskTicket from "./TaskTicket";
 import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import DropdownMenuGoal from "../utils/DropdownMenuGoal";
+import EditableInput from "../utils/EditableInput";
 
 export default function GoalCard({ fakeGoal }) {
 	const [goal, setGoal] = useState(fakeGoal);
@@ -49,7 +50,9 @@ export default function GoalCard({ fakeGoal }) {
 					width: "100%",
 				}}
 			>
-				<CardHeader title={goal.title}></CardHeader>
+				<Box>
+					<EditableInput title={goal.title} />
+				</Box>
 				<DropdownMenuGoal />
 			</Box>
 			<CardContent>
