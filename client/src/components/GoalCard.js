@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
@@ -14,54 +13,80 @@ import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import DropdownMenuGoal from "../utils/DropdownMenuGoal";
 import EditableInput from "../utils/EditableInput";
+import StartAndEndDate from "./StartAndEndDate";
 
 export default function GoalCard({ fakeGoal }) {
 	const [goal, setGoal] = useState(fakeGoal);
+
 	const [value, setValue] = useState("");
+
 	console.log(value);
 
 	function newTaskHandle() {
-		setGoal((prev) => {
-			prev.tasks.push({
-				id: prev.tasks.length,
-				goal_id: goal.id,
-				title: value,
+		if (!value) {
+			alert("Please enter a task!");
+
+			return false;
+		} else {
+			setGoal((prev) => {
+				prev.tasks.push({
+					id: prev.tasks.length,
+
+					goal_id: goal.id,
+
+					title: value,
+				});
+
+				return { ...prev };
 			});
-			return { ...prev };
-		});
+		}
 	}
+
 	return (
 		<Card
 			className="goal-card"
 			key={goal.id}
 			sx={{
 				p: "2px 4px",
+
 				display: "flex",
+
 				flexDirection: "column",
+
 				justifyContent: "center",
+
 				backgroundColor: "#F9F9F9",
 			}}
 		>
 			<Box
 				sx={{
 					p: "2px 4px",
+
 					display: "flex",
+
 					justifyContent: "space-between",
+
 					width: "100%",
 				}}
 			>
 				<Box>
 					<EditableInput title={goal.title} />
 				</Box>
+
 				<DropdownMenuGoal />
 			</Box>
+
+			<StartAndEndDate />
+
 			<CardContent>
 				<TaskTicket tasks={goal.tasks} />
 			</CardContent>
+
 			<Paper
 				component="form"
 				sx={{
 					p: "2px 4px",
+
 					display: "flex",
 				}}
 			>
@@ -72,9 +97,12 @@ export default function GoalCard({ fakeGoal }) {
 					value={value}
 					onChange={(event) => setValue(event.target.value)}
 				/>
+
 				<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+
 				<AddTaskIcon newTaskHandle={newTaskHandle} />
 			</Paper>
+
 			<CardActions
 				sx={{ display: "flex", justifyContent: "flex-end" }}
 				disableSpacing
