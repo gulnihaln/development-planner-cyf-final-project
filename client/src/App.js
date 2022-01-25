@@ -8,6 +8,14 @@ import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+	typography: {
+		fontFamily: ["Raleway ", "Arial"].join(","),
+	},
+});
+
 const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	console.log(isAuthenticated);
@@ -17,44 +25,46 @@ const App = () => {
 	}, []);
 
 	return (
-		<div>
-			<Header />
-			<hr />
-			<Switch>
-				<Route
-					exact
-					path="/"
-					render={(props) =>
-						!isAuthenticated ? (
-							<Login {...props} setIsAuthenticated={setIsAuthenticated} />
-						) : (
-							<Redirect to="/dashboard" />
-						)
-					}
-				/>
-				<Route
-					exact
-					path="/signup"
-					render={(props) =>
-						!isAuthenticated ? (
-							<Signup {...props} setIsAuthenticated={setIsAuthenticated} />
-						) : (
-							<Redirect to="/dashboard" />
-						)
-					}
-				/>
-				<Route path="/dashboard" exact>
-					<Dashboard />
-				</Route>
-				<Route path="/newplan">
-					<NewPlan />
-				</Route>
-				<Route path="/plan" exact>
-					<Plan />
-				</Route>
-			</Switch>
-			<Footer />
-		</div>
+		<ThemeProvider theme={theme}>
+			<div>
+				<Header />
+				<hr />
+				<Switch>
+					<Route
+						exact
+						path="/"
+						render={(props) =>
+							!isAuthenticated ? (
+								<Login {...props} setIsAuthenticated={setIsAuthenticated} />
+							) : (
+								<Redirect to="/dashboard" />
+							)
+						}
+					/>
+					<Route
+						exact
+						path="/signup"
+						render={(props) =>
+							!isAuthenticated ? (
+								<Signup {...props} setIsAuthenticated={setIsAuthenticated} />
+							) : (
+								<Redirect to="/dashboard" />
+							)
+						}
+					/>
+					<Route path="/dashboard" exact>
+						<Dashboard />
+					</Route>
+					<Route path="/newplan">
+						<NewPlan />
+					</Route>
+					<Route path="/plan" exact>
+						<Plan />
+					</Route>
+				</Switch>
+				<Footer />
+			</div>
+		</ThemeProvider>
 	);
 };
 
