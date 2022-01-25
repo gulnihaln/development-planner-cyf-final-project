@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
+    margin-left: 20px;
 }
 .login-wrapper {
     display: flex;
