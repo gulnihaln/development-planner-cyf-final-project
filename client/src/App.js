@@ -6,9 +6,20 @@ import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
 import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      "Raleway ",
+      "Arial",
+    ].join(","),
+  },
+});
 
 
 const App = () => (
+	<ThemeProvider theme={theme}>
 	<div>
 		<Header />
 		<hr />
@@ -28,6 +39,7 @@ const App = () => (
 		</Switch>
 		<Footer />
 	</div>
+	</ThemeProvider>
 );
 
 export default App;
