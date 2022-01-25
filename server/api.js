@@ -159,8 +159,8 @@ router.post("/users/login", validInfo, (req, res) => {
 					res.status(401).json("Incorrect passsword!");
 				} else {
 					const token = tokenGenerator(result.rows[0].id);
-					console.log(result.rows[0]);
 					res.json(token);
+
 				}
 			} else {
 				res.status(401).json("Incorrect Email!");
