@@ -160,6 +160,7 @@ router.post("/users/login", validInfo, (req, res) => {
 				} else {
 					const token = tokenGenerator(result.rows[0].id);
 					res.json(token);
+
 				}
 			} else {
 				res.status(401).json("Incorrect Email!");

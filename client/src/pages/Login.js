@@ -1,9 +1,7 @@
 import LoginForm from "../components/LoginForm";
-import Footer from "../components/Footer"
 import "../styles/Login.css";
-// import Navbar from "../components/Navbar";
 
-export default function Login() {
+export default function Login({ setAuthorised }) {
 	return (
 		<>
 			<section className="home-container">
@@ -20,9 +18,8 @@ export default function Login() {
 						alt="intro-img"
 					></img>
 				</article>
-				<LoginForm />
+				<LoginForm setAuthorised={setAuthorised} />
 			</section>
-			<Footer />
 		</>
 	);
 }
