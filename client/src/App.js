@@ -29,7 +29,6 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<div>
 				<Header />
-				<hr />
 				<Switch>
 					<Route
 						exact
