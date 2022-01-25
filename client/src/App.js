@@ -8,6 +8,7 @@ import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
+
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -28,7 +29,6 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<div>
 				<Header />
-				<hr />
 				<Switch>
 					<Route
 						exact

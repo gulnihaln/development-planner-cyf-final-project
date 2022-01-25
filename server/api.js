@@ -774,7 +774,7 @@ router.delete(
 
 //Refresh Access Token
 router.post("/refresh", (req, res) => {
-	const refreshToken = req.body.token;
+	const refreshToken = req.body.refreshToken;
 	if(!refreshToken){
 		return res.status(400).json("Refresh Token was not provided!");
 	}
