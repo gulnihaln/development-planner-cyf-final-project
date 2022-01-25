@@ -8,6 +8,8 @@ import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
+
+
 const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	console.log(isAuthenticated);
@@ -19,7 +21,6 @@ const App = () => {
 	return (
 		<div>
 			<Header />
-			<hr />
 			<Switch>
 				<Route
 					exact
