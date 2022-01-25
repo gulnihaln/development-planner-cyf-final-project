@@ -11,12 +11,20 @@ export const verifyUser = (auth) => {
 export const apiLoginUser = ({ email, password }) => {
 	console.log(email, password);
 	const body = { email, password };
-	return request.post("/users/login", body).then(({ data }) => {
-		console.log(data);
+	return request.post("/users/login", body).then((response) => {
+		localStorage.setItem("token", response.data.accessToken);
+		console.log(response.data.accessToken);
 	});
 };
 
-export const signUp = ({ first_name, last_name, region, role, email, password }) => {
+export const apiSignUpUser = ({
+	first_name,
+	last_name,
+	region,
+	role,
+	email,
+	password,
+}) => {
 	console.log(first_name, last_name, region, role, email, password);
 	const body = { first_name, last_name, region, role, email, password };
 	return request.post("/users/login", body).then(({ data }) => {
@@ -25,11 +33,11 @@ export const signUp = ({ first_name, last_name, region, role, email, password })
 };
 
 export const getSomething = (auth, id) => {
-    return request
-      .get(`something/id`, {
-        headers: { Authorization: auth },
-      })
-      .then(({ data }) => {
-        return data;
-      });
-  };
+	return request
+		.get(`something/id`, {
+			headers: { Authorization: auth },
+		})
+		.then(({ data }) => {
+			return data;
+		});
+};

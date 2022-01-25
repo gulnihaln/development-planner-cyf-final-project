@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
-
+import Signup from "./pages/Signup";
 const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	console.log(isAuthenticated);
@@ -15,7 +15,6 @@ const App = () => {
 	useEffect(() => {
 		verifyUser();
 	}, []);
-
 
 	return (
 		<div>
@@ -28,6 +27,17 @@ const App = () => {
 					render={(props) =>
 						!isAuthenticated ? (
 							<Login {...props} setIsAuthenticated={setIsAuthenticated} />
+						) : (
+							<Redirect to="/dashboard" />
+						)
+					}
+				/>
+				<Route
+					exact
+					path="/signup"
+					render={(props) =>
+						!isAuthenticated ? (
+							<Signup {...props} setIsAuthenticated={setIsAuthenticated} />
 						) : (
 							<Redirect to="/dashboard" />
 						)

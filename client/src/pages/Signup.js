@@ -11,25 +11,48 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { apiSignUpUser } from "../utils/api";
 
 const theme = createTheme();
 
-export default function SignUpForm() {
-	const handleSubmit = (event) => {
+export default function SignUpForm({ setIsAuthenticated }) {
+	const [inputs, setInputs] = useState({
+		first_name: "",
+		last_name: "",
+		region: "",
+		role: "",
+		email: "",
+		password: "",
+	});
+
+	const { first_name, last_name, region, role, email, password } = inputs;
+
+	const signupUser = (first_name, last_name, region, role, email, password) => {
+		apiSignUpUser(first_name, last_name, region, role, email, password).then(
+			(res) => {
+				// console.log(res);
+				setIsAuthenticated(true);
+			}
+		);
+	};
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
-		console.log({
-			email: data.get("email"),
-			password: data.get("password"),
+		// const data = new FormData(event.currentTarget);
+		await signupUser({
+			first_name,
+			last_name,
+			region,
+			role,
+			email,
+			password,
 		});
 	};
-	const [region, setRegion] = React.useState("");
+	// const [region, setRegion] = React.useState("");
 
 	const handleChange = (event) => {
 		setRegion(event.target.value);
 	};
-	const [role, setRole] = React.useState("");
+	// const [role, setRole] = React.useState("");
 
 	const handleChangeRole = (event) => {
 		setRole(event.target.value);
