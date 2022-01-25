@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { apiLoginUser } from "../utils/api";
 
-export default function LoginForm({ setAuthorised }) {
+export default function LoginForm({ setIsAuthenticated }) {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 
 	const loginUser = (email, password) => {
 		apiLoginUser(email, password).then((res) => {
 			// console.log(res);
-			setAuthorised(true);
+			setIsAuthenticated(true);
 		});
 	};
 
