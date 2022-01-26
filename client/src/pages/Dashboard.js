@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import PlanCard from "../components/PlanCard";
 import Grid from "@mui/material/Grid";
 import { Container } from "@mui/material";
+import { request } from "../utils/api";
 
 function Dashboard() {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/plans")
-      .then((res) => res.json())
-      .then((data) => setPlans(data));
+    request.get("/plans")
+      .then((res) =>{
+        setPlans(res.data);
+      } );
   }, []);
 
   //this is a function to delete plans from database
   const handleDelete = async (id) => {
-    await fetch("http://localhost:8000/plans/" + id, {
-      method: "DELETE",
-    });
+    request.delete("/plans/" + id);
 
     //this is a function to update  plans in browser when delete a plan
     const newPlans = plans.filter((plan) => plan.id !== id);
