@@ -19,7 +19,7 @@ function Header() {
 	let history = useHistory();
 	const classes = useStyles();
 	const location = useLocation();
-	if (location.pathname.includes("/")) {
+	if (location.pathname.includes("/login")) {
 		return (
 			<Navbar>
 				<Button

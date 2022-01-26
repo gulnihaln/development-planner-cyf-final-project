@@ -32,7 +32,7 @@ const App = () => {
 				<Switch>
 					<Route
 						exact
-						path="/"
+						path="/login"
 						render={(props) =>
 							!isAuthenticated ? (
 								<Login {...props} setIsAuthenticated={setIsAuthenticated} />
