@@ -25,17 +25,21 @@ const App = () => {
 		verifyUser();
 	}, []);
 
+	const setAuth = (boolean) => {
+		setIsAuthenticated(boolean);
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<div>
-				<Header />
+				<Header setAuth={setAuth} />
 				<Switch>
 					<Route
 						exact
-						path="/"
+						path="/login"
 						render={(props) =>
 							!isAuthenticated ? (
-								<Login {...props} setIsAuthenticated={setIsAuthenticated} />
+								<Login {...props} setAuth={setAuth} />
 							) : (
 								<Redirect to="/dashboard" />
 							)
@@ -46,15 +50,26 @@ const App = () => {
 						path="/signup"
 						render={(props) =>
 							!isAuthenticated ? (
-								<Signup {...props} setIsAuthenticated={setIsAuthenticated} />
+								<Signup {...props} setAuth={setAuth} />
 							) : (
 								<Redirect to="/dashboard" />
 							)
 						}
 					/>
-					<Route path="/dashboard" exact>
+					{/* <Route path="/dashboard" exact>
 						<Dashboard />
-					</Route>
+					</Route> */}
+					<Route
+						exact
+						path="/dashboard"
+						render={(props) =>
+							isAuthenticated ? (
+								<Dashboard {...props} setAuth={setAuth} />
+							) : (
+								<Redirect to="/login" />
+							)
+						}
+					/>
 					<Route path="/newplan">
 						<NewPlan />
 					</Route>

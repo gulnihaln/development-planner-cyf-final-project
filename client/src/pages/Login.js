@@ -1,7 +1,7 @@
 import LoginForm from "../components/LoginForm";
 import "../styles/Login.css";
 
-export default function Login({ setIsAuthenticated }) {
+export default function Login({ setAuth }) {
 	return (
 		<>
 			<section className="home-container">
@@ -18,7 +18,7 @@ export default function Login({ setIsAuthenticated }) {
 						alt="intro-img"
 					></img>
 				</article>
-				<LoginForm setIsAuthenticated={setIsAuthenticated} />
+				<LoginForm setAuth={setAuth} />
 			</section>
 		</>
 	);
