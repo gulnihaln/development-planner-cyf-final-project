@@ -8,6 +8,7 @@ import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
+import FeedbackDrawer from "./components/FeedbackDrawer";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -60,6 +61,9 @@ const App = () => {
 					</Route>
 					<Route path="/plan" exact>
 						<Plan />
+					</Route>
+					<Route path="/mentorDashboard" exact>
+						<FeedbackDrawer />
 					</Route>
 				</Switch>
 				<Footer />
