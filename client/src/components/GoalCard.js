@@ -13,7 +13,9 @@ import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import DropdownMenuGoal from "../utils/DropdownMenuGoal";
 import EditableInput from "../utils/EditableInput";
-
+import DatePickerMobile from "./DatePickerMobile";
+import DatePickerDesktop from "./DatePickerDesktop";
+import "../styles/Goal.css";
 
 export default function GoalCard({ fakeGoal }) {
 	const [goal, setGoal] = useState(fakeGoal);
@@ -76,7 +78,10 @@ export default function GoalCard({ fakeGoal }) {
 				<DropdownMenuGoal />
 			</Box>
 
-			<StartAndEndDate />
+			<Box>
+				<DatePickerDesktop />
+				<DatePickerMobile />
+			</Box>
 
 			<CardContent>
 				<TaskTicket tasks={goal.tasks} />
