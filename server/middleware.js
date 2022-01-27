@@ -6,7 +6,7 @@ require("dotenv").config();
 export const auth = (req, res, next) => {
 	const accessToken = req.header("token");
 	if (!accessToken) {
-		return res.status(403).json("Not Authorized..!");
+		return res.status(401).json("token not available!");
 	}
 	try {
 		const payload = jwt.verify(accessToken, process.env.accessSecretKey);
@@ -14,7 +14,7 @@ export const auth = (req, res, next) => {
 		next();
 	} catch (err) {
 		console.error(err.message);
-		return res.status(403).json(err.message);
+		return res.status(401).json(err.message);
 	}
 };
 
