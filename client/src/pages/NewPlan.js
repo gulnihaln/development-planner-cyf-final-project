@@ -31,17 +31,16 @@ function NewPlan() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ plan, description }),
-      }).then(() => history.push("/plan"));
+      }).then(() => history.push("/dashboard"));
     }
   };
 
   return (
-    <Container>
+    <Container sx={{ mt: 2 }}>
       <Typography
         variant="h6"
         component="h2"
         gutterBottom
-        color="textSecondary"
       >
         Create a new plan
       </Typography>
@@ -53,7 +52,7 @@ function NewPlan() {
           sx={{ display: "block" }}
           label="Plan title"
           variant="outlined"
-          color="secondary"
+          // color="inherit"
           fullWidth
           required
           error={planError}
@@ -64,7 +63,7 @@ function NewPlan() {
           sx={{ display: "block" }}
           label="Description"
           variant="outlined"
-          color="secondary"
+          // color="inherit"
           multiline
           rows={4}
           fullWidth
@@ -72,8 +71,8 @@ function NewPlan() {
           error={descriptionError}
         />
         <Button
+          color="inherit"
           type="submit"
-          color="secondary"
           variant="contained"
           endIcon={<KeyboardArrowRightIcon />}
         >
