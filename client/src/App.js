@@ -19,15 +19,20 @@ const theme = createTheme({
 
 const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	console.log(isAuthenticated);
 
 	useEffect(() => {
-		verifyUser();
+		async function fetchMyAPI() {
+			let response = await verifyUser();
+			setIsAuthenticated(response);
+		}
+
+		fetchMyAPI();
 	}, []);
 
 	const setAuth = (boolean) => {
 		setIsAuthenticated(boolean);
 	};
+	// console.log(setAuth);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -45,7 +50,7 @@ const App = () => {
 							)
 						}
 					/>
-					<Route
+					{/* <Route
 						exact
 						path="/signup"
 						render={(props) =>
@@ -55,7 +60,7 @@ const App = () => {
 								<Redirect to="/dashboard" />
 							)
 						}
-					/>
+					/> */}
 					{/* <Route path="/dashboard" exact>
 						<Dashboard />
 					</Route> */}
@@ -70,6 +75,9 @@ const App = () => {
 							)
 						}
 					/>
+					{/* <Route path="/dashboard">
+						<Dashboard />
+					</Route> */}
 					<Route path="/newplan">
 						<NewPlan />
 					</Route>

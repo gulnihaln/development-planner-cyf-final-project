@@ -791,8 +791,6 @@ router.post("/refresh", (req, res) => {
 //verify a user
 router.post("/verify", auth, async (req, res) => {
 	try {
-		// const user = await db.query("select * FROM users WHERE id=$1", [req.user_id,]);
-		// res.json(user.rows[0]);
 		res.json(true);
 	} catch (err) {
 		console.error(err.message);

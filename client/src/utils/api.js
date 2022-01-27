@@ -8,7 +8,8 @@ export const verifyUser = () => {
 			headers: { token: localStorage.getItem("accessToken") },
 		})
 		.then(({ data }) => {
-			console.log(data);
+			// console.log(data);
+			return data;
 		});
 };
 

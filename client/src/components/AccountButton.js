@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
 
 export default function AccountButton({ setAuth }) {
+	console.log(setAuth);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -12,7 +13,7 @@ export default function AccountButton({ setAuth }) {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
-	const handleLogout = async (e) => {
+	const handleLogout = (e) => {
 		e.preventDefault();
 		try {
 			localStorage.removeItem("accessToken");
