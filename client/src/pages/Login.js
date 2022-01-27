@@ -18,7 +18,7 @@ export default function Login({ setAuth }) {
 						alt="intro-img"
 					></img>
 				</article>
-				<LoginForm setAuth={setAuth} />
+				<LoginForm setAuth={ setAuth } />
 			</section>
 		</>
 	);
