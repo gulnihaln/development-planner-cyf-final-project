@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
 
-export default function AccountButton() {
+export default function AccountButton({ setAuth }) {
+	console.log(setAuth);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -11,6 +12,16 @@ export default function AccountButton() {
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
+	};
+	const handleLogout = (e) => {
+		e.preventDefault();
+		try {
+			localStorage.removeItem("accessToken");
+			localStorage.removeItem("refreshToken");
+			setAuth(false);
+		} catch (err) {
+			console.error(err.message);
+		}
 	};
 	return (
 		<Box>
@@ -64,7 +75,7 @@ export default function AccountButton() {
 							borderTop: 10,
 						},
 					}}
-					onClick={handleClose}
+					onClick={(e) => handleLogout(e)}
 				>
 					Logout
 				</MenuItem>

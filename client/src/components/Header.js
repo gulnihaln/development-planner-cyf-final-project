@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function Header() {
+function Header({ setAuth }) {
 	let history = useHistory();
 	const classes = useStyles();
 	const location = useLocation();
@@ -30,7 +30,7 @@ function Header() {
 					variant="text"
 					size="large"
 					sx={{
-            fontWeight: 700,
+						fontWeight: 700,
 						color: "#000",
 						lineHeight: 1,
 						fontSize: "1em",
@@ -86,7 +86,7 @@ function Header() {
 				>
 					Dashboard
 				</Button>
-				<AccountButton />
+				<AccountButton setAuth={setAuth} />
 			</Navbar>
 		);
 	}

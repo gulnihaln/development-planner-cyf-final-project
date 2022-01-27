@@ -19,42 +19,65 @@ const theme = createTheme({
 
 const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	console.log(isAuthenticated);
 
 	useEffect(() => {
-		verifyUser();
+		async function fetchMyAPI() {
+			let response = await verifyUser();
+			setIsAuthenticated(response);
+		}
+
+		fetchMyAPI();
 	}, []);
+
+	const setAuth = (boolean) => {
+		setIsAuthenticated(boolean);
+	};
+	// console.log(setAuth);
 
 	return (
 		<ThemeProvider theme={theme}>
 			<div>
-				<Header />
+				<Header setAuth={setAuth} />
 				<Switch>
 					<Route
 						exact
 						path="/login"
 						render={(props) =>
 							!isAuthenticated ? (
-								<Login {...props} setIsAuthenticated={setIsAuthenticated} />
+								<Login {...props} setAuth={setAuth} />
 							) : (
 								<Redirect to="/dashboard" />
 							)
 						}
 					/>
-					<Route
+					{/* <Route
 						exact
 						path="/signup"
 						render={(props) =>
 							!isAuthenticated ? (
-								<Signup {...props} setIsAuthenticated={setIsAuthenticated} />
+								<Signup {...props} setAuth={setAuth} />
 							) : (
 								<Redirect to="/dashboard" />
 							)
 						}
-					/>
-					<Route path="/dashboard" exact>
+					/> */}
+					{/* <Route path="/dashboard" exact>
 						<Dashboard />
-					</Route>
+					</Route> */}
+					<Route
+						exact
+						path="/dashboard"
+						render={(props) =>
+							isAuthenticated ? (
+								<Dashboard {...props} setAuth={setAuth} />
+							) : (
+								<Redirect to="/login" />
+							)
+						}
+					/>
+					{/* <Route path="/dashboard">
+						<Dashboard />
+					</Route> */}
 					<Route path="/newplan">
 						<NewPlan />
 					</Route>

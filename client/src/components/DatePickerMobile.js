@@ -5,30 +5,16 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import MobileDateRangePicker from "@mui/lab/MobileDateRangePicker";
-import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
+import "../styles/Goal.css";
 
-export default function StartAndEndDate() {
+export default function DatePickerMobile () {
     const [value, setValue] = React.useState([null, null]);
     return (
 			<div>
 				<LocalizationProvider dateAdapter={AdapterDateFns}>
-					<Stack spacing={3}>
+					<Stack spacing={3} className="mobile-datepicker">
 						<MobileDateRangePicker
-							startText="Mobile start"
-							value={value}
-							onChange={(newValue) => {
-								setValue(newValue);
-							}}
-							renderInput={(startProps, endProps) => (
-								<React.Fragment>
-									<TextField {...startProps} />
-									<Box sx={{ mx: 2 }}> to </Box>
-									<TextField {...endProps} />
-								</React.Fragment>
-							)}
-						/>
-						<DesktopDateRangePicker
-							startText="Desktop start"
+							startText="Start"
 							value={value}
 							onChange={(newValue) => {
 								setValue(newValue);
