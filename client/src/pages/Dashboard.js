@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import {useHistory} from "react-router-dom";
 import PlanCard from "../components/PlanCard";
 import Grid from "@mui/material/Grid";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { request } from "../utils/api";
+import AddIcon from '@mui/icons-material/Add';
 
 function Dashboard ({ setAuth }) {
 	const [plans, setPlans] = useState([]);
+  const history = useHistory();
 
 	useEffect(() => {
 	request.get("/plans").then((res) => {
@@ -24,15 +27,21 @@ function Dashboard ({ setAuth }) {
  
 
 	return (
-		<Container>
-			<Grid container spacing={3}>
-				{plans.map((plan) => (
-					<Grid item key={plan.id} xs={12} md={6} lg={4}>
-						<PlanCard plan={plan} handleDelete={handleDelete} />
-					</Grid>
-				))}
-			</Grid>
-		</Container>
+    <div>
+      <Button color="inherit" variant="contained" sx={{ mt: 2, ml: 1 }} onClick={() => history.push("/newplan")}>
+          <AddIcon />
+          Create Plan
+        </Button>
+      <Container>
+        <Grid container spacing={3}>
+          {plans.map((plan) => (
+            <Grid item key={plan.id} xs={12} md={6} lg={4}>
+              <PlanCard plan={plan} handleDelete={handleDelete} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </div>
 	);
 }
 

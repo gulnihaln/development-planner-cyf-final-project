@@ -94,7 +94,7 @@ router.post("/register", validInfo, async (req, res) => {
 	db.query(query, [first_name, last_name, region, role, email, bcryptPassword])
 		.then((result) => {
 			const token = tokenGenerator(result.rows[0].id);
-			res.json({ token });
+			res.json(token);
 		})
 		.catch((err) => {
 			console.error(err.message);
@@ -203,10 +203,10 @@ router.get("/plans", auth, (req, res) => {
 //POST a plan for specific user id
 router.post("/plans", auth,(req, res) => {
 	const user_id = req.user_id;
-	const { description } = req.body;
+	const { title , description } = req.body;
 	const query =
-		"INSERT INTO plans (user_id, description ) VALUES ($1, $2) RETURNING *";
-	db.query(query, [user_id, description])
+		"INSERT INTO plans (user_id, title, description ) VALUES ($1, $2, $3) RETURNING *";
+	db.query(query, [user_id, title, description])
 		.then((result) => {
 			res.send(result.rows[0]);
 		})
@@ -240,7 +240,7 @@ router.get("/plans/:plan_id", auth,(req, res) => {
 router.put("/plans/:plan_id", auth,(req, res) => {
 	const {  plan_id } = req.params;
 	const user_id = req.user_id;
-	const { description } = req.body;
+	const { title , description } = req.body;
 	db.query("SELECT * FROM plans WHERE user_id=$1 and id=$2", [
 		user_id,
 		plan_id,
@@ -250,8 +250,8 @@ router.put("/plans/:plan_id", auth,(req, res) => {
 				.status(404)
 				.send(`User ${user_id} doesn't have a plan with id ${plan_id}`);
 		} else {
-			const query = "UPDATE plans SET description=$1 WHERE id=$2 RETURNING *";
-			db.query(query, [description, plan_id])
+			const query = "UPDATE plans SET title=$1 ,description=$2 WHERE id=$3 RETURNING *";
+			db.query(query, [title, description, plan_id])
 				.then(() => res.send(result.rows))
 				.catch((err) => {
 					console.error(err.message);
@@ -289,7 +289,7 @@ router.delete("/plans/:plan_id", auth,(req, res) => {
 // GET goals form specific user id
 router.get("/goals", auth,(req, res) => {
 	const user_id = req.user_id;
-	const query = `SELECT p.id, p.user_id, p.description,ARRAY_AGG(g.title  || ' status:'|| g.status) goals_list
+	const query = `SELECT p.id, p.user_id, p.title, p.description,ARRAY_AGG(g.title  || ' status:'|| g.status) goals_list
 					FROM goals g INNER JOIN plans p on p.id=g.plan_id
 					WHERE p.user_id=$1 GROUP BY p.id, p.user_id, p.description`;
 
@@ -680,7 +680,7 @@ router.post("/plans/:plan_id/feedbacks", auth,async (req, res) => {
 	const user_id = req.user_id;
 	await db
 		.query(
-			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.id feedback_id, p.description plan_descreption, f.description feedback, f.create_date
+			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.id feedback_id, p.title plan_title, p.description plan_descreption, f.description feedback, f.create_date
 				FROM feedbacks f
 				INNER JOIN plans p ON p.id = f.plan_id
 				INNER JOIN users as g ON g.id = p.user_id
@@ -713,7 +713,7 @@ router.put(
 		const { description } = req.body;
 		const user_id = req.user_id;
 		db.query(
-			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.id feedback_id, p.description plan_descreption, f.description feedback, f.create_date
+			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.id feedback_id, p.title plan_title, p.description plan_descreption, f.description feedback, f.create_date
 				FROM feedbacks f
 				INNER JOIN plans p ON p.id = f.plan_id
 				INNER JOIN users as g ON g.id = p.user_id
