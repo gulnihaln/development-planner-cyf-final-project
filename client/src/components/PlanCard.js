@@ -16,7 +16,7 @@ const PlanCard = ({ plan, handleDelete }) => {
               <DeleteOutlinedIcon />
             </IconButton>
           }
-          title={plan.plan}
+          title={plan.title}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary">
