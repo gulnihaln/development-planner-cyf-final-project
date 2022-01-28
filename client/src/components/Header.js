@@ -63,7 +63,7 @@ function Header({ setAuth }) {
 						borderColor: "transparent",
 					}}
 				>
-					Log In
+					Sign in
 				</Button>
 			</Navbar>
 		);

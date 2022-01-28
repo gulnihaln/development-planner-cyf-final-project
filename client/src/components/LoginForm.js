@@ -45,7 +45,9 @@ export default function LoginForm({ setAuth }) {
 						alignItems: "center",
 					}}
 				>
-					<Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+					<Avatar
+						style={{ backgroundColor: "rgb(51, 156, 80, 100)" }}
+					>
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
@@ -58,10 +60,8 @@ export default function LoginForm({ setAuth }) {
 						sx={{ mt: 3 }}
 					>
 						<Grid container spacing={2}>
-							<Grid item xs={12}>
-							</Grid>
-							<Grid item xs={12}>
-							</Grid>
+							<Grid item xs={12}></Grid>
+							<Grid item xs={12}></Grid>
 
 							<Grid item xs={12}>
 								<TextField
@@ -93,14 +93,18 @@ export default function LoginForm({ setAuth }) {
 							type="submit"
 							fullWidth
 							variant="contained"
-							sx={{ mt: 3, mb: 2 }}
+							sx={{
+								mt: 3,
+								mb: 2,
+								backgroundColor: "rgb(237,67,67)",
+							}}
 						>
 							Sign In
 						</Button>
 						<Grid container justifyContent="flex-end">
 							<Grid item>
 								<Link href="/signup" variant="body2">
-								Don’t have an Account? Sign up
+									Don’t have an Account? Sign up
 								</Link>
 							</Grid>
 						</Grid>
