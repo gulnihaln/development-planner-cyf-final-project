@@ -27,9 +27,9 @@ export const validInfo = (req, res, next) => {
 	if (req.path === "/register") {
 		console.log(!email.length);
 		if (![email, first_name, password].every(Boolean)) {
-			return res.status(401).json("Missing Credentials");
+			return res.status(400).json("Missing Credentials");
 		} else if (!validEmail(email)) {
-			return res.status(401).json("Invalid Email");
+			return res.status(400).json("Invalid Email");
 		}
 	} else if (req.path === "/users/login") {
 		if (![email, password].every(Boolean)) {

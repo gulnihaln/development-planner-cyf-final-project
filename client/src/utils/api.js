@@ -8,13 +8,11 @@ export const verifyUser = () => {
 			headers: { token: localStorage.getItem("accessToken") },
 		})
 		.then(({ data }) => {
-			// console.log(data);
 			return data;
 		});
 };
 
 export const apiLoginUser = ({ email, password }) => {
-	console.log(email, password);
 	const body = { email, password };
 	return request.post("/users/login", body).then((response) => {
 		localStorage.setItem("accessToken", response.data.accessToken);
@@ -76,19 +74,34 @@ export const apiSignUpUser = ({
 	email,
 	password,
 }) => {
-	console.log(first_name, last_name, region, role, email, password);
 	const body = { first_name, last_name, region, role, email, password };
-	return request.post("/users/login", body).then(({ data }) => {
-		console.log(data);
+	return request.post("/register", body).then((response) => {
+		localStorage.setItem("accessToken", response.data.accessToken);
+		localStorage.setItem("refreshToken", response.data.refreshToken);
+		console.log(response.data.accessToken);
+		console.log(response.data.refreshToken);
 	});
 };
 
-export const getSomething = (auth, id) => {
-	return request
-		.get(`something/id`, {
-			headers: { Authorization: auth },
-		})
-		.then(({ data }) => {
-			return data;
-		});
-};
+request.interceptors.request.use(
+	(config) => {
+		const token = localStorage.getItem("token");
+		if (token) {
+			config.headers["token"] = token; // for Node.js Express back-end
+		}
+		return config;
+	},
+	(error) => {
+		return Promise.reject(error);
+	}
+);
+
+// export const getSomething = (auth, id) => {
+// 	return request
+// 		.get(`something/id`, {
+// 			headers: { Authorization: auth },
+// 		})
+// 		.then(({ data }) => {
+// 			return data;
+// 		});
+// };
