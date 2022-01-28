@@ -35,6 +35,7 @@ function Header({ setAuth }) {
 						lineHeight: 1,
 						fontSize: "1em",
 						borderTop: 10,
+						padding: 3,
 						borderColor: "transparent",
 					}}
 				>
@@ -58,6 +59,7 @@ function Header({ setAuth }) {
 						lineHeight: 1,
 						fontSize: "1em",
 						borderTop: 10,
+						padding: 3,
 						borderColor: "transparent",
 					}}
 				>
@@ -81,6 +83,7 @@ function Header({ setAuth }) {
 						lineHeight: 1,
 						fontSize: "1em",
 						borderTop: 10,
+						padding: 3,
 						borderColor: "transparent",
 					}}
 				>
