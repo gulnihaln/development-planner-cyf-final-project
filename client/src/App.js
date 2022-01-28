@@ -8,6 +8,7 @@ import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
+import AboutUs from "./pages/AboutUs";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -39,32 +40,33 @@ const App = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			{isAuthenticated!== null && <div>
-				<Header setAuth={setAuth} />
-				<Switch>
-					<Route
-						exact
-						path="/"
-						render={(props) =>
-							!isAuthenticated ? (
-								<Redirect to="/login"  />
-							) : (
-								<Redirect to="/dashboard" />
-							)
-						}
-					/>
-					<Route
-						exact
-						path="/login"
-						render={(props) =>
-							!isAuthenticated ? (
-								<Login {...props} setAuth={setAuth} />
-							) : (
-								<Redirect to="/dashboard" />
-							)
-						}
-					/>
-					{/* <Route
+			{isAuthenticated !== null && (
+				<div>
+					<Header setAuth={setAuth} />
+					<Switch>
+						<Route
+							exact
+							path="/"
+							render={(props) =>
+								!isAuthenticated ? (
+									<Redirect to="/login" />
+								) : (
+									<Redirect to="/dashboard" />
+								)
+							}
+						/>
+						<Route
+							exact
+							path="/login"
+							render={(props) =>
+								!isAuthenticated ? (
+									<Login {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/dashboard" />
+								)
+							}
+						/>
+						<Route
 						exact
 						path="/signup"
 						render={(props) =>
@@ -74,27 +76,31 @@ const App = () => {
 								<Redirect to="/dashboard" />
 							)
 						}
-					/> */}
-					<Route
-						exact
-						path="/dashboard"
-						render={(props) =>
-							isAuthenticated ? (
-								<Dashboard {...props} setAuth={setAuth} />
-							) : (
-								<Redirect to="/login" />
-							)
-						}
-					/>
-					<Route path="/newplan">
-						<NewPlan />
-					</Route>
-					<Route path="/plan" exact>
-						<Plan />
-					</Route>
-				</Switch>
-				<Footer />
-				</div>}
+						/>
+						<Route
+							exact
+							path="/dashboard"
+							render={(props) =>
+								isAuthenticated ? (
+									<Dashboard {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/login" />
+								)
+							}
+						/>
+						<Route path="/newplan">
+							<NewPlan />
+						</Route>
+						<Route path="/plan" exact>
+							<Plan />
+						</Route>
+						<Route path="/aboutus" exact>
+							<AboutUs />
+						</Route>
+					</Switch>
+					<Footer />
+				</div>
+			)}
 		</ThemeProvider>
 	);
 };
