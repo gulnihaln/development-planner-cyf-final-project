@@ -3,6 +3,7 @@
     grid-template-columns: 1fr;
     justify-content: center;
     margin-left: 20px;
+    margin-top: 20px;
 }
 .login-wrapper {
     display: flex;
@@ -22,6 +23,9 @@
     margin-top: 30px;
     width: 100%;
 }
+.home-divider {
+    display: none;
+}
 @media screen and (min-width: 480px) {
 }
 @media screen and (min-width: 768px) {
@@ -33,6 +37,9 @@
     }
     .intro-img {
         display:none;
+    }
+    .home-divider {
+        display:flex;
     }
 }
 @media screen and (min-width: 992px) {
