@@ -57,16 +57,8 @@ export default function Plan() {
 							>
 								Invite Reviewer
 							</Button>
-							<Button
-								variant="outlined"
-								sx={{
-									color: "primary.main",
-									bgColor: "#FFFFFF",
-									borderRadius: 10,
-								}}
-							>
+							<Button>
 								<FeedbackDrawer />
-								See Feedbacks
 							</Button>
 						</div>
 					</div>
