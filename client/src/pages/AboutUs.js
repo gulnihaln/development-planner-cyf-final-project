@@ -54,12 +54,12 @@ export default function AboutUs() {
 									href="https://www.linkedin.com/in/ali-bavarsad-6ba8a916b/"
 									target="blank_"
 								>
-									<LinkedInIcon style={{ color: "rgb(237,67,67)" }} />
+									<LinkedInIcon style={{ color: "currentColor" }} />
 								</Link>
 							</IconButton>
 							<IconButton>
 								<Link href="https://github.com/alibvr" target="blank_">
-									<GitHubIcon style={{ color: "rgb(237,67,67)" }} />
+									<GitHubIcon style={{ color: "#000000" }} />
 								</Link>
 							</IconButton>
 						</Box>
@@ -138,12 +138,12 @@ export default function AboutUs() {
 									href="https://uk.linkedin.com/in/maziarmajd"
 									target="blank_"
 								>
-									<LinkedInIcon style={{ color: "rgb(237,67,67)" }} />
+									<LinkedInIcon style={{ color: "currentColor" }} />
 								</Link>
 							</IconButton>
 							<IconButton>
 								<Link href="https://github.com/Maziarmajd" target="blank_">
-									<GitHubIcon style={{ color: "rgb(237,67,67)" }} />
+									<GitHubIcon style={{ color: "#000000" }} />
 								</Link>
 							</IconButton>
 						</Box>
@@ -180,7 +180,7 @@ export default function AboutUs() {
 									href="https://github.com/gulnihaln/development-planner-cyf-final-project"
 									target="blank_"
 								>
-									<LinkedInIcon style={{ color: "rgb(237,67,67)" }} />
+									<LinkedInIcon style={{ color: "currentColor" }} />
 								</Link>
 							</IconButton>
 							<IconButton>
@@ -188,7 +188,7 @@ export default function AboutUs() {
 									href="https://github.com/gulnihaln/development-planner-cyf-final-project"
 									target="blank_"
 								>
-									<GitHubIcon style={{ color: "rgb(237,67,67)" }} />
+									<GitHubIcon style={{ color: "#000000" }} />
 								</Link>
 							</IconButton>
 						</Box>
