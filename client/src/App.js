@@ -18,12 +18,16 @@ const theme = createTheme({
 });
 
 const App = () => {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(null);
 
 	useEffect(() => {
 		async function fetchMyAPI() {
-			let response = await verifyUser();
-			setIsAuthenticated(response);
+			try {
+				let response = await verifyUser();
+				setIsAuthenticated(response);
+			} catch (err) {
+				setIsAuthenticated(false);
+			}
 		}
 
 		fetchMyAPI();
@@ -32,13 +36,23 @@ const App = () => {
 	const setAuth = (boolean) => {
 		setIsAuthenticated(boolean);
 	};
-	// console.log(setAuth);
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div>
+			{isAuthenticated!== null && <div>
 				<Header setAuth={setAuth} />
 				<Switch>
+					<Route
+						exact
+						path="/"
+						render={(props) =>
+							!isAuthenticated ? (
+								<Redirect to="/login"  />
+							) : (
+								<Redirect to="/dashboard" />
+							)
+						}
+					/>
 					<Route
 						exact
 						path="/login"
@@ -61,9 +75,6 @@ const App = () => {
 							)
 						}
 					/> */}
-					{/* <Route path="/dashboard" exact>
-						<Dashboard />
-					</Route> */}
 					<Route
 						exact
 						path="/dashboard"
@@ -75,9 +86,6 @@ const App = () => {
 							)
 						}
 					/>
-					{/* <Route path="/dashboard">
-						<Dashboard />
-					</Route> */}
 					<Route path="/newplan">
 						<NewPlan />
 					</Route>
@@ -86,7 +94,7 @@ const App = () => {
 					</Route>
 				</Switch>
 				<Footer />
-			</div>
+				</div>}
 		</ThemeProvider>
 	);
 };
