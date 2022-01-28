@@ -3,6 +3,8 @@ import "../styles/Plan.css";
 import DropdownMenuFeedback from "../utils/DropdownMenuFeedback";
 import PlanTitle from "../utils/PlanTitle";
 import Goals from "../components/Goals";
+import FeedbackDrawer from "../components/FeedbackDrawer";
+import Box from "@mui/material/Box";
 
 const fakeGoals = [
 	{
@@ -55,15 +57,8 @@ export default function Plan() {
 							>
 								Invite Reviewer
 							</Button>
-							<Button
-								variant="outlined"
-								sx={{
-									color: "primary.main",
-									bgColor: "#FFFFFF",
-									borderRadius: 10,
-								}}
-							>
-								See Feedbacks
+							<Button>
+								<FeedbackDrawer />
 							</Button>
 						</div>
 					</div>
