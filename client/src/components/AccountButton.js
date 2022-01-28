@@ -39,6 +39,7 @@ export default function AccountButton({ setAuth }) {
 					lineHeight: 1,
 					fontSize: "1em",
 					borderTop: 10,
+					padding: 3,
 					borderColor: "transparent",
 					"&:hover": {
 						color: "#ea4549",
@@ -56,12 +57,20 @@ export default function AccountButton({ setAuth }) {
 				MenuListProps={{
 					"aria-labelledby": "basic-button",
 				}}
+								sx={{
+					paddingTop: 0,
+					paddingBottom: 0,
+				}}
 			>
 				<MenuItem
 					sx={{
+						padding: 1,
+						borderTop: 10 ,
+						borderColor: "transparent",
+
 						"&:hover": {
 							color: "#ea4549",
-							borderTop: 10,
+							borderColor: "#ea4549",
 						},
 					}}
 					onClick={handleClose}
@@ -70,9 +79,12 @@ export default function AccountButton({ setAuth }) {
 				</MenuItem>
 				<MenuItem
 					sx={{
+						padding: 1,
+						borderTop: 10,
+						borderColor: "transparent",
 						"&:hover": {
 							color: "#ea4549",
-							borderTop: 10,
+							borderColor: "#ea4549",
 						},
 					}}
 					onClick={(e) => handleLogout(e)}
