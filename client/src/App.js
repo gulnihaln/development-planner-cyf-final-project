@@ -8,6 +8,7 @@ import NewPlan from "./pages/NewPlan";
 import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
+import AboutUs from "./pages/AboutUs";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
