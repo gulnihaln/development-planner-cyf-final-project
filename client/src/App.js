@@ -76,7 +76,7 @@ const App = () => {
 								<Redirect to="/dashboard" />
 							)
 						}
-						/>
+           />
 						<Route
 							exact
 							path="/dashboard"
