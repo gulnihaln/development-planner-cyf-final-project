@@ -5,6 +5,8 @@ import Grid from "@mui/material/Grid";
 import { Button, Container } from "@mui/material";
 import { request } from "../utils/api";
 import AddIcon from "@mui/icons-material/Add";
+import Masonry from "react-masonry-css";
+import "../styles/Masonry.css";
 
 function Dashboard() {
 	const [plans, setPlans] = useState([]);
@@ -25,25 +27,37 @@ function Dashboard() {
 		setPlans(newPlans);
 	};
 
+	const breakpoints = {
+		default: 3,
+		1100: 2,
+		700: 1,
+	};
+
 	return (
 		<div>
 			<Button
 				color="inherit"
 				variant="contained"
-				sx={{ mt: 2, ml: 1 }}
+				sx={{ mt: 2, ml: 17, mb: 3, p: 1 }}
 				onClick={() => history.push("/newplan")}
 			>
 				<AddIcon />
 				Create Plan
 			</Button>
 			<Container>
-				<Grid container spacing={3}>
+				{/* <Grid container spacing={3}> */}
+				<Masonry
+					breakpointCols={breakpoints}
+					className="my-masonry-grid"
+					columnClassName="my-masonry-grid_column"
+				>
 					{plans.map((plan) => (
-						<Grid item key={plan.id} xs={12} md={6} lg={4}>
+						<div key={plan.id}>
 							<PlanCard plan={plan} handleDelete={handleDelete} />
-						</Grid>
+						</div>
 					))}
-				</Grid>
+				</Masonry>
+				{/* </Grid> */}
 			</Container>
 		</div>
 	);
