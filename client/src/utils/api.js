@@ -1,5 +1,5 @@
 import axios from "axios";
-export const request = axios.create({ baseURL: "http://localhost:3100/api" });
+export const request = axios.create({ baseURL: process.env.REACT_APP_SERVER_URL });
 
 export const verifyUser = () => {
 	const body = {};
