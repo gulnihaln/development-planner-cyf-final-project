@@ -1,5 +1,5 @@
 import axios from "axios";
-export const request = axios.create({ baseURL: "http://localhost:3100/api" });
+export const request = axios.create({ baseURL: "/api" });
 
 export const verifyUser = () => {
 	const body = {};
