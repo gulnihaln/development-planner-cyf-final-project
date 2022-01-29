@@ -91,7 +91,7 @@ const App = () => {
 						<Route path="/newplan">
 							<NewPlan />
 						</Route>
-						<Route path="/plan" exact>
+						<Route path="/plan/:planid" exact>
 							<Plan />
 						</Route>
 						<Route path="/aboutus" exact>
