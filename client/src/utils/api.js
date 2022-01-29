@@ -1,5 +1,6 @@
 import axios from "axios";
-export const request = axios.create({ baseURL: "/api" });
+export const request = axios.create({ baseURL: process.env.REACT_APP_SERVER_URL });
+console.log(process.env.REACT_APP_SERVER_URL);
 
 export const verifyUser = () => {
 	const body = {};

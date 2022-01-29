@@ -8,9 +8,6 @@ const { devDependencies } = require("../../package.json");
 module.exports = merge(common, {
 	devtool: "source-map",
 	mode: "production",
-	proxy: {
-		"/api": "https://development-planner-cyf-final.herokuapp.com/api",
-	},
 	optimization: {
 		runtimeChunk: "single",
 		splitChunks: {

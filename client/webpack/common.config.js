@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
 	entry: "./client/src/index.js",
@@ -32,5 +33,13 @@ module.exports = {
 			favicon: "./client/src/favicon.ico",
 			template: "./client/src/index.html",
 		}),
+		new webpack.ProvidePlugin({
+			process: "process/browser",
+		}),
 	],
+	resolve: {
+		alias: {
+			process: "process/browser",
+		},
+	},
 };
