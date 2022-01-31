@@ -8,7 +8,7 @@ import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import Paper from "@mui/material/Paper";
-import TaskTicket from "./TaskTicket";
+import TaskTicket from "./TasksTicket";
 import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import DropdownMenuGoal from "../utils/DropdownMenuGoal";
@@ -17,10 +17,11 @@ import DatePickerMobile from "./DatePickerMobile";
 import DatePickerDesktop from "./DatePickerDesktop";
 import "../styles/Goal.css";
 
-export default function GoalCard({ fakeGoal }) {
+export default function GoalCard({ fakeGoal, planId }) {
 	const [goal, setGoal] = useState(fakeGoal);
 
 	const [value, setValue] = useState("");
+	const [isGoalCompleted, setGoalCompleted] = useState(false);
 
 	console.log(value);
 
@@ -43,7 +44,13 @@ export default function GoalCard({ fakeGoal }) {
 			});
 		}
 	}
+	React.useEffect(() => {
+		if (goal.tasks.every((task) => task.status === "completed")) {
+			setGoalCompleted(true);
+		}
+	}, [goal.tasks, setGoalCompleted]);
 
+	console.log("goal completed", isGoalCompleted);
 	return (
 		<Card
 			className="goal-card"
@@ -84,7 +91,7 @@ export default function GoalCard({ fakeGoal }) {
 			</Box>
 
 			<CardContent>
-				<TaskTicket tasks={goal.tasks} />
+				<TaskTicket planId={planId} goalId={goal.id} tasks={goal.tasks} />
 			</CardContent>
 
 			<Paper

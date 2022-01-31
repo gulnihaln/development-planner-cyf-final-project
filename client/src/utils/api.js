@@ -83,6 +83,13 @@ export const apiSignUpUser = ({
 	});
 };
 
+export const editTask = ({ planId, goalId, taskId, status }) => {
+	const body = { status };
+	return request.put(`/plans/${planId}/goals/${goalId}/tasks/${taskId}`, body).then(({ data }) => {
+		return data;
+	});
+};
+
 request.interceptors.request.use(
 	(config) => {
 		const token = localStorage.getItem("token");
@@ -95,6 +102,9 @@ request.interceptors.request.use(
 		return Promise.reject(error);
 	}
 );
+
+
+
 
 // export const getSomething = (auth, id) => {
 // 	return request

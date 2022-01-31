@@ -5,7 +5,7 @@ import PlanTitle from "../utils/PlanTitle";
 import Goals from "../components/Goals";
 import FeedbackDrawer from "../components/FeedbackDrawer";
 import Box from "@mui/material/Box";
-
+import { useLocation } from "react-router-dom";
 const fakeGoals = [
 	{
 		id: 1,
@@ -36,6 +36,8 @@ const fakeGoals = [
 ];
 
 export default function Plan() {
+	const location = useLocation();
+	const planId = location.state;
 	return (
 		<>
 			<section className="plan-container">
@@ -65,7 +67,7 @@ export default function Plan() {
 				</div>
 			</section>
 			<section className="goals-container">
-				<Goals fakeGoals={fakeGoals} />
+				<Goals planId={planId} fakeGoals={fakeGoals} />
 			</section>
 		</>
 	);

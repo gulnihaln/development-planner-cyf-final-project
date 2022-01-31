@@ -10,8 +10,8 @@ const PlanCard = ({ plan, handleDelete }) => {
 
 	return (
 		<div>
-			<Link to={`/plan/${plan.id}`} style={{ textDecoration: "none" }}>
-				<Card elevation={3} sx={{ backgroundColor: "#e0e0e0"}}>
+			<Link to={`/plan/${plan.id}`} state={{ planId: plan.id }} style={{ textDecoration: "none" }}>
+				<Card elevation={3} sx={{ backgroundColor: "#e0e0e0" }}>
 					<CardHeader
 						action={
 							<IconButton

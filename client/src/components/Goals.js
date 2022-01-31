@@ -4,7 +4,7 @@ import AddGoalButton from "./AddGoalButton";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 
-export default function Goals ({ fakeGoals }) {
+export default function Goals ({ fakeGoals, planId }) {
 	const [goals, setGoals] = useState(fakeGoals);
 	function newGoalHandle (){
 		setGoals((prev) => {
@@ -29,7 +29,7 @@ export default function Goals ({ fakeGoals }) {
 								md={6}
 								xs={12}
 							>
-								<GoalCard fakeGoal={goal} />
+								<GoalCard planId={planId} fakeGoal={goal} />
 							</Grid>
 						);
 					})}
