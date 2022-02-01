@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
 
 export default function AccountButton({ setAuth }) {
-	console.log(setAuth);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -20,7 +19,7 @@ export default function AccountButton({ setAuth }) {
 			localStorage.removeItem("refreshToken");
 			setAuth(false);
 		} catch (err) {
-			console.error(err.message);
+			setAuth(true);
 		}
 	};
 	return (
