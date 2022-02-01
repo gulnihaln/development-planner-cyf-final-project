@@ -11,6 +11,7 @@ const useStyles = makeStyles({
 		"&:hover": {
 			color: "#ea4549",
 			borderColor: "#ea4549",
+			backgroundColor: "transparent",
 		},
 	},
 });
@@ -37,9 +38,15 @@ function Header({ setAuth }) {
 						borderTop: 10,
 						padding: 3,
 						borderColor: "transparent",
+						borderRadius: 0,
+						"&:hover": {
+							color: "#ea4549",
+							borderColor: "#ea4549",
+							backgroundColor: "transparent",
+						},
 					}}
 				>
-					Sign Up
+					Sign up
 				</Button>
 			</Navbar>
 		);
@@ -61,6 +68,12 @@ function Header({ setAuth }) {
 						borderTop: 10,
 						padding: 3,
 						borderColor: "transparent",
+						borderRadius: 0,
+						"&:hover": {
+							color: "#ea4549",
+							borderColor: "#ea4549",
+							backgroundColor: "transparent",
+						},
 					}}
 				>
 					Sign in
@@ -85,6 +98,12 @@ function Header({ setAuth }) {
 						borderTop: 10,
 						padding: 3,
 						borderColor: "transparent",
+						borderRadius: 0,
+						"&:hover": {
+							color: "#ea4549",
+							borderColor: "#ea4549",
+							backgroundColor: "transparent",
+						},
 					}}
 				>
 					Dashboard

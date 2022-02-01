@@ -178,7 +178,15 @@ export default function SignUpForm({ setAuth }) {
 							type="submit"
 							fullWidth
 							variant="contained"
-							sx={{ mt: 3, mb: 2, backgroundColor: "rgb(237,67,67)" }}
+							sx={{
+								mt: 3,
+								mb: 2,
+								backgroundColor: "rgb(237,67,67)",
+								"&:hover": {
+									color: "rgb(237,67,67)",
+									backgroundColor: "#EFEFEF",
+								},
+							}}
 						>
 							Sign Up
 						</Button>
