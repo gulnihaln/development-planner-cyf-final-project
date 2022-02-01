@@ -45,13 +45,11 @@ export default function LoginForm({ setAuth }) {
 						alignItems: "center",
 					}}
 				>
-					<Avatar
-						style={{ backgroundColor: "rgb(51, 156, 80, 100)" }}
-					>
+					<Avatar style={{ backgroundColor: "rgb(51, 156, 80, 100)" }}>
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Sign In
+						Sign in
 					</Typography>
 					<Box
 						component="form"
@@ -93,13 +91,19 @@ export default function LoginForm({ setAuth }) {
 							type="submit"
 							fullWidth
 							variant="contained"
+							aria-label="Justify"
 							sx={{
 								mt: 3,
 								mb: 2,
-								backgroundColor: "rgb(237,67,67)",
+								color: "#fff",
+								backgroundColor: "#CF2F2F",
+								"&:hover": {
+									// color: "rgb(237,67,67)",
+									backgroundColor: "#a62626",
+								},
 							}}
 						>
-							Sign In
+							Sign in
 						</Button>
 						<Grid container justifyContent="flex-end">
 							<Grid item>

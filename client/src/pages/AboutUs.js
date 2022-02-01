@@ -9,6 +9,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
 import "../styles/AboutUs.css";
 import maziarmajd from "../uploads/maziarmajd.jpg";
+import alibavarsad2 from "../uploads/alibavarsad2.jpg";
+import mortezakhojasteh from "../uploads/mortezakhojasteh.jpg";
 
 export default function AboutUs() {
 	return (
@@ -27,7 +29,7 @@ export default function AboutUs() {
 					<CardMedia
 						component="img"
 						height="200"
-						image="https://via.placeholder.com/200x200.png"
+						image={alibavarsad2}
 						alt="person-photo"
 					/>
 					<Box className="info-box">
@@ -153,7 +155,7 @@ export default function AboutUs() {
 					<CardMedia
 						component="img"
 						height="200"
-						image="https://via.placeholder.com/200x200.png"
+						image={mortezakhojasteh}
 						alt="person-photo"
 					/>
 					<Box className="info-box">
@@ -203,7 +205,7 @@ export default function AboutUs() {
 					textAlign: "center",
 					padding: "20px",
 					width: "100%",
-					maxWidth: 800,
+					maxWidth: 600,
 					margin: "auto",
 				}}
 			>

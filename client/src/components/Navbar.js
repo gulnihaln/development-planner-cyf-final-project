@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import cyf_logo from "../uploads/cyf_logo.png";
+import Link from "@mui/material/Link";
 
 
 
@@ -12,14 +14,16 @@ export default function Navbar({ children }) {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" style={{ backgroundColor: "#EFEFEF" }}>
 				<Toolbar>
-					<Box
-						component="img"
-						sx={{
-							height: 50,
-						}}
-						alt="Your logo."
-						src="https://codeyourfuture.io/wp-content/uploads/2019/03/cyf_brand.png"
-					/>
+					<Link href="/login" underline="none">
+						<Box
+							component="img"
+							sx={{
+								height: 50,
+							}}
+							alt="Your logo."
+							src={cyf_logo}
+						/>
+					</Link>
 					<IconButton
 						size="large"
 						edge="start"
