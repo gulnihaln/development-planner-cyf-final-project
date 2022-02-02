@@ -4,12 +4,13 @@ import Box from "@mui/material/Box";
 import CardHeader from "@mui/material/CardHeader";
 import Card from "@mui/material/Card";
 
-export default function TaskTicket ({ tasks }) {
+export default function TaskTicket ( { tasks }) {
+
 	return (
 		<Box>
-			{tasks.map((task) => {
+			{tasks.map((task, index) => {
 				return (
-					<Card key={task.id}
+					<Card key={index}
 					sx={{ width: "90%" }}
 					>
 						<CardHeader
@@ -19,12 +20,13 @@ export default function TaskTicket ({ tasks }) {
 										display: "flex",
 										flexDirection: "column",
 										padding: 0,
+										width: "100%",
 									}}
 								>
 									<DropdownMenuTask />
 								</Box>
 							}
-							subheader={task.title}
+							subheader={task.description}
 						/>
 					</Card>
 				);

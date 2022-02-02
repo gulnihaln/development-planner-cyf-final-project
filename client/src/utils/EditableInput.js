@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Box, InputBase, Typography } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-const EditableInput = () => {
+
+const EditableInput = ({ title, setTitle }) => {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("first goal");
 
   return (
     <div>

@@ -1,47 +1,42 @@
 import Button from "@mui/material/Button";
-import "../styles/Plan.css";
 import DropdownMenuFeedback from "../utils/DropdownMenuFeedback";
-import PlanTitle from "../utils/PlanTitle";
 import Goals from "../components/Goals";
 import FeedbackDrawer from "../components/FeedbackDrawer";
-import Box from "@mui/material/Box";
-
-const fakeGoals = [
-	{
-		id: 1,
-		// plan_id: ,
-		title: "New goal",
-		tasks: [
-			{
-				id: 102,
-				goal_id: 1,
-				title: "New Task2",
-				status: "in progress",
-			},
-		],
-	},
-	{
-		id: 2,
-		// plan_id: ,
-		title: "New goal2",
-		tasks: [
-			{
-				id: 103,
-				goal_id: 1,
-				title: "New Task3",
-				status: "in progress",
-			},
-		],
-	},
-];
+import PlanTitle from "../utils/PlanTitle";
+import { request } from "../utils/api";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import "../styles/Plan.css";
 
 export default function Plan() {
+	const { plan_id } = useParams();
+	const [goals, setGoals] = useState([]);
+	const [plan, setPlan] = useState(null);
+
+	useEffect(() => {
+		request.get(`/plans/${plan_id}`).then((res) => {
+			setPlan(res.data);
+		});
+	}, [plan_id]);
+	if(plan === null ){
+		return <h1>Loading</h1>;
+	}
 	return (
 		<>
 			<section className="plan-container">
 				<div className="plan-intro-container">
 					<div className="title-progress-container">
-						<PlanTitle />
+							<PlanTitle
+								title={plan.title}
+								setTitle={(newTitle) =>
+									setPlan((prev) => {
+										return {
+											...prev,
+											title: newTitle,
+										};
+									})
+								}
+							/>
 						<article className="progress-bar"></article>
 					</div>
 					<div className="feedback-buttons">
@@ -57,15 +52,13 @@ export default function Plan() {
 							>
 								Invite Reviewer
 							</Button>
-							<Button>
-								<FeedbackDrawer />
-							</Button>
+							<FeedbackDrawer />
 						</div>
 					</div>
 				</div>
 			</section>
 			<section className="goals-container">
-				<Goals fakeGoals={fakeGoals} />
+				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} />
 			</section>
 		</>
 	);

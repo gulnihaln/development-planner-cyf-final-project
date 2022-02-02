@@ -223,7 +223,7 @@ router.get("/plans/:plan_id", auth,(req, res) => {
 	db.query("SELECT * FROM plans WHERE id=$1 and user_id=$2", [plan_id, user_id])
 		.then((result) => {
 			if (result.rowCount) {
-				res.send(result.rows);
+				res.send(result.rows[0]);
 			} else {
 				res
 					.status(404)
@@ -339,17 +339,7 @@ router.get("/plans/:plan_id/goals", auth,(req, res) => {
 	const query = `SELECT p.user_id, p.id plan_id, g.id goal_id,  g.title, g.status, g.start_date, g.end_date, g.create_date  FROM goals g 
 						INNER JOIN plans p on p.id = g.plan_id where p.user_id = $1 and g.plan_id=$2`;
 	db.query(query, [user_id, plan_id])
-		.then((result) => {
-			if (result.rowCount) {
-				res.json(result.rows);
-			} else {
-				res
-					.status(400)
-					.send(
-						`User ${user_id} doesn't have goals with this plan id ${plan_id}`
-					);
-			}
-		})
+		.then((result) => res.json(result.rows))
 		.catch((err) => {
 			console.error(err.message);
 			res.status(500).send(err.message);
@@ -451,17 +441,7 @@ router.get(
 						INNER JOIN plans p on g.plan_id = p.id 
 						where p.user_id =$1 and p.id= $2 and t.goal_id=$3`;
 		db.query(query, [user_id, plan_id, goal_id])
-			.then((result) => {
-				if (result.rowCount) {
-					res.json(result.rows);
-				} else {
-					res
-						.status(404)
-						.send(
-							"This user doesn't have a goal with thses plan id and goal id"
-						);
-				}
-			})
+			.then((result) => res.json(result.rows))
 			.catch((err) => {
 				console.error(err.message);
 				res.status(500).send(err.message);
