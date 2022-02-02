@@ -237,7 +237,7 @@ router.get("/plans/:plan_id", auth,(req, res) => {
 });
 
 //UPDATE a plan details with user id
-router.put("/plans/:plan_id", auth,(req, res) => {
+router.patch("/plans/:plan_id", auth,(req, res) => {
 	const {  plan_id } = req.params;
 	const user_id = req.user_id;
 	const { title , description } = req.body;
