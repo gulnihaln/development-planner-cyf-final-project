@@ -10,7 +10,6 @@ import "../styles/Goal.css";
 
 export default function DatePickerDesktop({ startDate, endDate, setStartDate, setEndDate }) {
 	const [value, setValue] = React.useState([startDate, endDate]);
-	// console.log({ value} );
 	const today = new Date();
 	const [onTime, setOnTime] = useState(today > endDate);
 
@@ -33,7 +32,6 @@ export default function DatePickerDesktop({ startDate, endDate, setStartDate, se
 								<TextField
 									label="Size"
 									id="outlined-size-small"
-									defaultValue="Small"
 									size="small"
 									color={onTime ? "primary" : "warning"}
 									{...startProps}
@@ -42,7 +40,6 @@ export default function DatePickerDesktop({ startDate, endDate, setStartDate, se
 								<TextField
 									label="Size"
 									id="outlined-size-small"
-									defaultValue="Small"
 									size="small"
 									color={onTime ? "primary" : "warning"}
 									{...endProps}
