@@ -24,41 +24,52 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 	const [startDate, setStartDate] = useState();
 	const [endDate, setEndDate] = useState();
 	const [tasks, setTasks] = useState([]);
+	// const [description, setDescription] = useState();
+	// const [taskStatus, setTaskStatus] = useState();
+	const [value, setValue] = useState("");
+
 	useEffect(() => {
 		request.get(`/plans/${plan_id}/goals/${goal_id}/tasks`).then((res) => {
 			setTasks(res.data);
 		});
-	}, []);
+	}, [goal_id, plan_id]);
 
 	const postGoal = async () => {
 		const body = { title, status, start_date: startDate, end_date: endDate };
 		const response = await request.post(`/plans/${plan_id}/goals`, body, {
 			headers: { "Content-Type": "application/json" },
 		});
+		console.log(response);
 	};
-	const [value, setValue] = useState("");
+
+	const postTask = async () => {
+		const description = value;
+		const status = "incomplete";
+		const body = { description, status };
+		const response = await request.post(
+			`/plans/${plan_id}/goals/${goal_id}/tasks`,
+			body,
+			{
+				headers: { "Content-Type": "application/json" },
+			}
+		);
+		return response;
+	};
 
 	function newTaskHandle() {
 		if (!value) {
 			alert("Please enter a task!");
 			return false;
 		} else {
-			setTasks((prev) => {
-				return [
-					...prev,
-					{
-						goal_id: goal_id,
-						description: value,
-						status: "incomplete",
-					},
-				];
+			postTask().then((response) => {
+				response.status === 200 && setValue("");
+				setTasks((prev) => prev.concat(response.data));
 			});
-			setValue("");
 		}
 	}
 
 	const handleDeleteGoal = async (id) => {
-		request.delete(`/goals/${goal_id}`);
+		request.delete(`/plans/${plan_id}/goals/${goal_id}`);
 		const newGoals = goals.filter((goal) => goal.goal_id !== id);
 		setGoals(newGoals);
 	};
@@ -97,13 +108,12 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				/>
 			</Box>
 			<CardContent>
-				<TaskTicket tasks={tasks} />
+				<TaskTicket tasks={tasks} plan_id={plan_id} goal={goal} goal_id={goal_id} setTasks={setTasks} />
 			</CardContent>
 			<Paper
 				component="form"
 				sx={{
 					p: "2px 4px",
-
 					display: "flex",
 				}}
 			>
@@ -127,7 +137,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						<BookmarkBorderOutlinedIcon />
 					</IconButton>
 				</Tooltip>
-				<Tooltip title="Delete">
+				<Tooltip title="Delete Goal">
 					<IconButton
 						aria-label="share"
 						onClick={() => handleDeleteGoal(goal_id)}
