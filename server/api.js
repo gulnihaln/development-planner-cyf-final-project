@@ -361,9 +361,12 @@ router.post("/plans/:plan_id/goals", auth,(req, res) => {
 				.send(`User ${user_id} doesn't have a plan with id ${plan_id}`);
 		} else {
 			const query =
-				"INSERT INTO goals ( plan_id, title, status, start_date, end_date ) VALUES ($1, $2, $3, $4, $5) RETURNING *";
+				"INSERT INTO goals ( plan_id, title, status, start_date, end_date ) VALUES ($1, $2, $3, $4, $5) RETURNING plan_id, id goal_id, title, status, start_date, end_date, create_date";
 			db.query(query, [plan_id, title, status, start_date, end_date])
-				.then(() => res.send(result.rows))
+				.then((result) => {
+					console.log(result.rows[0]);
+					res.send(result.rows[0]);
+				})
 				.catch((err) => {
 					console.error(err.message);
 					res.status(500).send(err.message);
@@ -454,32 +457,41 @@ router.post(
 	"/plans/:plan_id/goals/:goal_id/tasks", auth,
 	(req, res) => {
 		const { plan_id, goal_id } = req.params;
+		// console.log({ plan_id, goal_id });
 		const { description, status } = req.body;
+		// console.log({ description, status });
 		const user_id = req.user_id;
-		db.query(
-			`SELECT t.id, t.goal_id goal_id, t.description, t.status, t.create_date  FROM tasks t 
-			INNER JOIN goals g on t.goal_id = g.id 
-			INNER JOIN plans p on g.plan_id = p.id 
-			where p.user_id =$1 and p.id= $2 and t.goal_id=$3`,
-			[user_id, plan_id, goal_id]
-		).then((result) => {
-			if (result.rows.length === 0) {
-				return res
-					.status(404)
-					.send(
-						`User ${user_id} doesn't have a plan with id ${plan_id} and goalid ${goal_id}`
-					);
-			} else {
-				const query =
-					"INSERT INTO tasks ( goal_id, description, status) VALUES ($1, $2, $3) RETURNING *";
-				db.query(query, [goal_id, description, status])
-					.then(() => res.send(result.rows))
-					.catch((err) => {
-						console.error(err.message);
-						res.status(500).send(err.message);
-					});
-			}
-		});
+		const query =
+			"INSERT INTO tasks ( goal_id, description, status) VALUES ($1, $2, $3) RETURNING *";
+		db.query(query, [goal_id, description, status]).then((result) => {
+			res.send(result.rows[0]);
+			// console.log(result.rows[0]);
+		}
+		);
+		// db.query(
+		// 	`SELECT t.id, t.goal_id goal_id, t.description, t.status, t.create_date  FROM tasks t 
+		// 	INNER JOIN goals g on t.goal_id = g.id
+		// 	INNER JOIN plans p on g.plan_id = p.id
+		// 	where p.user_id =$1 and p.id= $2 and t.goal_id=$3`,
+		// 	[user_id, plan_id, goal_id]
+		// ).then((result) => {
+		// 	if (result.rows.length === 0) {
+		// 		return res
+		// 			.status(404)
+		// 			.send(
+		// 				`User ${user_id} doesn't have a plan with id ${plan_id} and goalid ${goal_id}`
+		// 			);
+		// 	} else {
+		// 		const query =
+		// 			"INSERT INTO tasks ( goal_id, description, status) VALUES ($1, $2, $3) RETURNING *";
+		// 		db.query(query, [goal_id, description, status])
+		// 			.then(() => res.send(result.rows))
+		// 			.catch((err) => {
+		// 				console.error(err.message);
+		// 				res.status(500).send(err.message);
+		// 			});
+		// 	}
+		// });
 	}
 );
 
@@ -553,31 +565,37 @@ router.delete(
 	"/plans/:plan_id/goals/:goal_id/tasks/:task_id", auth,
 	(req, res) => {
 		const { plan_id, goal_id, task_id } = req.params;
+		console.log({ plan_id, goal_id, task_id });
 		const user_id = req.user_id;
-		db.query(
-			`SELECT t.id, t.goal_id goal_id, t.description, t.status, t.create_date  FROM tasks t 
-	INNER JOIN goals g on t.goal_id = g.id 
-	INNER JOIN plans p on g.plan_id = p.id 
-	where p.user_id =$1 and p.id= $2 and t.goal_id=$3 and t.id=$4`,
-			[user_id, plan_id, goal_id, task_id]
-		).then((result) => {
-			if (result.rows.length === 0) {
-				return res
-					.status(404)
-					.send(
-						`User ${user_id} doesn't have any data with id ${plan_id} and goal id ${goal_id} and task id ${task_id}`
-					);
-			} else {
-				const query =
-					"DELETE FROM tasks WHERE id=$1 and goal_id=$2 RETURNING *";
-				db.query(query, [task_id, plan_id])
-					.then(() => res.send(result.rows[0]))
-					.catch((err) => {
-						console.error(err.message);
-						res.status(500).send(err.message);
-					});
-			}
-		});
+		const query =
+				"DELETE FROM tasks WHERE id=$1 and goal_id=$2 RETURNING *";
+			db.query(query, [task_id, goal_id]).then((result) =>
+				res.send(result.rows[0])
+			);
+	// 	db.query(
+	// 		`SELECT t.id, t.goal_id goal_id, t.description, t.status, t.create_date  FROM tasks t 
+	// INNER JOIN goals g on t.goal_id = g.id 
+	// INNER JOIN plans p on g.plan_id = p.id 
+	// where p.user_id =$1 and p.id= $2 and t.goal_id=$3 and t.id=$4`,
+	// 		[user_id, plan_id, goal_id, task_id]
+	// 	).then((result) => {
+	// 		if (result.rows.length === 0) {
+	// 			return res
+	// 				.status(404)
+	// 				.send(
+	// 					`User ${user_id} doesn't have any data with id ${plan_id} and goal id ${goal_id} and task id ${task_id}`
+	// 				);
+	// 		} else {
+	// 			const query =
+	// 				"DELETE FROM tasks WHERE id=$1 and goal_id=$2 RETURNING *";
+	// 			db.query(query, [task_id, plan_id])
+	// 				.then(() => res.send(result.rows[0]))
+	// 				.catch((err) => {
+	// 					console.error(err.message);
+	// 					res.status(500).send(err.message);
+	// 				});
+	// 		}
+	// 	});
 	}
 );
 
