@@ -383,7 +383,7 @@ router.post("/plans/:plan_id/goals", auth,(req, res) => {
 });
 
 //UPDATE a goal for specific plan id and goal id
-router.put("/plans/:plan_id/goals/:goal_id", auth,(req, res) => {
+router.patch("/plans/:plan_id/goals/:goal_id", auth,(req, res) => {
 	const { plan_id, goal_id } = req.params;
 	const user_id = req.user_id;
 	const { title, status, start_date, end_date } = req.body;
@@ -535,7 +535,7 @@ router.get(
 );
 
 //UPDATE a goal for specific plan id and goal id
-router.put(
+router.patch(
 	"/plans/:plan_id/goals/:goal_id/tasks/:task_id", auth,
 	(req, res) => {
 		const { plan_id, goal_id, task_id } = req.params;
@@ -621,12 +621,12 @@ router.get("/feedbacks", auth,(req, res) => {
 // GET all feedbacks form specific user id and plan id
 router.get("/plans/:plan_id/feedbacks", auth,(req, res) => {
 	const { plan_id } = req.params;
-	const user_id = req.user_id;
-	const query = `SELECT p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
+	const query = `SELECT  u.first_name, u.last_name, p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
 					INNER JOIN plans p on f.plan_id = p.id 
-					where p.user_id= $1 and f.plan_id= $2
+					INNER JOIN users u on u.id = f.user_id 
+					where f.plan_id= $1 
 					ORDER BY f.create_date`;
-	db.query(query, [user_id, plan_id])
+	db.query(query, [plan_id])
 		.then((result) => {
 			if (result.rowCount) {
 				res.json(result.rows);
@@ -649,20 +649,20 @@ router.get(
 	"/plans/:plan_id/feedbacks/:feedback_id", auth,
 	(req, res) => {
 		const { plan_id, feedback_id } = req.params;
-		const user_id = req.user_id;
-		const query = `SELECT p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
+		const query = `SELECT u.first_name, u.last_name, p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
 					INNER JOIN plans p on f.plan_id = p.id 
-					where p.user_id= $1 and f.plan_id= $2 and f.id= $3
+					INNER JOIN users u on u.id = f.user_id 
+					where f.plan_id= $1 and f.id= $2
 					ORDER BY f.create_date`;
-		db.query(query, [user_id, plan_id, feedback_id])
+		db.query(query, [ plan_id, feedback_id])
 			.then((result) => {
 				if (result.rowCount) {
-					res.json(result.rows);
+					res.json(result.rows[0]);
 				} else {
 					res
 						.status(404)
 						.send(
-							`This user ${user_id} doesn't have a feedbak with this id ${feedback_id}`
+							`This user doesn't have a feedbak with this id ${feedback_id}`
 						);
 				}
 			})
