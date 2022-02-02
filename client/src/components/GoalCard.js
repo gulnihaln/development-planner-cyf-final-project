@@ -57,6 +57,12 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 		}
 	}
 
+	const handleDeleteGoal = async (id) => {
+		request.delete(`/goals/${goal_id}`);
+		const newGoals = goals.filter((goal) => goal.goal_id !== id);
+		setGoals(newGoals);
+	};
+
 	return (
 		<Card
 			className="goal-card"
@@ -122,7 +128,10 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 					</IconButton>
 				</Tooltip>
 				<Tooltip title="Delete">
-					<IconButton aria-label="share">
+					<IconButton
+						aria-label="share"
+						onClick={() => handleDeleteGoal(goal_id)}
+					>
 						<DeleteOutlinedIcon />
 					</IconButton>
 				</Tooltip>
