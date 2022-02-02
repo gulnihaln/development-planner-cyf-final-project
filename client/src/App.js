@@ -110,12 +110,9 @@ const App = () => {
 								)
 							}
 						/>
-						{/* <Route path="/newplan">
-							<NewPlan />
-						</Route> */}
 						<Route
 							exact
-							path="/plan/:planid"
+							path="/plan/:plan_id"
 							render={(props) =>
 								isAuthenticated ? (
 									<Plan {...props} setAuth={setAuth} />
@@ -124,15 +121,11 @@ const App = () => {
 								)
 							}
 						/>
-						{/* <Route path="/plan/:planid" exact>
-							<Plan />
-						</Route> */}
 						<Route path="/aboutus" exact>
 							<AboutUs />
 						</Route>
 					</Switch>
 					{!isAuthenticated ? <Footer /> : <></>}
-					{/* <Footer /> */}
 				</div>
 			)}
 		</ThemeProvider>
