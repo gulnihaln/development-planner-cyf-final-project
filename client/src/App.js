@@ -67,16 +67,16 @@ const App = () => {
 							}
 						/>
 						<Route
-						exact
-						path="/signup"
-						render={(props) =>
-							!isAuthenticated ? (
-								<Signup {...props} setAuth={setAuth} />
-							) : (
-								<Redirect to="/dashboard" />
-							)
-						}
-           />
+							exact
+							path="/signup"
+							render={(props) =>
+								!isAuthenticated ? (
+									<Signup {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/dashboard" />
+								)
+							}
+						/>
 						<Route
 							exact
 							path="/dashboard"
@@ -88,17 +88,44 @@ const App = () => {
 								)
 							}
 						/>
-						<Route path="/newplan">
-							<NewPlan />
-						</Route>
-						<Route path="/plan/:planid" exact>
-							<Plan />
-						</Route>
+						<Route
+							exact
+							path="/newplan"
+							render={(props) =>
+								isAuthenticated ? (
+									<NewPlan {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/login" />
+								)
+							}
+						/>
+						<Route
+							exact
+							path="/plan"
+							render={(props) =>
+								isAuthenticated ? (
+									<Plan {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/login" />
+								)
+							}
+						/>
+						<Route
+							exact
+							path="/plan/:plan_id"
+							render={(props) =>
+								isAuthenticated ? (
+									<Plan {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/login" />
+								)
+							}
+						/>
 						<Route path="/aboutus" exact>
 							<AboutUs />
 						</Route>
 					</Switch>
-					<Footer />
+					{!isAuthenticated ? <Footer /> : <></>}
 				</div>
 			)}
 		</ThemeProvider>

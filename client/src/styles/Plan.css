@@ -27,7 +27,7 @@
     justify-content: space-between;
 }
     .invite-feedback {
-    display: inline-block;
+    display: flex;
 }
     .select-dots {
         display: none;

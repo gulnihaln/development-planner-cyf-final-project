@@ -1,5 +1,5 @@
 import axios from "axios";
-export const request = axios.create({ baseURL: process.env.REACT_APP_SERVER_URL });
+export const request = axios.create({ baseURL: "/api" });
 
 export const verifyUser = () => {
 	const body = {};
@@ -17,8 +17,6 @@ export const apiLoginUser = ({ email, password }) => {
 	return request.post("/users/login", body).then((response) => {
 		localStorage.setItem("accessToken", response.data.accessToken);
 		localStorage.setItem("refreshToken", response.data.refreshToken);
-		console.log(response.data.accessToken);
-		console.log(response.data.refreshToken);
 	});
 };
 
@@ -78,8 +76,6 @@ export const apiSignUpUser = ({
 	return request.post("/register", body).then((response) => {
 		localStorage.setItem("accessToken", response.data.accessToken);
 		localStorage.setItem("refreshToken", response.data.refreshToken);
-		console.log(response.data.accessToken);
-		console.log(response.data.refreshToken);
 	});
 };
 

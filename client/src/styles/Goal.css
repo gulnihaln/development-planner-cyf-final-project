@@ -1,15 +1,15 @@
-.desktop-datepicker {
+/* .desktop-datepicker {
     visibility: hidden;
-}
+} */
 .mobile-datepicker {
     visibility: visible;
 }
 @media screen and (min-width: 480px) {
 }
 @media screen and (min-width: 678px) {
-    .mobile-datepicker {
+    /* .mobile-datepicker {
         visibility: hidden;
-    }
+    } */
     .desktop-datepicker {
         visibility: visible;
     }

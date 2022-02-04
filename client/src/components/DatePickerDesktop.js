@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -7,23 +7,43 @@ import Stack from "@mui/material/Stack";
 import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import "../styles/Goal.css";
 
-export default function DatePickerDesktop() {
-	const [value, setValue] = React.useState([null, null]);
+
+export default function DatePickerDesktop({ startDate, endDate, setStartDate, setEndDate }) {
+	const [value, setValue] = React.useState([startDate, endDate]);
+	const today = new Date();
+	const [onTime, setOnTime] = useState(today > endDate);
+
 	return (
 		<div>
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<Stack spacing={3} className="desktop-datepicker">
 					<DesktopDateRangePicker
-						startText="Desktop start"
+						minDate={today}
+						startText="Start"
 						value={value}
 						onChange={(newValue) => {
 							setValue(newValue);
+							// onChange(newValue);
+							setStartDate(newValue[0]);
+							setEndDate(newValue[1]);
 						}}
 						renderInput={(startProps, endProps) => (
 							<React.Fragment>
-								<TextField {...startProps} />
-								<Box sx={{ mx: 2 }}> to </Box>
-								<TextField {...endProps} />
+								<TextField
+									label="Size"
+									id="outlined-size-small"
+									size="small"
+									color={onTime ? "primary" : "warning"}
+									{...startProps}
+								/>
+								<Box sx={{ mx: 1 }}> to </Box>
+								<TextField
+									label="Size"
+									id="outlined-size-small"
+									size="small"
+									color={onTime ? "primary" : "warning"}
+									{...endProps}
+								/>
 							</React.Fragment>
 						)}
 					/>
