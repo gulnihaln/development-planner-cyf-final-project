@@ -71,10 +71,10 @@ router.get("/users", (req, res) => {
 });
 
 //GET a user with id
-router.get("/users/:id", (req, res) => {
-	const { id } = req.params;
+router.get("/user",auth, (req, res) => {
+	const id  = req.user_id;
 	const query =
-		"SELECT id, first_name, last_name, sign_up_date FROM users WHERE id = $1";
+		"SELECT id, first_name, last_name, region, role, email, sign_up_date FROM users WHERE id = $1";
 	db.query(query, [id])
 		.then((result) => res.send(result.rows))
 		.catch((err) => {
