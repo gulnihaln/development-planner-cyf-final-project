@@ -1,21 +1,40 @@
 import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import CardHeader from "@mui/material/CardHeader";
 import Card from "@mui/material/Card";
 import { request } from "../utils/api";
 import IconButton from "@mui/material/IconButton";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+// import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { Tooltip } from "@mui/material";
+import EditableTask from "../utils/EditableTask";
 
 export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
+	// const [description, setDescription] = useState();
+	// const [taskStatus, setTaskStatus] = useState();
 	const handleDeleteTask = async (task_id) => {
 		console.log({ task_id });
 		request.delete(`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`);
 		const newTasks = tasks.filter((task) => task.id !== task_id);
 		setTasks(newTasks);
 	};
-
+	const editTask = async (task_id, description, taskStatus) => {
+		const body = { description, status: taskStatus };
+		const response = await request.put(
+			`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`,
+			body,
+			{
+				headers: { "Content-Type": "application/json" },
+			}
+		);
+		// console.log(response);
+		setTasks((prev) => {
+			const index = tasks.indexOf((task)=> task.id === task_id);
+			prev[index] = response.data;
+			return [...prev];
+		});
+	};
 	return (
 		<>
 			<Box>
@@ -32,8 +51,9 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 											width: "100%",
 										}}
 									>
-										<Tooltip title="Edit">
+										{/* <Tooltip title="Edit">
 											<IconButton
+												onClick={() => editTask(task.id)}
 												sx={{
 													display: "flex",
 													flexDirection: "column",
@@ -44,7 +64,7 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 													sx={{ fontSize: "medium" }}
 												/>
 											</IconButton>
-										</Tooltip>
+										</Tooltip> */}
 										<Tooltip title="Remove task">
 											<IconButton
 												onClick={() => handleDeleteTask(task.id)}
@@ -59,7 +79,7 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 										</Tooltip>
 									</Box>
 								}
-								subheader={task.description}
+								subheader={<EditableTask task={task} editTask={editTask} />}
 							/>
 						</Card>
 					);
