@@ -1,11 +1,9 @@
 import * as React from "react";
-import { useState } from "react";
 import Box from "@mui/material/Box";
 import CardHeader from "@mui/material/CardHeader";
 import Card from "@mui/material/Card";
 import { request } from "../utils/api";
 import IconButton from "@mui/material/IconButton";
-// import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { Tooltip } from "@mui/material";
 import EditableTask from "../utils/EditableTask";
@@ -28,11 +26,12 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 				headers: { "Content-Type": "application/json" },
 			}
 		);
-		// console.log(response);
+
 		setTasks((prev) => {
-			const index = tasks.indexOf((task)=> task.id === task_id);
-			prev[index] = response.data;
-			return [...prev];
+			const index = prev.findIndex((task)=> task.id === task_id);
+			const newTasks = [...prev];
+			newTasks[index] = response.data;
+			return newTasks;
 		});
 	};
 	return (
@@ -40,7 +39,7 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 			<Box>
 				{tasks.map((task) => {
 					return (
-						<Card key={task.id} sx={{ width: "90%" }}>
+						<Card key={task.id} sx={{ width: "90%", marginTop: 2, padding: 0 }}>
 							<CardHeader
 								action={
 									<Box
@@ -49,28 +48,14 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 											flexDirection: "column",
 											padding: 0,
 											width: "100%",
+											margin: 0,
 										}}
 									>
-										{/* <Tooltip title="Edit">
-											<IconButton
-												onClick={() => editTask(task.id)}
-												sx={{
-													display: "flex",
-													flexDirection: "column",
-													color: "rgba(0, 0, 0, 0.54)",
-												}}
-											>
-												<ModeEditOutlineOutlinedIcon
-													sx={{ fontSize: "medium" }}
-												/>
-											</IconButton>
-										</Tooltip> */}
+									
 										<Tooltip title="Remove task">
 											<IconButton
 												onClick={() => handleDeleteTask(task.id)}
 												sx={{
-													display: "flex",
-													flexDirection: "column",
 													color: "rgba(0, 0, 0, 0.54)",
 												}}
 											>
