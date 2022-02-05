@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import PlanCard from "../components/PlanCard";
-import Grid from "@mui/material/Grid";
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { request } from "../utils/api";
 import AddIcon from "@mui/icons-material/Add";
 import Masonry from "react-masonry-css";
 import "../styles/Masonry.css";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import { Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
 	const [plans, setPlans] = useState([]);
-	const history = useHistory();
 
 	useEffect(() => {
 		request.get("/plans").then((res) => {
@@ -28,36 +30,46 @@ function Dashboard() {
 	};
 
 	const breakpoints = {
-		default: 3,
+		default: 4,
 		1100: 2,
 		700: 1,
 	};
 
 	return (
 		<div>
-			<Button
-				color="inherit"
-				variant="contained"
-				sx={{ mt: 2, ml: 17, mb: 3, p: 1 }}
-				onClick={() => history.push("/newplan")}
-			>
-				<AddIcon />
-				Create Plan
-			</Button>
-			<Container>
-				{/* <Grid container spacing={3}> */}
+			<Container sx={{ marginTop: 4 }}>
 				<Masonry
 					breakpointCols={breakpoints}
 					className="my-masonry-grid"
 					columnClassName="my-masonry-grid_column"
 				>
+					<Link to={"/newplan"} style={{ textDecoration: "none" }}>
+						<Card
+							elevation={3}
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								backgroundColor: "#efefef",
+								alignItems: "center",
+								justifyContent: "center",
+								// height: "100px",
+								marginBottom: 4,
+							}}
+						>
+							<CardHeader action={<AddIcon sx={{ fontSize: "38px" }} />} />
+							<CardContent>
+								<Typography variant="body2" color="textSecondary">
+									Create new plan
+								</Typography>
+							</CardContent>
+						</Card>
+					</Link>
 					{plans.map((plan) => (
 						<div key={plan.id}>
 							<PlanCard plan={plan} handleDelete={handleDelete} />
 						</div>
 					))}
 				</Masonry>
-				{/* </Grid> */}
 			</Container>
 		</div>
 	);
