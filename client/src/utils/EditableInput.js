@@ -14,7 +14,7 @@ const EditableInput = ({ title, setTitle }) => {
             onChange={(e) => setTitle(e.target.value)}
             fullWidth
             onBlur={() => setOpen(!open)}
-            InputProps
+            // inputProps
           />
         </Box>
       ) : (
