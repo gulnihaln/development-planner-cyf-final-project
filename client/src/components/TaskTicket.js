@@ -8,7 +8,7 @@ import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { Tooltip } from "@mui/material";
 import EditableTask from "../utils/EditableTask";
 
-export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
+export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
 	// const [description, setDescription] = useState();
 	// const [taskStatus, setTaskStatus] = useState();
 	const handleDeleteTask = async (task_id) => {
@@ -27,7 +27,7 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 		);
 
 		setTasks((prev) => {
-			const index = prev.findIndex((task)=> task.id === task_id);
+			const index = prev.findIndex((task) => task.id === task_id);
 			const newTasks = [...prev];
 			newTasks[index] = response.data;
 			return newTasks;
@@ -38,30 +38,22 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 			<Box>
 				{tasks.map((task) => {
 					return (
-						<Card key={task.id} sx={{ width: "90%", marginTop: 2, padding: 0 }}>
+						<Card
+							key={task.id}
+							sx={{ width: "100%", marginTop: 2, padding: 0 }}
+						>
 							<CardHeader
 								action={
-									<Box
-										sx={{
-											display: "flex",
-											flexDirection: "column",
-											padding: 0,
-											width: "100%",
-											margin: 0,
-										}}
-									>
-									
-										<Tooltip title="Remove task">
-											<IconButton
-												onClick={() => handleDeleteTask(task.id)}
-												sx={{
-													color: "rgba(0, 0, 0, 0.54)",
-												}}
-											>
-												<ClearOutlinedIcon sx={{ fontSize: "medium" }} />
-											</IconButton>
-										</Tooltip>
-									</Box>
+									<Tooltip title="Remove task">
+										<IconButton
+											onClick={() => handleDeleteTask(task.id)}
+											sx={{
+												color: "rgba(0, 0, 0, 0.54)",
+											}}
+										>
+											<ClearOutlinedIcon sx={{ fontSize: "medium" }} />
+										</IconButton>
+									</Tooltip>
 								}
 								subheader={<EditableTask task={task} editTask={editTask} />}
 							/>

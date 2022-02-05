@@ -586,7 +586,7 @@ router.put(
 					task_id,
 					...values,
 				])
-					.then(() => res.send(result.rows[0]))
+					.then((result) => res.send(result.rows[0]))
 					.catch((err) => {
 						console.error(err.message);
 						res.status(500).send(err.message);
