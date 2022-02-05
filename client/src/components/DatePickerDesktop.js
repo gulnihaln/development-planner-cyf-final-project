@@ -16,7 +16,7 @@ export default function DatePickerDesktop({ startDate, endDate, setStartDate, se
 	return (
 		<div>
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
-				<Stack spacing={3} className="desktop-datepicker">
+				<Stack spacing={2} className="desktop-datepicker" sx= {{ padding: 2 }}>
 					<DesktopDateRangePicker
 						minDate={today}
 						startText="Start"
