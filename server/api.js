@@ -243,15 +243,14 @@ router.post("/plans", auth, (req, res) => {
 // GET a plan form specific user with plan id
 router.get("/plans/:plan_id", auth, (req, res) => {
 	const { plan_id } = req.params;
-	const user_id = req.user_id;
-	db.query("SELECT * FROM plans WHERE id=$1 and user_id=$2", [plan_id, user_id])
+	db.query("SELECT * FROM plans WHERE id=$1", [plan_id])
 		.then((result) => {
 			if (result.rowCount) {
 				res.send(result.rows[0]);
 			} else {
 				res
 					.status(404)
-					.send(`User ${user_id} doesn't have a plan with id ${plan_id}`);
+					.send(`User doesn't have a plan with id ${plan_id}`);
 			}
 		})
 		.catch((err) => {
