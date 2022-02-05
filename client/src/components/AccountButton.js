@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 export default function AccountButton({ setAuth }) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -12,6 +13,7 @@ export default function AccountButton({ setAuth }) {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	let history = useHistory();
 	const handleLogout = (e) => {
 		e.preventDefault();
 		try {
@@ -72,7 +74,9 @@ export default function AccountButton({ setAuth }) {
 							borderColor: "#ea4549",
 						},
 					}}
-					onClick={handleClose}
+					onClick={() => {
+						history.push("/account");
+					}}
 				>
 					Account Setting
 				</MenuItem>
