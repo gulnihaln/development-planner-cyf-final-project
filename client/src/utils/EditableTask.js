@@ -5,8 +5,8 @@ import { Box, InputBase, Tooltip, Typography } from "@mui/material";
 const EditableTask = ({ task, editTask }) => {
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState(task.description);
-	const [taskStatus, setTaskStatus] = useState();
-  console.log(task.id);
+  const [taskStatus, setTaskStatus] = useState();
+
 
   return (
 		<div>

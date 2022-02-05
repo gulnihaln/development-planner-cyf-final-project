@@ -12,7 +12,6 @@ export default function TaskTicket ( { tasks, plan_id, goal, setTasks }) {
 	// const [description, setDescription] = useState();
 	// const [taskStatus, setTaskStatus] = useState();
 	const handleDeleteTask = async (task_id) => {
-		console.log({ task_id });
 		request.delete(`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`);
 		const newTasks = tasks.filter((task) => task.id !== task_id);
 		setTasks(newTasks);
