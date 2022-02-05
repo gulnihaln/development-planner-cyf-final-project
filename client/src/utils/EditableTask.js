@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, InputBase, Typography } from "@mui/material";
+import { Box, InputBase, Tooltip, Typography } from "@mui/material";
 
 
 const EditableTask = ({ task, editTask }) => {
@@ -9,30 +9,34 @@ const EditableTask = ({ task, editTask }) => {
   console.log(task.id);
 
   return (
-    <div>
-      {open ? (
-        <Box>
-          <InputBase
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            fullWidth
-            onBlur={() => {
-              editTask(task.id, description, taskStatus);
-              setOpen(false);
-            }}
-
-            InputProps
-          />
-        </Box>
-      ) : (
-        <Box sx={{ m: 1, display: "flex" }}>
-          <Typography onClick={() => setOpen(true)} sx={{ flexGrow: 1 }}>
-            {task.description}
-          </Typography>
-        </Box>
-      )}
-    </div>
-  );
+		<div>
+			{open ? (
+				<Box>
+					<InputBase
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+						fullWidth
+						onBlur={() => {
+							editTask(task.id, description, taskStatus);
+							setOpen(false);
+						}}
+						InputProps
+					/>
+				</Box>
+			) : (
+				<Box sx={{ m: 1, display: "flex" }}>
+					<Tooltip title="Edit task">
+						<Typography
+							onClick={() => setOpen(true)}
+							sx={{ flexGrow: 1, cursor: "pointer" }}
+						>
+							{task.description}
+						</Typography>
+					</Tooltip>
+				</Box>
+			)}
+		</div>
+	);
 };
 
 export default EditableTask;
