@@ -20,7 +20,7 @@ const EditableInput = ({ title, setTitle }) => {
       ) : (
         <Box sx={{ m: 1, display: "flex" }}>
           {/* if else is to make the goal's title editable or just show the title */}
-          <Typography onClick={() => setOpen(!open)} sx={{ flexGrow: 1 }}>
+          <Typography onClick={() => setOpen(!open)} sx={{ flexGrow: 1, paddingLeft: 1, marginTop: 1 }}>
             {title}
           </Typography>
         </Box>

@@ -14,6 +14,12 @@ import Account from "./pages/Account";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+	palette: {
+		primary: {
+			main: "#CF2F2F",
+		},
+		// secondary: "#ff4081",
+	},
 	typography: {
 		fontFamily: ["Raleway ", "Arial"].join(","),
 	},
