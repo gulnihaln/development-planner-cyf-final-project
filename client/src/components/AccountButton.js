@@ -40,9 +40,11 @@ export default function AccountButton({ setAuth }) {
 					borderTop: 10,
 					padding: 3,
 					borderColor: "transparent",
+					borderRadius: 0,
 					"&:hover": {
 						color: "#ea4549",
 						borderColor: "#ea4549",
+						backgroundColor: "transparent",
 					},
 				}}
 			>
@@ -56,7 +58,7 @@ export default function AccountButton({ setAuth }) {
 				MenuListProps={{
 					"aria-labelledby": "basic-button",
 				}}
-								sx={{
+				sx={{
 					paddingTop: 0,
 					paddingBottom: 0,
 				}}
@@ -64,7 +66,7 @@ export default function AccountButton({ setAuth }) {
 				<MenuItem
 					sx={{
 						padding: 1,
-						borderTop: 10 ,
+						borderTop: 10,
 						borderColor: "transparent",
 
 						"&:hover": {
