@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import DropdownMenuFeedback from "../utils/DropdownMenuFeedback";
 import Goals from "../components/Goals";
 import FeedbackDrawer from "../components/feedback/FeedbackDrawer";
@@ -10,13 +10,13 @@ import Typography from "@mui/material/Typography";
 import "../styles/Plan.css";
 import { IconButton, Tooltip } from "@mui/material";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+// import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function Plan() {
 	const { plan_id } = useParams();
 	const [goals, setGoals] = useState([]);
 	const [plan, setPlan] = useState(null);
-	const url = window.location.href;
+	// const url = window.location.href;
 
 	useEffect(() => {
 		request.get(`/plans/${plan_id}`).then((res) => {
@@ -52,13 +52,13 @@ export default function Plan() {
 					<div className="feedback-buttons">
 						<DropdownMenuFeedback />
 						<div className="invite-feedback">
-							<CopyToClipboard text={url}>
+							{/* <CopyToClipboard text={url}> */}
 								<Tooltip title="Share Link">
 									<IconButton>
 										<ShareOutlinedIcon sx={{ color: "#CF2F2F" }} />
 									</IconButton>
 								</Tooltip>
-							</CopyToClipboard>
+							{/* </CopyToClipboard> */}
 							<FeedbackDrawer />
 						</div>
 					</div>
