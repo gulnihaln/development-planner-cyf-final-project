@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import DropdownMenuFeedback from "../utils/DropdownMenuFeedback";
 import Goals from "../components/Goals";
-import FeedbackDrawer from "../components/FeedbackDrawer";
+import FeedbackDrawer from "../components/feedback/FeedbackDrawer";
 import PlanTitle from "../utils/PlanTitle";
 import { request } from "../utils/api";
 import { useState, useEffect } from "react";
