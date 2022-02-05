@@ -20,7 +20,7 @@ const EditableTask = ({ task, editTask }) => {
 							editTask(task.id, description, taskStatus);
 							setOpen(false);
 						}}
-						InputProps
+						// inputProps
 					/>
 				</Box>
 			) : (
