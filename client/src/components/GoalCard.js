@@ -12,7 +12,6 @@ import Paper from "@mui/material/Paper";
 import TaskTicket from "./TaskTicket";
 import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
-import DropdownMenuGoal from "../utils/DropdownMenuGoal";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
 import "../styles/Goal.css";
@@ -98,7 +97,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				<Box sx={{ cursor: "pointer" }}>
 					<EditableInput title={title} setTitle={setTitle} />
 				</Box>
-				<DropdownMenuGoal />
 			</Box>
 			<Box sx={{ margin: 1, borderRadius: "4px" }}>
 				<Box sx={{ marginTop: 2 }}>
