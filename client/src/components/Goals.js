@@ -31,7 +31,7 @@ export default function Goals({ goals, setGoals, plan_id }) {
 	return (
 		<Container>
 			<Grid container spacing={3} sx={{ marginTop: 1 }}>
-				{goals.sort((a, b) => a.timeM > b.timeM ? 1:-1)
+				{goals.sort((a, b) => a.goal_id > b.goal_id ? 1:-1)
 				.map((goal) => {
 					return (
 						<Grid key={goal.goal_id} item lg={4} md={6} xs={12}>
