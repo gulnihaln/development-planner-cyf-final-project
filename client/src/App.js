@@ -9,10 +9,17 @@ import Plan from "./pages/Plan";
 import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
+import Account from "./pages/Account";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+	palette: {
+		primary: {
+			main: "#CF2F2F",
+		},
+		// secondary: "#ff4081",
+	},
 	typography: {
 		fontFamily: ["Raleway ", "Arial"].join(","),
 	},
@@ -83,6 +90,17 @@ const App = () => {
 							render={(props) =>
 								isAuthenticated ? (
 									<Dashboard {...props} setAuth={setAuth} />
+								) : (
+									<Redirect to="/login" />
+								)
+							}
+						/>
+						<Route
+							exact
+							path="/account"
+							render={(props) =>
+								isAuthenticated ? (
+									<Account {...props} setAuth={setAuth} />
 								) : (
 									<Redirect to="/login" />
 								)

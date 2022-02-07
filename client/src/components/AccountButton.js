@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Menu, MenuItem } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 export default function AccountButton({ setAuth }) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -12,6 +13,7 @@ export default function AccountButton({ setAuth }) {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	let history = useHistory();
 	const handleLogout = (e) => {
 		e.preventDefault();
 		try {
@@ -40,9 +42,11 @@ export default function AccountButton({ setAuth }) {
 					borderTop: 10,
 					padding: 3,
 					borderColor: "transparent",
+					borderRadius: 0,
 					"&:hover": {
 						color: "#ea4549",
 						borderColor: "#ea4549",
+						backgroundColor: "transparent",
 					},
 				}}
 			>
@@ -56,7 +60,7 @@ export default function AccountButton({ setAuth }) {
 				MenuListProps={{
 					"aria-labelledby": "basic-button",
 				}}
-								sx={{
+				sx={{
 					paddingTop: 0,
 					paddingBottom: 0,
 				}}
@@ -64,7 +68,7 @@ export default function AccountButton({ setAuth }) {
 				<MenuItem
 					sx={{
 						padding: 1,
-						borderTop: 10 ,
+						borderTop: 10,
 						borderColor: "transparent",
 
 						"&:hover": {
@@ -72,7 +76,9 @@ export default function AccountButton({ setAuth }) {
 							borderColor: "#ea4549",
 						},
 					}}
-					onClick={handleClose}
+					onClick={() => {
+						history.push("/account");
+					}}
 				>
 					Account Setting
 				</MenuItem>

@@ -6,18 +6,19 @@ import Container from "@mui/material/Container";
 import { request } from "../utils/api";
 
 export default function Goals({ goals, setGoals, plan_id }) {
-	console.log({goals});
 	useEffect(() => {
 		request.get(`/plans/${plan_id}/goals`).then((res) => {
 			setGoals(res.data);
 		});
 	}, [plan_id, setGoals]);
+
 	const postGoal = async (body) => {
 		const response = await request.post(`/plans/${plan_id}/goals`, body, {
 			headers: { "Content-Type": "application/json" },
 		});
 		return response;
 	};
+
 	function HandleNewGoal() {
 			const body = {
 				title: "Goal title",

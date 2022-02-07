@@ -1,32 +1,49 @@
 import React, { useState } from "react";
-import { Box, InputBase, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
+const CssTextField = styled(TextField, {
+	shouldForwardProp: (props) => props !== "focusColor",
+})((p) => ({
+	"& .MuiInput-underline:after": {
+    borderBottom: "1px solid",
+		borderBottomColor: p.focusColor,
+	},
+}));
 
 const EditableInput = ({ title, setTitle }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
-      {open ? (
-        <Box>
-          <InputBase
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            fullWidth
-            onBlur={() => setOpen(!open)}
-            InputProps
-          />
-        </Box>
-      ) : (
-        <Box sx={{ m: 1, display: "flex" }}>
-          {/* if else is to make the goal's title editable or just show the title */}
-          <Typography onClick={() => setOpen(!open)} sx={{ flexGrow: 1 }}>
-            {title}
-          </Typography>
-        </Box>
-      )}
-    </div>
-  );
+		<div>
+			{open ? (
+				<Box>
+					<CssTextField
+						variant="standard"
+						focusColor="rgba(0, 0, 0, 0.6)"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						fullWidth
+						onBlur={() => setOpen(!open)}
+					/>
+				</Box>
+			) : (
+				<Box sx={{ m: 1, display: "flex" }}>
+					<Typography
+						onClick={() => setOpen(!open)}
+						sx={{
+							flexGrow: 1,
+							paddingLeft: 1,
+							marginTop: 1,
+							cursor: "pointer",
+						}}
+					>
+						{title}
+					</Typography>
+				</Box>
+			)}
+		</div>
+	);
 };
 
 export default EditableInput;

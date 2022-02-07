@@ -12,7 +12,6 @@ import Paper from "@mui/material/Paper";
 import TaskTicket from "./TasksTicket";
 import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
-import DropdownMenuGoal from "../utils/DropdownMenuGoal";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
 import "../styles/Goal.css";
@@ -24,8 +23,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 	const [startDate, setStartDate] = useState();
 	const [endDate, setEndDate] = useState();
 	const [tasks, setTasks] = useState([]);
-	// const [description, setDescription] = useState();
-	// const [taskStatus, setTaskStatus] = useState();
 	const [value, setValue] = useState("");
 	const [isGoalCompleted, setGoalCompleted] = useState(false);
 
@@ -34,14 +31,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			setTasks(res.data);
 		});
 	}, [goal_id, plan_id]);
-
-	const postGoal = async () => {
-		const body = { title, status, start_date: startDate, end_date: endDate };
-		const response = await request.post(`/plans/${plan_id}/goals`, body, {
-			headers: { "Content-Type": "application/json" },
-		});
-		console.log(response);
-	};
 
 	const postTask = async () => {
 		const description = value;
@@ -81,6 +70,17 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 		setGoals(newGoals);
 	};
 
+	const editGoal = async () => {
+		const body = { title, status, start_date: startDate, end_date: endDate };
+		const response = await request.put(
+			`/plans/${plan_id}/goals/${goal_id}`,
+			body,
+			{
+				headers: { "Content-Type": "application/json" },
+			}
+		);
+	};
+
 	return (
 		<Card
 			className="goal-card"
@@ -101,46 +101,53 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 					width: "100%",
 				}}
 			>
-				<Box>
+				<Box sx={{ cursor: "pointer" }}>
 					<EditableInput title={title} setTitle={setTitle} />
 				</Box>
-				<DropdownMenuGoal />
 			</Box>
-			<Box>
-				<DatePickerDesktop
-					startDate={startDate}
-					endDate={endDate}
-					setStartDate={setStartDate}
-					setEndDate={setEndDate}
-				/>
-			</Box>
-			<CardContent>
-				<TaskTicket tasks={tasks} plan_id={plan_id} goal={goal} goal_id={goal_id} setTasks={setTasks} />
-			</CardContent>
-			<Paper
-				component="form"
-				sx={{
-					p: "2px 4px",
-					display: "flex",
-				}}
-			>
-				<InputBase
-					sx={{ ml: 1, flex: 1 }}
-					placeholder="Add new task"
-					inputProps={{ "aria-label": "new task" }}
-					value={value}
-					onChange={(event) => setValue(event.target.value)}
-				/>
+			<Box sx={{ margin: 1, borderRadius: "4px" }}>
+				<Box sx={{ marginTop: 2 }}>
+					<DatePickerDesktop
+						startDate={startDate}
+						endDate={endDate}
+						setStartDate={setStartDate}
+						setEndDate={setEndDate}
+					/>
+				</Box>
+				<CardContent>
+					<TaskTicket
+						tasks={tasks}
+						plan_id={plan_id}
+						goal={goal}
+						goal_id={goal_id}
+						setTasks={setTasks}
+					/>
+				</CardContent>
+				<Paper
+					component="form"
+					sx={{
+						p: "2px 4px",
+						display: "flex",
+					}}
+				>
+					<InputBase
+						sx={{ ml: 1, flex: 1 }}
+						placeholder="Add new task"
+						inputProps={{ "aria-label": "new task" }}
+						value={value}
+						onChange={(event) => setValue(event.target.value)}
+					/>
 
-				<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-				<AddTaskIcon newTaskHandle={newTaskHandle} />
-			</Paper>
+					<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+					<AddTaskIcon newTaskHandle={newTaskHandle} />
+				</Paper>
+			</Box>
 			<CardActions
 				sx={{ display: "flex", justifyContent: "flex-end" }}
 				disableSpacing
 			>
-				<Tooltip title="Save">
-					<IconButton onClick={postGoal}>
+				<Tooltip title="Save Goal">
+					<IconButton onClick={editGoal}>
 						<BookmarkBorderOutlinedIcon />
 					</IconButton>
 				</Tooltip>
