@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import AddGoalButton from "./AddGoalButton";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import { request } from "../utils/api";
 
 export default function Goals({ goals, setGoals, plan_id }) {
@@ -31,22 +32,25 @@ export default function Goals({ goals, setGoals, plan_id }) {
 		}
 	return (
 		<Container>
-			<Grid container spacing={3} sx={{ marginTop: 1 }}>
-				{goals.sort((a, b) => a.goal_id > b.goal_id ? 1:-1)
-				.map((goal) => {
-					return (
-						<Grid key={goal.goal_id} item lg={3} md={6} xs={12}>
-							<GoalCard
-								goal={goal}
-								goals={goals}
-								setGoals={setGoals}
-								plan_id={plan_id}
-								goal_id={goal.goal_id}
-							/>
-						</Grid>
-					);
-				})}
 				<AddGoalButton HandleNewGoal={HandleNewGoal} />
+			<Grid container spacing={3} sx={{ marginTop: 1 }}>
+				{/* <Box> */}
+				{goals
+					.sort((a, b) => (a.goal_id > b.goal_id ? 1 : -1))
+					.map((goal) => {
+						return (
+							<Grid key={goal.goal_id} item lg={4} md={6} xs={12}>
+								<GoalCard
+									goal={goal}
+									goals={goals}
+									setGoals={setGoals}
+									plan_id={plan_id}
+									goal_id={goal.goal_id}
+								/>
+							</Grid>
+						);
+					})}
+				{/* </Box> */}
 			</Grid>
 		</Container>
 	);
