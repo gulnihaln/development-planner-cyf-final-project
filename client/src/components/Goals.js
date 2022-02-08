@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 import { request } from "../utils/api";
 
 export default function Goals({ goals, setGoals, plan_id }) {
+	const defaultDate = new Date();
 	useEffect(() => {
 		request.get(`/plans/${plan_id}/goals`).then((res) => {
 			setGoals(res.data);
@@ -23,8 +24,8 @@ export default function Goals({ goals, setGoals, plan_id }) {
 			const body = {
 				title: "Goal title",
 				status: "incomplete",
-				start_date: "2022-02-02",
-				end_date: "2022-02-02",
+				start_date: defaultDate,
+				end_date: defaultDate,
 			};
 			postGoal(body).then((response) =>  setGoals((prev)=>prev.concat(response.data)));
 		}
@@ -34,7 +35,7 @@ export default function Goals({ goals, setGoals, plan_id }) {
 				{goals.sort((a, b) => a.goal_id > b.goal_id ? 1:-1)
 				.map((goal) => {
 					return (
-						<Grid key={goal.goal_id} item lg={4} md={6} xs={12}>
+						<Grid key={goal.goal_id} item lg={3} md={6} xs={12}>
 							<GoalCard
 								goal={goal}
 								goals={goals}
