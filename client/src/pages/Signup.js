@@ -181,10 +181,9 @@ export default function SignUpForm({ setAuth }) {
 							sx={{
 								mt: 3,
 								mb: 2,
-								backgroundColor: "rgb(237,67,67)",
+								backgroundColor: "#CF2F2F",
 								"&:hover": {
-									color: "rgb(237,67,67)",
-									backgroundColor: "#EFEFEF",
+									backgroundColor: "#a62626",
 								},
 							}}
 						>
