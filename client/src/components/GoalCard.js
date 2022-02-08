@@ -142,7 +142,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				sx={{ display: "flex", justifyContent: "space-between" }}
 				disableSpacing
 			>
-				<Button 
+				<Button
 					onClick={editGoal}
 					variant="outlined"
 				>
