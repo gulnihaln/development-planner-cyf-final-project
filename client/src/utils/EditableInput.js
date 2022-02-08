@@ -6,12 +6,12 @@ const CssTextField = styled(TextField, {
 	shouldForwardProp: (props) => props !== "focusColor",
 })((p) => ({
 	"& .MuiInput-underline:after": {
-    borderBottom: "1px solid",
+		borderBottom: "1px solid",
 		borderBottomColor: p.focusColor,
 	},
 }));
 
-const EditableInput = ({ title, setTitle }) => {
+const EditableInput = ({ goal_id, title, setTitle, editGoal }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -24,7 +24,10 @@ const EditableInput = ({ title, setTitle }) => {
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 						fullWidth
-						onBlur={() => setOpen(!open)}
+						onBlur={() => {
+							editGoal(goal_id, title);
+							setOpen(!open);
+						}}
 					/>
 				</Box>
 			) : (
