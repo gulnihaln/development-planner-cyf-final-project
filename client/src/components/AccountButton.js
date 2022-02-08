@@ -48,6 +48,7 @@ export default function AccountButton({ setAuth }) {
 						borderColor: "#ea4549",
 						backgroundColor: "transparent",
 					},
+					display: { xs: "none", md: "block" },
 				}}
 			>
 				Account
