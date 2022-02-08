@@ -15,6 +15,7 @@ const PlanCard = ({ plan, handleDelete }) => {
 					<CardHeader
 						action={
 							<IconButton
+								aria-label="deletePlan"
 								onClick={(e) => {
 									e.preventDefault();
 									handleDelete(plan.id);
