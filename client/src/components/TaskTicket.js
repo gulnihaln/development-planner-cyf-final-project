@@ -5,12 +5,19 @@ import Card from "@mui/material/Card";
 import { request } from "../utils/api";
 import IconButton from "@mui/material/IconButton";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Checkbox } from "@mui/material";
 import EditableTask from "../utils/EditableTask";
 
-export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
+const completed = { inputProps: {
+	"aria-label": "Completed Checkbox",
+	},
+};
+
+export default function TaskTicket ({ tasks, plan_id, goal, goal_id, setTasks }) {
 	// const [description, setDescription] = useState();
 	// const [taskStatus, setTaskStatus] = useState();
+	const [checked, setChecked] = React.useState(false);
+
 	const handleDeleteTask = async (task_id) => {
 		request.delete(`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`);
 		const newTasks = tasks.filter((task) => task.id !== task_id);
@@ -33,6 +40,18 @@ export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
 			return newTasks;
 		});
 	};
+
+	const handleChangeTaskStatus = (task_id, event) => {
+		setChecked(event.target.checked);
+		const status = checked ? "completed" : "uncompleted";
+		editTask(plan_id, goal_id, task_id, status)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((e) => console.log(e));
+	};
+
+
 	return (
 		<>
 			<Box>
@@ -42,6 +61,13 @@ export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
 							key={task.id}
 							sx={{ width: "100%", marginTop: 2, padding: 0 }}
 						>
+							<Checkbox
+								{...completed}
+								checked={checked}
+								onChange={(e) => {
+									handleChangeTaskStatus(task.task_id, e);
+								}}
+							/>
 							<CardHeader
 								action={
 									<Tooltip title="Remove task">
