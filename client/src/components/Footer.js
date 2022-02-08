@@ -20,13 +20,11 @@ export default function Footer() {
 				<BottomNavigation
 					showLabels
 					value={value}
-					onChange={(event, newValue) => {
+					onChange={(newValue) => {
 						setValue(newValue);
 					}}
 				>
 					<BottomNavigationAction
-						// style={{ color: "rgb(237,67,67)", textDecoration: "none" }}
-						// label="About us"
 						label={
 							<Link
 								style={{ color: "rgba(0, 0, 0, 0.87)", textDecoration: "none" }}
@@ -37,8 +35,10 @@ export default function Footer() {
 						}
 					/>
 					<BottomNavigationAction
+						aria-label="githubIcon"
 						label={
 							<Link
+								aria-label="githubLink"
 								href="https://github.com/gulnihaln/development-planner-cyf-final-project"
 								target="blank_"
 							>
@@ -51,16 +51,7 @@ export default function Footer() {
 						label="Contact"
 						key="Email"
 						component="a"
-						href="mailto:gh.naldoken@email.com"
-						// label={
-						// 	<Link
-						// 		style={{ color: "rgb(237,67,67)", textDecoration: "none" }}
-						// 		href="/aboutus"
-						// 		target="blank_"
-						// 	>
-						// 		Contact
-						// 	</Link>
-						// }
+						href="mailto:cyf.devplanner@gmail.com"
 					/>
 				</BottomNavigation>
 				<Typography
@@ -71,7 +62,7 @@ export default function Footer() {
 				>
 					&copy; Copyright{" "}
 					<Link
-						sx={{ textDecoration: "none", color: "#000" }}
+						sx={{ textDecoration: "none", fontStyle: "italic", fontSize:"14px", color: "#000" }}
 						href="https://codeyourfuture.io/"
 						target="_blank"
 					>
