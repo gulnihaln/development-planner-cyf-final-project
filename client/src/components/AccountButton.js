@@ -56,7 +56,8 @@ export default function AccountButton({ setAuth }) {
 				id="basic-menu"
 				anchorEl={anchorEl}
 				open={open}
-				onClose={handleClose}
+				onClose={handleClose}hhhhh
+				onClick={handleClose}
 				MenuListProps={{
 					"aria-labelledby": "basic-button",
 				}}
