@@ -7,17 +7,16 @@ import IconButton from "@mui/material/IconButton";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import { Tooltip } from "@mui/material";
 import EditableTask from "../utils/EditableTask";
+import TaskStatus from "./TaskStatus";
 
-export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
-	// const [description, setDescription] = useState();
-	// const [taskStatus, setTaskStatus] = useState();
+export default function TaskTicket({ tasks, plan_id, goal, setTasks, updateGoal }) {
 	const handleDeleteTask = async (task_id) => {
 		request.delete(`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`);
 		const newTasks = tasks.filter((task) => task.id !== task_id);
 		setTasks(newTasks);
 	};
-	const editTask = async (task_id, description, taskStatus) => {
-		const body = { description, status: taskStatus };
+	const editTask = async (task_id, description, status) => {
+		const body = { description, status };
 		const response = await request.put(
 			`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`,
 			body,
@@ -30,36 +29,50 @@ export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
 			const index = prev.findIndex((task) => task.id === task_id);
 			const newTasks = [...prev];
 			newTasks[index] = response.data;
+			updateGoal(newTasks);
 			return newTasks;
 		});
+		return response;
 	};
+
 	return (
 		<>
 			<Box>
-				{tasks.map((task) => {
-					return (
-						<Card
-							key={task.id}
-							sx={{ width: "100%", marginTop: 2, padding: 0 }}
-						>
-							<CardHeader
-								action={
-									<Tooltip title="Remove task">
-										<IconButton
-											onClick={() => handleDeleteTask(task.id)}
-											sx={{
-												color: "rgba(0, 0, 0, 0.54)",
-											}}
-										>
-											<ClearOutlinedIcon sx={{ fontSize: "medium" }} />
-										</IconButton>
-									</Tooltip>
-								}
-								subheader={<EditableTask task={task} editTask={editTask} />}
-							/>
-						</Card>
-					);
-				})}
+				{tasks
+					.sort((a, b) => (a.id > b.id ? 1 : -1))
+					.map((task) => {
+						return (
+							<Card
+								key={task.id}
+								sx={{
+									display: "flex",
+									justifyContent: "space-between",
+									width: "100%",
+									marginTop: 2,
+									padding: 0,
+								}}
+							>
+								<Box sx={{ display: "flex" }}>
+									<TaskStatus task={task} editTask={editTask} />
+									<CardHeader
+										sx={{ padding: 0 }}
+										subheader={<EditableTask task={task} editTask={editTask} />}
+									/>
+								</Box>
+								<Tooltip title="Remove task">
+									<IconButton
+										onClick={() => handleDeleteTask(task.id)}
+										sx={{
+											alignSelf: "flex-start",
+											color: "rgba(0, 0, 0, 0.54)",
+										}}
+									>
+										<ClearOutlinedIcon sx={{ fontSize: "medium" }} />
+									</IconButton>
+								</Tooltip>
+							</Card>
+						);
+					})}
 			</Box>
 		</>
 	);

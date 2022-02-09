@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
+import "../styles/Plan.css";
 
-const CssTextField = styled(TextField, {
-	shouldForwardProp: (props) => props !== "focusColor",
-})((p) => ({
-	"& .MuiInput-underline:after": {
-		borderBottom: "1px solid",
-		borderBottomColor: p.focusColor,
-	},
-}));
+// const CssTextField = styled(TextField, {
+// 	shouldForwardProp: (props) => props !== "focusColor",
+// })((p) => ({
+// 	"& .MuiInput-underline:after": {
+// 		borderBottom: "1px solid",
+// 		borderBottomColor: p.focusColor,
+// 	},
+// }));
 
 export default function PlanTitle({
 	plan_id,
@@ -24,12 +25,12 @@ export default function PlanTitle({
 	return (
 		<div>
 			{open ? (
-				<Box sx={{ fontSize: "20px", letterSpacing: "2px" }}>
-					<CssTextField
+				<Box sx={{ letterSpacing: "2px" }}>
+					<TextField
 						// label="Edit plan title"
-						hiddenLabel
+						className="plan-title"
 						variant="standard"
-						focusColor="rgba(0, 0, 0, 0.6)"
+						// focusColor="rgba(0, 0, 0, 0.6)"
 						value={title}
 						onChange={(event) => setTitle(event.target.value)}
 						fullWidth
@@ -37,17 +38,13 @@ export default function PlanTitle({
 							editPlan(plan_id, title, description);
 							setOpen(false);
 						}}
-						InputProps={{ disableUnderline: true }}
+						InputProps={{ disableUnderline: true, style: { fontSize: 30 } }}
 						InputLabelProps={{ style: { color: "rgba(0, 0, 0, 0.6)" } }}
 					/>
 				</Box>
 			) : (
 				<Box>
-					<Typography
-						variant="h5"
-						onclick={setOpen(true)}
-						sx={{ cursor: "pointer" }}
-					>
+					<Typography variant="h4" onClick={setOpen(true)}>
 						{title}
 					</Typography>
 					<MoreVertIcon />
@@ -55,9 +52,9 @@ export default function PlanTitle({
 			)}
 			{open ? (
 				<Box sx={{ fontStyle: "italic" }}>
-					<CssTextField
+					<TextField
 						// label="Edit plan description"
-						hiddenLabel
+						// hiddenLabel
 						variant="standard"
 						sx={{ borderColor: "transparent" }}
 						// focusColor="rgba(0, 0, 0, 0.6)"
@@ -69,7 +66,6 @@ export default function PlanTitle({
 							setOpen(false);
 						}}
 						InputProps={{ disableUnderline: true }}
-						InputLabelProps={{ style: { color: "rgba(0, 0, 0, 0.6)" } }}
 					/>
 				</Box>
 			) : (

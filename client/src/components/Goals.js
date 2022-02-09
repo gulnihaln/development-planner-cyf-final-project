@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import AddGoalButton from "./AddGoalButton";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
 import { request } from "../utils/api";
 
 export default function Goals({ goals, setGoals, plan_id }) {
@@ -23,7 +22,7 @@ export default function Goals({ goals, setGoals, plan_id }) {
 
 	function HandleNewGoal() {
 			const body = {
-				title: "Goal title",
+				title: "Add your goal here...",
 				status: "incomplete",
 				start_date: defaultDate,
 				end_date: defaultDate,
@@ -34,7 +33,6 @@ export default function Goals({ goals, setGoals, plan_id }) {
 		<Container>
 				<AddGoalButton HandleNewGoal={HandleNewGoal} />
 			<Grid container spacing={3} sx={{ marginTop: 1 }}>
-				{/* <Box> */}
 				{goals
 					.sort((a, b) => (a.goal_id > b.goal_id ? 1 : -1))
 					.map((goal) => {
@@ -50,7 +48,6 @@ export default function Goals({ goals, setGoals, plan_id }) {
 							</Grid>
 						);
 					})}
-				{/* </Box> */}
 			</Grid>
 		</Container>
 	);

@@ -10,6 +10,8 @@ import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
 import Account from "./pages/Account";
+import ForgetPassword from "./pages/ForgetPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -18,7 +20,9 @@ const theme = createTheme({
 		primary: {
 			main: "#CF2F2F",
 		},
-		// secondary: "#ff4081",
+		secondary: {
+			main: "rgb(50, 154, 78)",
+		},
 	},
 	typography: {
 		fontFamily: ["Raleway ", "Arial"].join(","),
@@ -141,6 +145,12 @@ const App = () => {
 						/>
 						<Route path="/aboutus" exact>
 							<AboutUs />
+						</Route>
+						<Route path="/forgot_password" exact>
+							<ForgetPassword />
+						</Route>
+						<Route path="/reset_password/:token" exact>
+							<ResetPassword />
 						</Route>
 					</Switch>
 					{!isAuthenticated ? <Footer /> : <></>}
