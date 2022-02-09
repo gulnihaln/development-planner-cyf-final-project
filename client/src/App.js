@@ -18,7 +18,9 @@ const theme = createTheme({
 		primary: {
 			main: "#CF2F2F",
 		},
-		// secondary: "#ff4081",
+		secondary: {
+			main: "rgb(50, 154, 78)",
+		},
 	},
 	typography: {
 		fontFamily: ["Raleway ", "Arial"].join(","),
