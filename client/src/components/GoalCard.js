@@ -9,7 +9,7 @@ import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import Paper from "@mui/material/Paper";
-import TaskTicket from "./TasksTicket";
+import TaskTicket from "./TaskTicket";
 import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import EditableInput from "../utils/EditableInput";
@@ -24,7 +24,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 	const [endDate, setEndDate] = useState(goal.end_date);
 	const [tasks, setTasks] = useState([]);
 	const [value, setValue] = useState("");
-	const [isGoalCompleted, setGoalCompleted] = useState(false);
 
 	useEffect(() => {
 		request.get(`/plans/${plan_id}/goals/${goal_id}/tasks`).then((res) => {
@@ -32,6 +31,14 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 		});
 	}, [goal_id, plan_id]);
 
+	const updateGoal = (tasks) =>{
+		const allTasksCompleted = tasks.every((task) => task.status === "completed");
+		const status = allTasksCompleted ? "completed" : "uncompleted";
+		const body = { title, status, start_date: startDate, end_date: endDate };
+		request.put(`/plans/${plan_id}/goals/${goal_id}`, body, {
+			headers: { "Content-Type": "application/json" },
+		});
+	};
 	const postTask = async () => {
 		const description = value;
 		const status = "incomplete";
@@ -57,13 +64,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			});
 		}
 	}
-	React.useEffect(() => {
-		if (goal.tasks.every((task) => task.status === "completed")) {
-			setGoalCompleted(true);
-		}
-	}, [goal.tasks, setGoalCompleted]);
 
-	console.log("goal completed", isGoalCompleted);
 	const handleDeleteGoal = async (id) => {
 		request.delete(`/plans/${plan_id}/goals/${goal_id}`);
 		const newGoals = goals.filter((goal) => goal.goal_id !== id);
@@ -76,7 +77,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			headers: { "Content-Type": "application/json" },
 		});
 	};
-
 	return (
 		<Card
 			className="goal-card"
@@ -114,7 +114,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						endDate={endDate}
 						setStartDate={setStartDate}
 						setEndDate={setEndDate}
-						editGoal={editGoal}
 					/>
 				</Box>
 				<CardContent>
@@ -124,6 +123,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						goal={goal}
 						goal_id={goal_id}
 						setTasks={setTasks}
+						setTasksAndUpdateGoal={updateGoal}
 					/>
 				</CardContent>
 				<Paper
@@ -150,8 +150,18 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				disableSpacing
 			>
 				<Button
+					sx={{
+						color: "rgb(35, 108, 54)",
+						border: "none",
+						// backgroundColor: "rgb(50, 154, 78)",
+						"&:hover": {
+							backgroundColor: "transparent",
+							border: "none",
+						},
+					}}
 					onClick={editGoal}
-					variant="outlined"
+					// variant="outlined"
+					variant="text"
 				>
 					Save
 				</Button>
