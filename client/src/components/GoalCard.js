@@ -116,7 +116,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						setEndDate={setEndDate}
 					/>
 				</Box>
-				<CardContent>
+				<CardContent sx={{ overflowY: "scroll", maxHeight: 330 }}>
 					<TaskTicket
 						tasks={tasks}
 						plan_id={plan_id}
