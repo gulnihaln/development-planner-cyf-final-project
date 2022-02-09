@@ -123,7 +123,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						goal={goal}
 						goal_id={goal_id}
 						setTasks={setTasks}
-						setTasksAndUpdateGoal={updateGoal}
+						updateGoal={updateGoal}
 					/>
 				</CardContent>
 				<Paper

@@ -9,7 +9,7 @@ import { Tooltip } from "@mui/material";
 import EditableTask from "../utils/EditableTask";
 import TaskStatus from "./TaskStatus";
 
-export default function TaskTicket({ tasks, plan_id, goal, setTasks, setTasksAndUpdateGoal }) {
+export default function TaskTicket({ tasks, plan_id, goal, setTasks, updateGoal }) {
 	const handleDeleteTask = async (task_id) => {
 		request.delete(`/plans/${plan_id}/goals/${goal.goal_id}/tasks/${task_id}`);
 		const newTasks = tasks.filter((task) => task.id !== task_id);
@@ -29,7 +29,7 @@ export default function TaskTicket({ tasks, plan_id, goal, setTasks, setTasksAnd
 			const index = prev.findIndex((task) => task.id === task_id);
 			const newTasks = [...prev];
 			newTasks[index] = response.data;
-			setTasksAndUpdateGoal(newTasks);
+			updateGoal(newTasks);
 			return newTasks;
 		});
 		return response;
