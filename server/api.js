@@ -118,17 +118,18 @@ router.post("/register", validInfo, async (req, res) => {
 });
 
 //UPDATE a user details with user id
-router.put("/users/:id", async (req, res) => {
-	const { id } = req.params;
+router.put("/user", auth, async (req, res) => {
+	const { user_id } = req;
 	const { first_name, last_name, region, role, email, password } = req.body;
 	if (!ROLE.includes(role.toLowerCase())) {
 		return res.status(400).send("Choose correct role!");
 	}
-
-	const saltRounds = 10;
-	const salt = await bcrypt.genSalt(saltRounds);
-	const bcryptPassword = await bcrypt.hash(password, salt);
-
+	let bcryptPassword = undefined;
+	if(password){
+		const saltRounds = 10;
+		const salt = await bcrypt.genSalt(saltRounds);
+		bcryptPassword = await bcrypt.hash(password, salt);
+	}
 	const [queryItems, values] = buildUpdateQuery({
 		first_name,
 		last_name,
@@ -138,7 +139,7 @@ router.put("/users/:id", async (req, res) => {
 		password: bcryptPassword,
 	});
 	db.query(`UPDATE users SET ${queryItems} WHERE id=$1 RETURNING *`, [
-		id,
+		user_id,
 		...values,
 	])
 		.then((result) => res.send(result.rows))
