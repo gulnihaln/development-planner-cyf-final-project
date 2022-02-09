@@ -785,7 +785,7 @@ router.get("/plans/:plan_id/feedbacks/:feedback_id", auth, (req, res) => {
 // Post a feedback form user id (mentor) and plan id (user)
 router.post("/plans/:plan_id/feedbacks", auth, async (req, res) => {
 	const { plan_id } = req.params;
-	const { description } = req.body;
+	const { description, parent_id } = req.body;
 	const user_id = req.user_id;
 	await db
 		.query(
@@ -803,8 +803,8 @@ router.post("/plans/:plan_id/feedbacks", auth, async (req, res) => {
 					.send(`User ${user_id} doesn't have a plan with id ${plan_id}`);
 			} else {
 				const query =
-					"INSERT INTO feedbacks ( user_id, plan_id, description) VALUES ($1, $2, $3) RETURNING *";
-				db.query(query, [user_id, plan_id, description])
+					"INSERT INTO feedbacks ( user_id, plan_id, description, parent_id) VALUES ($1, $2, $3, $4) RETURNING *";
+				db.query(query, [user_id, plan_id, description, parent_id])
 					.then(() => res.send(result.rows))
 					.catch((err) => {
 						console.error(err.message);
