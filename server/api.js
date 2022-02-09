@@ -196,6 +196,88 @@ router.post("/users/login", validInfo, (req, res) => {
 		});
 });
 
+
+router.patch("/forgot-password", async (req, res) => {
+	const { email } = req.body;
+
+	try {
+		await db
+			.query("SELECT * FROM users WHERE email=$1", [email])
+			.then((result) => {
+				const user = result.rows[0];
+				if (result.rowCount === 0) {
+					res.status(404).json({ error: "Invalid email" });
+				} else {
+					const resetLink = jwt.sign(
+						{ user: user.email },
+						process.env.reset_secret,
+						{
+							expiresIn: "100h",
+						}
+					);
+					db.query("UPDATE users SET resetlink=$1 WHERE id=$2 RETURNING *", [
+						resetLink,
+						user.id,
+					])
+						.then((result) => {
+							sendEmail(user, resetLink);
+							res.status(200).json({ message: "Check your email" });
+						})
+						.catch((err) => {
+							console.error(err.message);
+							res.status(500).send(err.message);
+						});
+				}
+			});
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+// Reset Password
+router.patch("/reset-password/:token", async (req, res) => {
+	const resetLink = req.params.token;
+	const { password } = req.body;
+	const reset = "";
+	
+	if (resetLink) {
+		jwt.verify(resetLink, process.env.reset_secret, (error, decodedToken) => {
+			if (error) {
+				res.status(404).json({ message: "Incorrect token or expired" });
+			}
+		});
+	}
+
+	try {
+		await db
+			.query("SELECT * FROM users WHERE resetlink=$1", [resetLink])
+			.then(async (result) => {
+				const user = result.rows[0];
+				if (result.rowCount === 0) {
+					res
+						.status(404)
+						.json({ error: "We could not find a match for this link" });
+				} else {
+					const saltRounds = 10;
+					const salt = await bcrypt.genSalt(saltRounds);
+					const bcryptPassword = await bcrypt.hash(password, salt);
+
+					await db
+						.query(
+							"UPDATE users SET password=$1, resetLink=$2 WHERE id=$3 RETURNING *",
+							[bcryptPassword, reset, user.id]
+						)
+						.then((result) => {
+							res.status(200).json({ message: "Password updated" });
+						});
+				}
+			});
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+
 // user dashboard
 router.get("/dashboard", auth, async (req, res) => {
 	const user_id = req.user_id;
