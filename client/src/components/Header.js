@@ -5,6 +5,11 @@ import { Button } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
 import AccountButton from "./AccountButton";
 import { useHistory } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 
 const useStyles = makeStyles({
 	btn: {
@@ -19,6 +24,25 @@ const useStyles = makeStyles({
 function Header({ setAuth }) {
 	let history = useHistory();
 	const classes = useStyles();
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	const handleLogout = (e) => {
+		e.preventDefault();
+		try {
+			localStorage.removeItem("accessToken");
+			localStorage.removeItem("refreshToken");
+			setAuth(false);
+		} catch (err) {
+			setAuth(true);
+		}
+	};
+
 	const location = useLocation();
 	if (location.pathname.includes("/login")) {
 		return (
@@ -194,11 +218,84 @@ function Header({ setAuth }) {
 							borderColor: "#ea4549",
 							backgroundColor: "transparent",
 						},
+						display: { xs: "none", md: "block" },
 					}}
 				>
 					Dashboard
 				</Button>
 				<AccountButton setAuth={setAuth} />
+				<div>
+					<IconButton
+						id="fade-button"
+						aria-controls={open ? "fade-menu" : undefined}
+						aria-haspopup="true"
+						aria-expanded={open ? "true" : undefined}
+						onClick={handleClick}
+						sx={{ display: { xs: "block", md: "none" } }}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Menu
+						id="fade-menu"
+						MenuListProps={{
+							"aria-labelledby": "fade-button",
+						}}
+						anchorEl={anchorEl}
+						open={open}
+						onClick={handleClose}
+						onClose={handleClose}
+						TransitionComponent={Fade}
+					>
+						<MenuItem
+							onClick={() => {
+								history.push("/dashboard");
+							}}
+							sx={{
+								padding: 1,
+								borderTop: 10,
+								borderColor: "transparent",
+
+								"&:hover": {
+									color: "#ea4549",
+									borderColor: "#ea4549",
+								},
+							}}
+						>
+							Dashboard
+						</MenuItem>
+						<MenuItem
+							sx={{
+								padding: 1,
+								borderTop: 10,
+								borderColor: "transparent",
+
+								"&:hover": {
+									color: "#ea4549",
+									borderColor: "#ea4549",
+								},
+							}}
+							onClick={() => {
+								history.push("/account");
+							}}
+						>
+							Account Setting
+						</MenuItem>
+						<MenuItem
+							sx={{
+								padding: 1,
+								borderTop: 10,
+								borderColor: "transparent",
+								"&:hover": {
+									color: "#ea4549",
+									borderColor: "#ea4549",
+								},
+							}}
+							onClick={(e) => handleLogout(e)}
+						>
+							Logout
+						</MenuItem>
+					</Menu>
+				</div>
 			</Navbar>
 		);
 	}
