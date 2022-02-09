@@ -99,9 +99,22 @@ request.interceptors.request.use(
 	}
 );
 
+export const apiForgotPassword = ({ email }) => {
+	const body = { email };
+	return request.patch("/forgot-password", body).then((response) => {
+
+		return response;
+	});
+};
 
 
+// export const apiResetPassword = ({ password }) => {
+// 	const body = { password };
+// 	return request.patch(`/reset-password/${token}`, body).then((response) => {
 
+// 		return response;
+// 	});
+// };
 // export const getSomething = (auth, id) => {
 // 	return request
 // 		.get(`something/id`, {

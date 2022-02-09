@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const router = new Router();
 const bcrypt = require("bcrypt");
 const tokenGenerator = require("./tokenGenerator.js");
+import { sendEmail } from "./sendEmail.js";
 
 const cors = require("cors");
 router.use(cors());
@@ -71,8 +72,8 @@ router.get("/users", (req, res) => {
 });
 
 //GET a user with id
-router.get("/user",auth, (req, res) => {
-	const id  = req.user_id;
+router.get("/user", auth, (req, res) => {
+	const id = req.user_id;
 	const query =
 		"SELECT id, first_name, last_name, region, role, email, sign_up_date FROM users WHERE id = $1";
 	db.query(query, [id])
@@ -196,6 +197,86 @@ router.post("/users/login", validInfo, (req, res) => {
 		});
 });
 
+router.patch("/forgot-password", async (req, res) => {
+	const { email } = req.body;
+
+	try {
+		await db
+			.query("SELECT * FROM users WHERE email=$1", [email])
+			.then((result) => {
+				const user = result.rows[0];
+				if (result.rowCount === 0) {
+					res.status(404).json({ error: "Invalid email" });
+				} else {
+					const resetLink = jwt.sign(
+						{ user: user.email },
+						process.env.reset_secret,
+						{
+							expiresIn: "100h",
+						}
+					);
+					db.query("UPDATE users SET resetlink=$1 WHERE id=$2 RETURNING *", [
+						resetLink,
+						user.id,
+					])
+						.then((result) => {
+							sendEmail(user, resetLink);
+							res.status(200).json({ message: "Check your email" });
+						})
+						.catch((err) => {
+							console.error(err.message);
+							res.status(500).send(err.message);
+						});
+				}
+			});
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+// Reset Password
+router.patch("/reset-password/:token", async (req, res) => {
+	const resetLink = req.params.token;
+	const { password } = req.body;
+	const reset = "";
+
+	if (resetLink) {
+		jwt.verify(resetLink, process.env.reset_secret, (error, decodedToken) => {
+			if (error) {
+				res.status(404).json({ message: "Incorrect token or expired" });
+			}
+		});
+	}
+
+	try {
+		await db
+			.query("SELECT * FROM users WHERE resetlink=$1", [resetLink])
+			.then(async (result) => {
+				const user = result.rows[0];
+				if (result.rowCount === 0) {
+					res
+						.status(404)
+						.json({ error: "We could not find a match for this link" });
+				} else {
+					const saltRounds = 10;
+					const salt = await bcrypt.genSalt(saltRounds);
+					const bcryptPassword = await bcrypt.hash(password, salt);
+
+					await db
+						.query(
+							"UPDATE users SET password=$1, resetLink=$2 WHERE id=$3 RETURNING *",
+							[bcryptPassword, reset, user.id]
+						)
+						.then((result) => {
+							res.status(200).json({ message: "Password updated" });
+						});
+				}
+			});
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
 // user dashboard
 router.get("/dashboard", auth, async (req, res) => {
 	const user_id = req.user_id;
@@ -248,9 +329,7 @@ router.get("/plans/:plan_id", auth, (req, res) => {
 			if (result.rowCount) {
 				res.send(result.rows[0]);
 			} else {
-				res
-					.status(404)
-					.send(`User doesn't have a plan with id ${plan_id}`);
+				res.status(404).send(`User doesn't have a plan with id ${plan_id}`);
 			}
 		})
 		.catch((err) => {
@@ -393,7 +472,6 @@ router.post("/plans/:plan_id/goals", auth, (req, res) => {
 				"INSERT INTO goals ( plan_id, title, status, start_date, end_date ) VALUES ($1, $2, $3, $4, $5) RETURNING plan_id, id goal_id, title, status, start_date, end_date, create_date";
 			db.query(query, [plan_id, title, status, start_date, end_date])
 				.then((result) => {
-					console.log(result.rows[0]);
 					res.send(result.rows[0]);
 				})
 				.catch((err) => {
@@ -488,39 +566,19 @@ router.get("/plans/:plan_id/goals/:goal_id/tasks", auth, (req, res) => {
 
 // post a task form specific user id and plan id and goal id
 router.post("/plans/:plan_id/goals/:goal_id/tasks", auth, (req, res) => {
-	const { plan_id, goal_id } = req.params;
+	const { goal_id } = req.params;
 	const { description, status } = req.body;
 	const user_id = req.user_id;
 	const query =
 		"INSERT INTO tasks ( goal_id, description, status) VALUES ($1, $2, $3) RETURNING *";
-	db.query(query, [goal_id, description, status]).then((result) => {
-		res.send(result.rows[0]);
-		// console.log(result.rows[0]);
-	});
-	// db.query(
-	// 	`SELECT t.id, t.goal_id FROM tasks t
-	// 	INNER JOIN goals g on t.goal_id = g.id
-	// 	INNER JOIN plans p on g.plan_id = p.id
-	// 	where p.user_id =$1 and p.id= $2 and t.goal_id=$3`,
-	// 	[user_id, plan_id, goal_id]
-	// ).then((result) => {
-	// 	if (result.rows.length === 0) {
-	// 		return res
-	// 			.status(404)
-	// 			.send(
-	// 				`User ${user_id} doesn't have a plan with id ${plan_id} and goalid ${goal_id}`
-	// 			);
-	// 	} else {
-	// 		const query =
-	// 			"INSERT INTO tasks ( goal_id, description, status) VALUES ($1, $2, $3) RETURNING *";
-	// 		db.query(query, [goal_id, description, status])
-	// 			.then(() => res.send(result.rows))
-	// 			.catch((err) => {
-	// 				console.error(err.message);
-	// 				res.status(500).send(err.message);
-	// 			});
-	// 	}
-	// });
+	db.query(query, [goal_id, description, status])
+		.then((result) => {
+			res.send(result.rows[0]);
+		})
+		.catch((err) => {
+			console.error(err.message);
+			res.status(500).send(err.message);
+		});
 });
 
 //Get a task for specific user id and plan id and goal id and task id
@@ -601,36 +659,14 @@ router.delete(
 	auth,
 	(req, res) => {
 		const { plan_id, goal_id, task_id } = req.params;
-		console.log({ plan_id, goal_id, task_id });
 		const user_id = req.user_id;
 		const query = "DELETE FROM tasks WHERE id=$1 and goal_id=$2 RETURNING *";
-		db.query(query, [task_id, goal_id]).then((result) =>
-			res.send(result.rows[0])
-		);
-		// db.query(
-		// 	`SELECT t.id, FROM tasks t
-		// 		INNER JOIN goals g on t.goal_id = g.id
-		// 		INNER JOIN plans p on g.plan_id = p.id
-		// 		where p.user_id =$1 and p.id= $2 and t.goal_id=$3 and t.id=$4`,
-		// 	[user_id, plan_id, goal_id, task_id]
-		// ).then((result) => {
-		// 	if (result.rows.length === 0) {
-		// 		return res
-		// 			.status(404)
-		// 			.send(
-		// 				`User ${user_id} doesn't have any data with id ${plan_id} and goal id ${goal_id} and task id ${task_id}`
-		// 			);
-		// 	} else {
-		// 		const query =
-		// 			"DELETE FROM tasks WHERE id=$1 and goal_id=$2 RETURNING *";
-		// 		db.query(query, [task_id, plan_id])
-		// 			.then(() => res.send(result.rows[0]))
-		// 			.catch((err) => {
-		// 				console.error(err.message);
-		// 				res.status(500).send(err.message);
-		// 			});
-		// 	}
-		// });
+		db.query(query, [task_id, goal_id])
+			.then((result) => res.send(result.rows[0]))
+			.catch((err) => {
+				console.error(err.message);
+				res.status(500).send(err.message);
+			});
 	}
 );
 
@@ -654,7 +690,7 @@ router.get("/feedbacks", auth, (req, res) => {
 // GET all feedbacks form specific user id and plan id
 router.get("/plans/:plan_id/feedbacks", auth, (req, res) => {
 	const { plan_id } = req.params;
-	const query = `SELECT  u.first_name, u.last_name, p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
+	const query = `SELECT  u.first_name, u.last_name, p.user_id, p.id plan_id ,parent_id, f.id feedback_id, f.description, f.create_date from feedbacks f
 					INNER JOIN plans p on f.plan_id = p.id 
 					INNER JOIN users u on u.id = f.user_id 
 					where f.plan_id= $1 

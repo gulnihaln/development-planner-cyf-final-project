@@ -10,6 +10,8 @@ import { verifyUser } from "./utils/api";
 import Signup from "./pages/Signup";
 import AboutUs from "./pages/AboutUs";
 import Account from "./pages/Account";
+import ForgetPassword from "./pages/ForgetPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -141,6 +143,12 @@ const App = () => {
 						/>
 						<Route path="/aboutus" exact>
 							<AboutUs />
+						</Route>
+						<Route path="/forgot_password" exact>
+							<ForgetPassword />
+						</Route>
+						<Route path="/reset_password/:token" exact>
+							<ResetPassword />
 						</Route>
 					</Switch>
 					{!isAuthenticated ? <Footer /> : <></>}
