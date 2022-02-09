@@ -239,7 +239,6 @@ router.patch("/reset-password/:token", async (req, res) => {
 	const resetLink = req.params.token;
 	const { password } = req.body;
 	const reset = "";
-
 	if (resetLink) {
 		jwt.verify(resetLink, process.env.reset_secret, (error, decodedToken) => {
 			if (error) {
