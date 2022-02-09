@@ -6,6 +6,18 @@ import Container from "@mui/material/Container";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import TextField from "@mui/material/TextField";
 import { request } from "../utils/api";
+import { styled } from "@mui/material/styles";
+
+const CssTextField = styled(TextField, {
+	shouldForwardProp: (props) => props !== "focusColor",
+})((p) => ({
+	"& .MuiOutlinedInput-root": {
+		"&.Mui-focused fieldset": {
+			border: "1px solid",
+			borderColor: p.focusColor,
+		},
+	},
+}));
 
 function NewPlan() {
 	const [title, setTitle] = useState("");
@@ -50,10 +62,11 @@ function NewPlan() {
 			</Typography>
 
 			<form noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<TextField
+				<CssTextField
+					focusColor="rgba(0, 0, 0, 0.6)"
 					onChange={(e) => setTitle(e.target.value)}
 					margin="normal"
-					sx={{ display: "block" }}
+					sx={{ display: "block", color: "rgba(0, 0, 0, 0.6)" }}
 					label="Plan title"
 					variant="outlined"
 					// color="inherit"
@@ -62,7 +75,8 @@ function NewPlan() {
 					value={title}
 					error={titleError}
 				/>
-				<TextField
+				<CssTextField
+					focusColor="rgba(0, 0, 0, 0.6)"
 					onChange={(e) => setDescription(e.target.value)}
 					margin="normal"
 					sx={{ display: "block" }}
@@ -77,8 +91,9 @@ function NewPlan() {
 					error={descriptionError}
 				/>
 				<Button
-					color="inherit"
+					// color="inherit"
 					type="submit"
+					// variant="outlined"
 					variant="contained"
 					endIcon={<KeyboardArrowRightIcon />}
 				>

@@ -4,15 +4,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import Paper from "@mui/material/Paper";
 import TaskTicket from "./TaskTicket";
 import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
-import DropdownMenuGoal from "../utils/DropdownMenuGoal";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
 import "../styles/Goal.css";
@@ -21,8 +20,8 @@ import { Tooltip } from "@mui/material";
 
 export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 	const [title, setTitle] = useState(goal.title || "Goal title");
-	const [startDate, setStartDate] = useState();
-	const [endDate, setEndDate] = useState();
+	const [startDate, setStartDate] = useState(goal.start_date);
+	const [endDate, setEndDate] = useState(goal.end_date);
 	const [tasks, setTasks] = useState([]);
 	const [value, setValue] = useState("");
 
@@ -32,6 +31,14 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 		});
 	}, [goal_id, plan_id]);
 
+	const updateGoal = (tasks) =>{
+		const allTasksCompleted = tasks.every((task) => task.status === "completed");
+		const status = allTasksCompleted ? "completed" : "uncompleted";
+		const body = { title, status, start_date: startDate, end_date: endDate };
+		request.put(`/plans/${plan_id}/goals/${goal_id}`, body, {
+			headers: { "Content-Type": "application/json" },
+		});
+	};
 	const postTask = async () => {
 		const description = value;
 		const status = "incomplete";
@@ -66,15 +73,10 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 
 	const editGoal = async () => {
 		const body = { title, status, start_date: startDate, end_date: endDate };
-		const response = await request.put(
-			`/plans/${plan_id}/goals/${goal_id}`,
-			body,
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
+		await request.put(`/plans/${plan_id}/goals/${goal_id}`, body, {
+			headers: { "Content-Type": "application/json" },
+		});
 	};
-
 	return (
 		<Card
 			className="goal-card"
@@ -84,7 +86,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "center",
-				backgroundColor: "#f5f5f5",
+				backgroundColor: "#EFEFEF",
 			}}
 		>
 			<Box
@@ -96,13 +98,18 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				}}
 			>
 				<Box sx={{ cursor: "pointer" }}>
-					<EditableInput title={title} setTitle={setTitle} />
+					<EditableInput
+						goal_id={goal_id}
+						title={title}
+						setTitle={setTitle}
+						editGoal={editGoal}
+					/>
 				</Box>
-				<DropdownMenuGoal />
 			</Box>
 			<Box sx={{ margin: 1, borderRadius: "4px" }}>
 				<Box sx={{ marginTop: 2 }}>
 					<DatePickerDesktop
+						goal_id={goal_id}
 						startDate={startDate}
 						endDate={endDate}
 						setStartDate={setStartDate}
@@ -116,6 +123,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						goal={goal}
 						goal_id={goal_id}
 						setTasks={setTasks}
+						updateGoal={updateGoal}
 					/>
 				</CardContent>
 				<Paper
@@ -138,17 +146,28 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				</Paper>
 			</Box>
 			<CardActions
-				sx={{ display: "flex", justifyContent: "flex-end" }}
+				sx={{ display: "flex", justifyContent: "space-between" }}
 				disableSpacing
 			>
-				<Tooltip title="Save Goal">
-					<IconButton onClick={editGoal}>
-						<BookmarkBorderOutlinedIcon />
-					</IconButton>
-				</Tooltip>
+				<Button
+					sx={{
+						color: "rgb(35, 108, 54)",
+						border: "none",
+						// backgroundColor: "rgb(50, 154, 78)",
+						"&:hover": {
+							backgroundColor: "transparent",
+							border: "none",
+						},
+					}}
+					onClick={editGoal}
+					// variant="outlined"
+					variant="text"
+				>
+					Save
+				</Button>
 				<Tooltip title="Delete Goal">
 					<IconButton
-						aria-label="share"
+						aria-label="delete"
 						onClick={() => handleDeleteGoal(goal_id)}
 					>
 						<DeleteOutlinedIcon />

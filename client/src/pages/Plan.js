@@ -5,7 +5,6 @@ import PlanTitle from "../utils/PlanTitle";
 import { request } from "../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import Typography from "@mui/material/Typography";
 import "../styles/Plan.css";
 import { IconButton, Tooltip } from "@mui/material";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
@@ -28,7 +27,12 @@ export default function Plan() {
 	}, [fetchData]);
 
 	if(plan === null ){
-		return <h1>Loading</h1>;
+		return <>
+		<IconButton sx={{ marginLeft: 2 }}>
+			<HourglassEmptyOutlinedIcon />
+			Loading
+		</IconButton>
+		</>;
 	}
 
 	const editPlan = async (plan_id, title, description) => {
@@ -41,12 +45,15 @@ export default function Plan() {
 		);
 	};
 
-	return plan=== null ? <h1>Loading</h1> : (
+	return (
 		<>
 			<section className="plan-container">
 				<div className="plan-intro-container">
-					<div className="title-progress-container">
+					<div className="title-progress-container" style={{ width: "50%" }}>
 						<PlanTitle
+							plan_id={plan_id}
+							editPlan={editPlan}
+							description={plan.description}
 							title={plan.title}
 							setTitle={(newTitle) =>
 								setPlan((prev) => {
@@ -56,12 +63,15 @@ export default function Plan() {
 									};
 								})
 							}
+							setDescription={(newDescription) =>
+								setPlan((prev) => {
+									return {
+										...prev,
+										description: newDescription,
+									};
+								})
+							}
 						/>
-						<Typography
-							sx={{ paddingTop: 2, fontSize: "small", fontStyle: "italic" }}
-						>
-							{plan.description}
-						</Typography>
 					</div>
 					<div className="feedback-buttons">
 						<DropdownMenuFeedback />
@@ -77,11 +87,7 @@ export default function Plan() {
 				</div>
 			</section>
 			<section className="goals-container">
-				<Goals
-					goals={goals}
-					setGoals={setGoals}
-					plan_id={plan_id}
-				/>
+				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} />
 			</section>
 		</>
 	);
