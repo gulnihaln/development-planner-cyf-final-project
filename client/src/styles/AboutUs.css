@@ -1,7 +1,4 @@
 .hero-image {
-
-	background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url("https://codeyourfuture.io/wp-content/uploads/2020/08/Home-hero.jpg");
-	/* background-image: url("../uploads/background-waving.png"); */
 	height: 100%;
 	background-position: center;
 	background-repeat: no-repeat;

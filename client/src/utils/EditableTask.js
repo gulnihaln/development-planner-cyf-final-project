@@ -27,7 +27,6 @@ const EditableTask = ({ task, editTask }) => {
 					<CssTextField
 						size="small"
 						focusColor="rgba(0, 0, 0, 0.6)"
-
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 						fullWidth

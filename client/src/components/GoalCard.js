@@ -4,10 +4,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import Paper from "@mui/material/Paper";
 import TaskTicket from "./TasksTicket";
 import AddTaskIcon from "./AddTaskIcon";
@@ -20,8 +20,8 @@ import { Tooltip } from "@mui/material";
 
 export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 	const [title, setTitle] = useState(goal.title || "Goal title");
-	const [startDate, setStartDate] = useState();
-	const [endDate, setEndDate] = useState();
+	const [startDate, setStartDate] = useState(goal.start_date);
+	const [endDate, setEndDate] = useState(goal.end_date);
 	const [tasks, setTasks] = useState([]);
 	const [value, setValue] = useState("");
 	const [isGoalCompleted, setGoalCompleted] = useState(false);
@@ -72,13 +72,9 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 
 	const editGoal = async () => {
 		const body = { title, status, start_date: startDate, end_date: endDate };
-		const response = await request.put(
-			`/plans/${plan_id}/goals/${goal_id}`,
-			body,
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
+		await request.put(`/plans/${plan_id}/goals/${goal_id}`, body, {
+			headers: { "Content-Type": "application/json" },
+		});
 	};
 
 	return (
@@ -90,7 +86,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "center",
-				backgroundColor: "#f5f5f5",
+				backgroundColor: "#EFEFEF",
 			}}
 		>
 			<Box
@@ -102,16 +98,23 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				}}
 			>
 				<Box sx={{ cursor: "pointer" }}>
-					<EditableInput title={title} setTitle={setTitle} />
+					<EditableInput
+						goal_id={goal_id}
+						title={title}
+						setTitle={setTitle}
+						editGoal={editGoal}
+					/>
 				</Box>
 			</Box>
 			<Box sx={{ margin: 1, borderRadius: "4px" }}>
 				<Box sx={{ marginTop: 2 }}>
 					<DatePickerDesktop
+						goal_id={goal_id}
 						startDate={startDate}
 						endDate={endDate}
 						setStartDate={setStartDate}
 						setEndDate={setEndDate}
+						editGoal={editGoal}
 					/>
 				</Box>
 				<CardContent>
@@ -143,17 +146,18 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				</Paper>
 			</Box>
 			<CardActions
-				sx={{ display: "flex", justifyContent: "flex-end" }}
+				sx={{ display: "flex", justifyContent: "space-between" }}
 				disableSpacing
 			>
-				<Tooltip title="Save Goal">
-					<IconButton onClick={editGoal}>
-						<BookmarkBorderOutlinedIcon />
-					</IconButton>
-				</Tooltip>
+				<Button
+					onClick={editGoal}
+					variant="outlined"
+				>
+					Save
+				</Button>
 				<Tooltip title="Delete Goal">
 					<IconButton
-						aria-label="share"
+						aria-label="delete"
 						onClick={() => handleDeleteGoal(goal_id)}
 					>
 						<DeleteOutlinedIcon />

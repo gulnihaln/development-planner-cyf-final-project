@@ -339,11 +339,11 @@ router.get("/goals", auth, (req, res) => {
 // GET goals form specific user id and plan id
 router.get("/plans/:plan_id/goals/:goal_id", auth, (req, res) => {
 	const { plan_id, goal_id } = req.params;
-	const user_id = req.user_id;
+	// const user_id = req.user_id;
 	const query = `SELECT p.user_id, p.id plan_id, g.id goal_id, g.title, g.status, g.start_date, g.end_date, g.create_date  FROM goals g 
-	INNER JOIN plans p on p.id = g.plan_id where p.user_id = $1 and g.plan_id=$2 and g.id=$3`;
+	INNER JOIN plans p on p.id = g.plan_id where g.plan_id=$1 and g.id=$2`;
 
-	db.query(query, [user_id, plan_id, goal_id])
+	db.query(query, [plan_id, goal_id])
 		.then((result) => {
 			if (result.rowCount) {
 				res.json(result.rows);
@@ -351,7 +351,7 @@ router.get("/plans/:plan_id/goals/:goal_id", auth, (req, res) => {
 				res
 					.status(404)
 					.send(
-						`User ${user_id} doesn't have goal with this goal id ${goal_id}`
+						`User doesn't have goal with this goal id ${goal_id}`
 					);
 			}
 		})
@@ -364,10 +364,10 @@ router.get("/plans/:plan_id/goals/:goal_id", auth, (req, res) => {
 // GET a goal form specific plan id
 router.get("/plans/:plan_id/goals", auth, (req, res) => {
 	const { plan_id } = req.params;
-	const user_id = req.user_id;
+	// const user_id = req.user_id;
 	const query = `SELECT p.user_id, p.id plan_id, g.id goal_id,  g.title, g.status, g.start_date, g.end_date, g.create_date  FROM goals g 
-						INNER JOIN plans p on p.id = g.plan_id where p.user_id = $1 and g.plan_id=$2`;
-	db.query(query, [user_id, plan_id])
+						INNER JOIN plans p on p.id = g.plan_id where g.plan_id=$1`;
+	db.query(query, [ plan_id])
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
 			console.error(err.message);
