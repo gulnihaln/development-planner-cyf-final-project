@@ -9,13 +9,17 @@ export default function AddGoalButton ({ HandleNewGoal }) {
 				onClick={HandleNewGoal}
 				variant="outlined"
 				sx={{
-					color: "primary.main",
-					bgColor: "#FFFFFF",
+					color: "#fff",
+					backgroundColor: "#CF2F2F",
 					borderRadius: "4px",
 					marginTop: 3,
 					width: 300,
 					marginLeft: 4,
 					alignSelf: "center",
+					// maxWidth: "300px",
+					"&:hover": {
+						backgroundColor: "#a62626",
+					},
 				}}
 			>
 				Add New Goal
