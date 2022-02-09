@@ -40,7 +40,7 @@ export default function TaskTicket ({ tasks, plan_id, goal, setTasks }) {
 					return (
 						<Card
 							key={task.id}
-							sx={{ width: "100%", marginTop: 2, padding: 0 }}
+							sx={{ width: "100%", marginBottom: 2, padding: 0 }}
 						>
 							<CardHeader
 								action={
