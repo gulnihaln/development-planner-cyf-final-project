@@ -55,6 +55,7 @@ function Header({ setAuth }) {
 					variant="text"
 					size="large"
 					sx={{
+						letterSpacing: "2px",
 						fontWeight: 700,
 						color: "#000",
 						lineHeight: 1,
@@ -85,6 +86,7 @@ function Header({ setAuth }) {
 					variant="text"
 					size="large"
 					sx={{
+						letterSpacing: "2px",
 						color: "#000",
 						fontWeight: 700,
 						lineHeight: 1,
@@ -115,6 +117,7 @@ function Header({ setAuth }) {
 					variant="text"
 					size="large"
 					sx={{
+						letterSpacing: "2px",
 						color: "#000",
 						fontWeight: 700,
 						lineHeight: 1,
