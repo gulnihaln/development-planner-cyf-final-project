@@ -1,37 +1,33 @@
-import React, { useState } from "react";
-import Avatar from "@mui/material/Avatar";
+import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { apiLoginUser } from "../utils/api";
+import { apiForgotPassword } from "../utils/api";
 
 const theme = createTheme();
 
-
-export default function LoginForm({ setAuth }) {
+export default function forgetPassword() {
 	const [email, setEmail] = useState();
-	const [password, setPassword] = useState();
+	const [isSuccessfull, setIsSuccessfull] = useState(null);
 
-	const loginUser = (email, password) => {
-		apiLoginUser(email, password).then((res) => {
-			// console.log(res);
-			setAuth(true);
+	const forgotPassword = async (email) => {
+		apiForgotPassword({ email }).then((res) => {
+			const message = res.data.message;
+			setIsSuccessfull(message);
+			// alert(` Please ${res.data.message}`);
 		});
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await loginUser({
-			email,
-			password,
-		});
+		await forgotPassword(email);
 	};
 	return (
 		<ThemeProvider theme={theme}>
@@ -45,11 +41,11 @@ export default function LoginForm({ setAuth }) {
 						alignItems: "center",
 					}}
 				>
-					<Avatar style={{ backgroundColor: "rgb(51, 156, 80, 100)" }}>
-						<LockOutlinedIcon />
-					</Avatar>
 					<Typography component="h1" variant="h5">
-						Sign in
+						Forgot Your Password
+					</Typography>
+					<Typography sx={{ m: 3 }} component="h4" variant="h7">
+						<Box sx={{ color: "success.main" }}>{isSuccessfull}</Box>
 					</Typography>
 					<Box
 						component="form"
@@ -58,61 +54,39 @@ export default function LoginForm({ setAuth }) {
 						sx={{ mt: 3 }}
 					>
 						<Grid container spacing={2}>
-							<Grid item xs={12}></Grid>
-							<Grid item xs={12}></Grid>
-
-							<Grid item xs={12}>
+							<Grid item xs={100}>
 								<TextField
-									defaultValue=""
+									onChange={(e) => setEmail(e.target.value)}
 									required
 									fullWidth
+									type="text"
 									id="email"
 									label="Email Address"
 									name="email"
 									autoComplete="email"
-									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									defaultValue=""
-									required
-									fullWidth
-									name="password"
-									label="Password"
-									type="password"
-									id="password"
-									autoComplete="new-password"
-									onChange={(e) => setPassword(e.target.value)}
-								/>
-							</Grid>
-						</Grid><Grid item>
-								<Link href="/forgot_password" variant="body2">
-									Forgot Password
-								</Link>
-							</Grid>
+						</Grid>
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
-							aria-label="Justify"
 							sx={{
 								mt: 3,
 								mb: 2,
-								color: "#fff",
-								backgroundColor: "#CF2F2F",
+								backgroundColor: "rgb(237,67,67)",
 								"&:hover": {
-									// color: "rgb(237,67,67)",
-									backgroundColor: "#a62626",
+									color: "rgb(237,67,67)",
+									backgroundColor: "#EFEFEF",
 								},
 							}}
 						>
-							Sign in
+							Send Link
 						</Button>
 						<Grid container justifyContent="flex-end">
 							<Grid item>
-								<Link href="/signup" variant="body2">
-									Don’t have an Account? Sign up
+								<Link href="/login" variant="body2">
+									Already have an account? Sign in
 								</Link>
 							</Grid>
 						</Grid>
