@@ -8,7 +8,7 @@ import DesktopDateRangePicker from "@mui/lab/DesktopDateRangePicker";
 import "../styles/Goal.css";
 
 
-export default function DatePickerDesktop({ goal_id, startDate, endDate, setStartDate, setEndDate, editGoal }) {
+export default function DatePickerDesktop({ startDate, endDate, setStartDate, setEndDate }) {
 	const [value, setValue] = useState([startDate, endDate]);
 	const today = new Date();
 	const [onTime, setOnTime] = useState(today > endDate);
