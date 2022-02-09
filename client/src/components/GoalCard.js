@@ -31,6 +31,14 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 		});
 	}, [goal_id, plan_id]);
 
+	const updateGoal = (tasks) =>{
+		const allTasksCompleted = tasks.every((task) => task.status === "completed");
+		const status = allTasksCompleted ? "completed" : "uncompleted";
+		const body = { title, status, start_date: startDate, end_date: endDate };
+		request.put(`/plans/${plan_id}/goals/${goal_id}`, body, {
+			headers: { "Content-Type": "application/json" },
+		});
+	};
 	const postTask = async () => {
 		const description = value;
 		const status = "incomplete";
@@ -69,7 +77,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			headers: { "Content-Type": "application/json" },
 		});
 	};
-
 	return (
 		<Card
 			className="goal-card"
@@ -107,7 +114,6 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						endDate={endDate}
 						setStartDate={setStartDate}
 						setEndDate={setEndDate}
-						editGoal={editGoal}
 					/>
 				</Box>
 				<CardContent>
@@ -117,6 +123,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						goal={goal}
 						goal_id={goal_id}
 						setTasks={setTasks}
+						updateGoal={updateGoal}
 					/>
 				</CardContent>
 				<Paper
@@ -143,8 +150,18 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				disableSpacing
 			>
 				<Button
+					sx={{
+						color: "rgb(35, 108, 54)",
+						border: "none",
+						// backgroundColor: "rgb(50, 154, 78)",
+						"&:hover": {
+							backgroundColor: "transparent",
+							border: "none",
+						},
+					}}
 					onClick={editGoal}
-					variant="outlined"
+					// variant="outlined"
+					variant="text"
 				>
 					Save
 				</Button>

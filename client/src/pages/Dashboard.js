@@ -64,11 +64,13 @@ function Dashboard() {
 							</CardContent>
 						</Card>
 					</Link>
-					{plans.map((plan) => (
-						<div key={plan.id}>
-							<PlanCard plan={plan} handleDelete={handleDelete} />
-						</div>
-					))}
+					{plans
+						.sort((a, b) => (a.id < b.id ? 1 : -1))
+						.map((plan) => (
+							<div key={plan.id}>
+								<PlanCard plan={plan} handleDelete={handleDelete} />
+							</div>
+						))}
 				</Masonry>
 			</Container>
 		</div>
