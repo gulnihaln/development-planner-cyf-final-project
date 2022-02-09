@@ -68,11 +68,11 @@ const App = () => {
 							render={(props) =>
 								!isAuthenticated ? (
 									<Login {...props} setAuth={setAuth} />
-								) : (
-									<Redirect to="/dashboard" />
-								)
-							}
-						/>
+									) : (
+										<Redirect to="/dashboard" />
+										)
+									}
+									/>
 						<Route
 							exact
 							path="/signup"

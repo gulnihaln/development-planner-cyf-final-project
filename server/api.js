@@ -720,7 +720,7 @@ router.delete(
 // GET all feedbacks form specific user id
 router.get("/feedbacks", auth, (req, res) => {
 	const user_id = req.user_id;
-	const query = `SELECT p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f 
+	const query = `SELECT f.parent_id, p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f 
 						INNER JOIN plans p on f.plan_id = p.id 
 						where p.user_id= $1
 						ORDER BY f.create_date`;
@@ -735,7 +735,7 @@ router.get("/feedbacks", auth, (req, res) => {
 // GET all feedbacks form specific user id and plan id
 router.get("/plans/:plan_id/feedbacks", auth, (req, res) => {
 	const { plan_id } = req.params;
-	const query = `SELECT  u.first_name, u.last_name, p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
+	const query = `SELECT  u.first_name, u.last_name, f.user_id, p.id plan_id ,f.parent_id, f.id feedback_id, f.description, f.create_date from feedbacks f
 					INNER JOIN plans p on f.plan_id = p.id 
 					INNER JOIN users u on u.id = f.user_id 
 					where f.plan_id= $1 
@@ -761,7 +761,7 @@ router.get("/plans/:plan_id/feedbacks", auth, (req, res) => {
 // GET a feedbacks form specific feedback id
 router.get("/plans/:plan_id/feedbacks/:feedback_id", auth, (req, res) => {
 	const { plan_id, feedback_id } = req.params;
-	const query = `SELECT u.first_name, u.last_name, p.user_id, p.id plan_id , f.id feedback_id, f.description, f.create_date from feedbacks f
+	const query = `SELECT u.first_name, u.last_name, f.user_id, p.id plan_id ,f.parent_id, f.id feedback_id, f.description, f.create_date from feedbacks f
 					INNER JOIN plans p on f.plan_id = p.id 
 					INNER JOIN users u on u.id = f.user_id 
 					where f.plan_id= $1 and f.id= $2
@@ -789,7 +789,7 @@ router.post("/plans/:plan_id/feedbacks", auth, async (req, res) => {
 	const user_id = req.user_id;
 	await db
 		.query(
-			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.id feedback_id, p.title plan_title, p.description plan_descreption, f.description feedback, f.create_date
+			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id,f.parent_id, f.id feedback_id, p.title plan_title, p.description plan_description, f.description feedback, f.create_date
 				FROM feedbacks f
 				INNER JOIN plans p ON p.id = f.plan_id
 				INNER JOIN users as g ON g.id = p.user_id
@@ -811,6 +811,8 @@ router.post("/plans/:plan_id/feedbacks", auth, async (req, res) => {
 						res.status(500).send(err.message);
 					});
 			}
+		}).catch((err) => {
+			console.error(err);
 		});
 });
 
@@ -820,7 +822,7 @@ router.put("/plans/:plan_id/feedbacks/:feedback_id", auth, (req, res) => {
 	const { description } = req.body;
 	const user_id = req.user_id;
 	db.query(
-		`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.id feedback_id, p.title plan_title, p.description plan_descreption, f.description feedback, f.create_date
+		`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id, f.parent_id, f.id feedback_id, p.title plan_title, p.description plan_description, f.description feedback, f.create_date
 				FROM feedbacks f
 				INNER JOIN plans p ON p.id = f.plan_id
 				INNER JOIN users as g ON g.id = p.user_id
