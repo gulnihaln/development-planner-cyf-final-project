@@ -4,7 +4,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
-const options = ["Edit", "Delete", "Completed"];
+const options = ["Edit", "Delete"];
 
 const ITEM_HEIGHT = 48;
 
