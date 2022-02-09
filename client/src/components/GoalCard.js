@@ -110,7 +110,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 						editGoal={editGoal}
 					/>
 				</Box>
-				<CardContent>
+				<CardContent sx={{ overflowY: "scroll", maxHeight: 330 }}>
 					<TaskTicket
 						tasks={tasks}
 						plan_id={plan_id}
@@ -142,10 +142,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				sx={{ display: "flex", justifyContent: "space-between" }}
 				disableSpacing
 			>
-				<Button
-					onClick={editGoal}
-					variant="outlined"
-				>
+				<Button onClick={editGoal} variant="outlined">
 					Save
 				</Button>
 				<Tooltip title="Delete Goal">
