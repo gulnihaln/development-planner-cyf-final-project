@@ -50,6 +50,96 @@ function Header({ setAuth }) {
 				</Button>
 			</Navbar>
 		);
+	} else if (location.pathname.includes("/forgot_password")) {
+		return (
+			<Navbar>
+				<Button
+					onClick={() => {
+						history.push("/login");
+					}}
+					className={classes.btn}
+					variant="text"
+					size="large"
+					sx={{
+						color: "#000",
+						fontWeight: 700,
+						lineHeight: 1,
+						fontSize: "1em",
+						borderTop: 10,
+						padding: 3,
+						borderColor: "transparent",
+						borderRadius: 0,
+						"&:hover": {
+							color: "#ea4549",
+							borderColor: "#ea4549",
+							backgroundColor: "transparent",
+						},
+					}}
+				>
+					Sign in
+				</Button>
+			</Navbar>
+		);
+	}  else if (location.pathname.includes("/reset_password")) {
+		return (
+			<Navbar>
+				<Button
+					onClick={() => {
+						history.push("/login");
+					}}
+					className={classes.btn}
+					variant="text"
+					size="large"
+					sx={{
+						color: "#000",
+						fontWeight: 700,
+						lineHeight: 1,
+						fontSize: "1em",
+						borderTop: 10,
+						padding: 3,
+						borderColor: "transparent",
+						borderRadius: 0,
+						"&:hover": {
+							color: "#ea4549",
+							borderColor: "#ea4549",
+							backgroundColor: "transparent",
+						},
+					}}
+				>
+					Sign in
+				</Button>
+			</Navbar>
+		);
+	}  else if (location.pathname.includes("/aboutus")) {
+		return (
+			<Navbar>
+				<Button
+					onClick={() => {
+						history.push("/login");
+					}}
+					className={classes.btn}
+					variant="text"
+					size="large"
+					sx={{
+						color: "#000",
+						fontWeight: 700,
+						lineHeight: 1,
+						fontSize: "1em",
+						borderTop: 10,
+						padding: 3,
+						borderColor: "transparent",
+						borderRadius: 0,
+						"&:hover": {
+							color: "#ea4549",
+							borderColor: "#ea4549",
+							backgroundColor: "transparent",
+						},
+					}}
+				>
+					Sign in
+				</Button>
+			</Navbar>
+		);
 	} else if (location.pathname.includes("/signup")) {
 		return (
 			<Navbar>
