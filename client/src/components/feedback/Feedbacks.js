@@ -1,10 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-	getFeedbacks,
-	createFeedback,
-	deleteFeedback as deleteFeedbackApi,
-	updateFeedback as updateFeedbackApi,
-} from "./temporaryApi";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Feedback from "./Feedback";
@@ -30,10 +24,10 @@ const Feedbacks = ({ currentUserId, plan_id }) => {
 	};
 
 
-	const addFeedback = async (text) => {
+	const addFeedback = async (text, parent_id) => {
 		const response = await request.post(
 			`/plans/${plan_id}/feedbacks`,
-			JSON.stringify({ description: text }),
+			JSON.stringify({ description: text, parent_id }),
 			{
 				headers: { "Content-Type": "application/json" },
 			}
