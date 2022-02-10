@@ -12,6 +12,7 @@ import AboutUs from "./pages/AboutUs";
 import Account from "./pages/Account";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
+import NotFoundPage from "./pages/NotFoundPage.js";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -72,11 +73,11 @@ const App = () => {
 							render={(props) =>
 								!isAuthenticated ? (
 									<Login {...props} setAuth={setAuth} />
-									) : (
-										<Redirect to="/dashboard" />
-										)
-									}
-									/>
+								) : (
+									<Redirect to="/dashboard" />
+								)
+							}
+						/>
 						<Route
 							exact
 							path="/signup"
@@ -152,6 +153,17 @@ const App = () => {
 						<Route path="/reset_password/:token" exact>
 							<ResetPassword />
 						</Route>
+						<Route
+							exact
+							path="*"
+							render={(props) =>
+								isAuthenticated ? (
+									<NotFoundPage />
+								) : (
+									<Redirect to="/dashboard" {...props} setAuth={setAuth} />
+								)
+							}
+						/>
 					</Switch>
 					{!isAuthenticated ? <Footer /> : <></>}
 				</div>
