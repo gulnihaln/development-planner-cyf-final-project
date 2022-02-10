@@ -22,11 +22,10 @@ const FeedbackForm = ({
 				variant="standard"
 				placeholder="Write your feedback here..."
 				sx={{
-					ml: 2,
-					width: 450,
+					width: "90%",
 					height: 80,
-					mb: 1,
-					mt: 1,
+					m: "auto",
+					display: "flex",
 					justifyContent: "center",
 				}}
 				value={text}
