@@ -11,7 +11,7 @@ import Link from "@mui/material/Link";
 import "../styles/AboutUs.css";
 import maziarmajd from "../uploads/maziarmajd.jpg";
 import alibavarsad2 from "../uploads/alibavarsad2.jpg";
-import mortezakhojasteh from "../uploads/mortezakhojasteh.jpg";
+import mortezakhojasteh from "../uploads/morteza-khojasteh.jpg";
 import gulnihalnaldoken from "../uploads/gulnihalnaldoken.jpg";
 import backgroundcyf from "../uploads/backgroundcyf.jpg";
 
