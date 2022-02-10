@@ -48,7 +48,7 @@ export default function TaskTicket({ tasks, plan_id, goal, setTasks, updateGoal 
 									display: "flex",
 									justifyContent: "space-between",
 									width: "100%",
-									marginTop: 2,
+									marginBottom: 2,
 									padding: 0,
 								}}
 							>

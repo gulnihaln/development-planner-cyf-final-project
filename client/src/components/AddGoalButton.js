@@ -13,6 +13,7 @@ export default function AddGoalButton ({ HandleNewGoal }) {
 					backgroundColor: "#CF2F2F",
 					borderRadius: "4px",
 					marginTop: 3,
+					mb: 2,
 					width: 300,
 					marginLeft: 4,
 					alignSelf: "center",

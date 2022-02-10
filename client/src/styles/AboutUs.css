@@ -1,19 +1,10 @@
-.hero-image {
-	height: 100%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	position: relative;
-}
-
 .hero-text {
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 20px;
 	justify-content: center;
     align-items: center;
-    border: 2px solid rgb(237,67,67);
-	border-radius: 5px;
+    border: none;
 	padding: 10px;
 	width: 90%;
 	margin: 40px auto;
@@ -28,32 +19,37 @@
 	flex-direction: column;
 	align-items: center;
 }
+
 @media screen and (min-width: 480px) {
+	.hero-text {
+		border: 2px solid rgb(237,67,67);
+		border-radius: 5px;
+    }
+	
 	.hero-text img {
-		width: 100%;
-
+		width: 200px;
+		justify-self: center;
 	}
-	 .hero-text {
-        grid-template-columns: 1fr 1fr;
-        width: 80%;
-		justify-content: center;
-
+	.devs-card-left, .devs-card-right {
+		display: flex;
+		flex-direction: row;
+		height: 250px;
+	}
+}
+@media screen and (min-width: 769px) {
+	.hero-text {
+	width: 70%;
     }
 }
-@media screen and (min-width: 696px) {
+@media screen and (min-width: 1024px) {
     .hero-text {
         grid-template-columns: 1fr 1fr;
+		width: 90%;
 		
     }
 	.hero-text img {
 		width: 200px;
 		justify-self: center;
-
-	}
-	.devs-card-left, .devs-card-right {
-		display: flex;
-		flex-direction: row;
-		max-height: 200px;
 	}
 	.devs-card-right {
 		flex-direction: row-reverse;
@@ -61,5 +57,8 @@
 }
 @media screen and (min-width: 992px) {
 }
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1440px) {
+	.hero-text {
+		width: 1300px;
+	}
 }
