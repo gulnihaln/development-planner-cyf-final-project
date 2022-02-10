@@ -7,7 +7,7 @@ export function sendEmail(user, token) {
 	console.log(user.email);
 	const msg = {
 		to: user.email,
-		from: "mori.kh1987@gmail.com",
+		from: "cyf.devplanner@gmail.com",
 		subject: "Reset password requested",
 		html: `
 		<!doctype html>
@@ -59,7 +59,7 @@ export function sendEmail(user, token) {
 													password has been generated for you. To reset your password, click the
 													following link and follow the instructions.
 												</p>
-												<a href="http://localhost:3000/reset_password/${token}"
+												<a href="https://development-planner-cyf-final.herokuapp.com/reset_password/${token}"
 													style="background:#20e277;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"><h4>Reset
 													Password</h4></a>
 											</td>

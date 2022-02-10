@@ -63,7 +63,7 @@ export default function resetPassword() {
 									onChange={(e) => setPassword(e.target.value)}
 									required
 									fullWidth
-									type="text"
+									type="password"
 									id="password"
 									label="New Password"
 									name="password"
