@@ -128,10 +128,10 @@ export default function AboutUs() {
 								component="div"
 								sx={{ textAlign: "center", padding: "5px" }}
 							>
-								Gulnihal is a North West trainee, former physics teacher and
-								mother of two. Her coding journey started with CYF. She is a
-								good team player and passion for learning and building things
-								from beginning.
+								Gulnihal is a North West trainee, mother of two and a former
+								physics teacher. Her coding journey started with CYF. She is a
+								good team player and has a passion for learning and building
+								things from beginning.
 							</Typography>
 							<Box>
 								<IconButton>
