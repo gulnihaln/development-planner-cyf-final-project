@@ -9,7 +9,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
 import "../styles/AboutUs.css";
-import maziarmajd from "../uploads/maziarmajd.jpg";
+import maziarmajdd from "../uploads/maziarmajdd.jpg";
 import alibavarsad2 from "../uploads/alibavarsad2.jpg";
 import mortezakhojasteh from "../uploads/morteza-khojasteh.jpg";
 import gulnihalnaldoken from "../uploads/gulnihalnaldoken.jpg";
@@ -18,6 +18,11 @@ import backgroundcyf from "../uploads/backgroundcyf.jpg";
 const styles = {
 	paperContainer: {
 		backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundcyf})`,
+		height: "100%",
+		backgroundPosition: "center",
+		backgroundRepeat: "no-repeat",
+		backgroundSize: "cover",
+		position: "relative",
 	},
 };
 
@@ -29,7 +34,7 @@ export default function AboutUs() {
 					variant="h3"
 					gutterBottom
 					component="div"
-					sx={{ color: "#fff", textAlign: "center", paddingTop: "15px" }}
+					sx={{ color: "#fff", textAlign: "center", paddingTop: "15px", mb: 0 }}
 				>
 					About us
 				</Typography>
@@ -49,20 +54,20 @@ export default function AboutUs() {
 						color: "#fff",
 						textAlign: "center",
 						paddingTop: "15px",
-						maxWidth: "800px",
+						maxWidth: "80%",
 						m: "auto",
 					}}
 				>
 					We built this project for CodeYourFuture whose graduates and mentors
 					need an application for keeping track of the professional development
-					of their graduates after graduation. The application provides users a
-					private environment where they can create plans and receive feedbacks.
+					of their graduates. The application provides users a private
+					environment where they can create plans and receive feedbacks.
 				</Typography>
 				<div className="hero-text">
 					<Card className="devs-card-left">
 						<CardMedia
 							component="img"
-							height="200"
+							height="100%"
 							image={alibavarsad2}
 							alt="person-photo"
 						/>
@@ -81,10 +86,10 @@ export default function AboutUs() {
 								component="div"
 								sx={{ textAlign: "center", padding: "5px" }}
 							>
-								body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Quos blanditiis tenetur
+								Learner, Coder, Adventurer, Music Lover. Ali is all those things
+								and more.
 							</Typography>
-							<Box className="devs-social-icon">
+							<Box className="devs-social-icon" sx={{ mt: 5 }}>
 								<IconButton>
 									<Link
 										href="https://www.linkedin.com/in/ali-bavarsad-6ba8a916b/"
@@ -104,7 +109,7 @@ export default function AboutUs() {
 					<Card className="devs-card-right">
 						<CardMedia
 							component="img"
-							height="200"
+							height="100%"
 							image={gulnihalnaldoken}
 							alt="person-photo"
 						/>
@@ -123,9 +128,10 @@ export default function AboutUs() {
 								component="div"
 								sx={{ textAlign: "center", padding: "5px" }}
 							>
-								Gulnihal is a North West trainee, former physics teacher. Her
-								coding journey started with CYF. She is a good team player and
-								passion for building projects.
+								Gulnihal is a North West trainee, former physics teacher and
+								mother of two. Her coding journey started with CYF. She is a
+								good team player and passion for learning and building things
+								from beginning.
 							</Typography>
 							<Box>
 								<IconButton>
@@ -147,8 +153,8 @@ export default function AboutUs() {
 					<Card className="devs-card-left">
 						<CardMedia
 							component="img"
-							height="200"
-							image={maziarmajd}
+							height="100%"
+							image={maziarmajdd}
 							alt="person-photo"
 						/>
 						<Box className="info-box">
@@ -191,7 +197,7 @@ export default function AboutUs() {
 					<Card className="devs-card-right">
 						<CardMedia
 							component="img"
-							height="200"
+							height="100%"
 							image={mortezakhojasteh}
 							alt="person-photo"
 						/>
@@ -210,8 +216,10 @@ export default function AboutUs() {
 								component="div"
 								sx={{ textAlign: "center", padding: "5px" }}
 							>
-								body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Quos blanditiis tenetur
+								I used to be a Telecom engineer, I have willingness of tech and
+								fun of computer, I was athletes in kickboxing I had many medals
+								in my country. I'm currently a trainee in North West class in
+								CYF.
 							</Typography>
 							<Box>
 								<IconButton>
@@ -224,7 +232,7 @@ export default function AboutUs() {
 								</IconButton>
 								<IconButton>
 									<Link
-										href="https://github.com/gulnihaln/development-planner-cyf-final-project"
+										href="https://github.com/Morteza-Khojasteh"
 										target="blank_"
 									>
 										<GitHubIcon style={{ color: "#000000" }} />
@@ -242,8 +250,8 @@ export default function AboutUs() {
 						textAlign: "center",
 						padding: "20px",
 						width: "100%",
-						maxWidth: 800,
-						margin: "auto",
+						maxWidth: "80%",
+						m: "auto",
 					}}
 				>
 					Special thanks to our leads Vlad Ene and Elena Cavallero who have been
