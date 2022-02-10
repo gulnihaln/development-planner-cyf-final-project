@@ -106,7 +106,7 @@ router.post("/register", validInfo, async (req, res) => {
 
 	const query =
 		"INSERT INTO users (first_name, last_name, region, role, email, password ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-	db.query(query, [first_name, last_name, region, role, email, bcryptPassword])
+	db.query(query, [first_name, last_name, region, role, email.toLowerCase(), bcryptPassword])
 		.then((result) => {
 			const token = tokenGenerator(result.rows[0].id);
 			res.json(token);
@@ -175,7 +175,7 @@ router.post("/users/login", validInfo, (req, res) => {
 		return res.status(400).send("Please complete all fields!");
 	}
 	const query = "SELECT * FROM users WHERE email = $1 ";
-	db.query(query, [email])
+	db.query(query, [email.toLowerCase()])
 		.then(async (result) => {
 			if (result.rowCount) {
 				const validPassword = await bcrypt.compare(
@@ -203,7 +203,7 @@ router.patch("/forgot-password", async (req, res) => {
 
 	try {
 		await db
-			.query("SELECT * FROM users WHERE email=$1", [email])
+			.query("SELECT * FROM users WHERE email=$1", [email.toLowerCase()])
 			.then((result) => {
 				const user = result.rows[0];
 				if (result.rowCount === 0) {
@@ -213,7 +213,7 @@ router.patch("/forgot-password", async (req, res) => {
 						{ user: user.email },
 						process.env.reset_secret,
 						{
-							expiresIn: "100h",
+							expiresIn: "10m",
 						}
 					);
 					db.query("UPDATE users SET resetlink=$1 WHERE id=$2 RETURNING *", [
@@ -268,7 +268,7 @@ router.patch("/reset-password/:token", async (req, res) => {
 							[bcryptPassword, reset, user.id]
 						)
 						.then((result) => {
-							res.status(200).json({ message: "Password updated" });
+							res.status(200).json({ message: "Your Password Updated!" });
 						});
 				}
 			});
