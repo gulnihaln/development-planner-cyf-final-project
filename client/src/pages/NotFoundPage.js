@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PageNotFound from "../uploads/error-404.png";
+import PageNotFound from "../uploads/pagenotfound.png";
 import "../styles/Error.css";
 import Box from "@mui/material/Box";
 
