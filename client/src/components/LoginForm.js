@@ -14,7 +14,6 @@ import { apiLoginUser } from "../utils/api";
 
 const theme = createTheme();
 
-
 export default function LoginForm({ setAuth }) {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
@@ -86,18 +85,19 @@ export default function LoginForm({ setAuth }) {
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</Grid>
-						</Grid><Grid item>
-								<Link href="/forgot_password" variant="body2">
-									Forgot Password
-								</Link>
-							</Grid>
+						</Grid>
+						<Grid item sx={{m: 1}}>
+							<Link href="/forgot_password" variant="body2">
+								Forgot Password
+							</Link>
+						</Grid>
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
 							aria-label="Justify"
 							sx={{
-								mt: 3,
+								mt: 1,
 								mb: 2,
 								color: "#fff",
 								backgroundColor: "#CF2F2F",

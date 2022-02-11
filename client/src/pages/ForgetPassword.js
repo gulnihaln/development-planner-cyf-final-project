@@ -31,7 +31,7 @@ export default function forgetPassword() {
 	};
 	return (
 		<ThemeProvider theme={theme}>
-			<Container component="main">
+			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<Box
 					sx={{
@@ -73,7 +73,7 @@ export default function forgetPassword() {
 							variant="contained"
 							sx={{
 								mt: 3,
-								mb: 2,
+								mb: 1,
 								backgroundColor: "#CF2F2F",
 								"&:hover": {
 									backgroundColor: "#a62626",
@@ -83,7 +83,7 @@ export default function forgetPassword() {
 							Send Link
 						</Button>
 						<Grid container justifyContent="flex-end">
-							<Grid item sx={{ mt: 2 }}>
+							<Grid item sx={{ mt: 1 }}>
 								<Link href="/login" variant="body2">
 									Already have an account? Sign in
 								</Link>
