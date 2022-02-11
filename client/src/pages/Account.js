@@ -29,12 +29,14 @@ export default function Account() {
 	const [password, setPassword] = useState();
 
 	useEffect(() => {
-		request.get("/user").then((res) => {
-			setFirst_name(res.data[0].first_name);
-			setLast_name(res.data[0].last_name);
-			setRegion(res.data[0].region);
-			setRole(res.data[0].role);
-			setEmail(res.data[0].email);
+		request.get("/user").then(({ data }) => {
+			const user = data[0];
+			// console.log(user.email);
+			setFirst_name(user.first_name);
+			setLast_name(user.last_name);
+			setRegion(user.region);
+			setRole(user.role);
+			setEmail(user.email);
 		});
 	}, [user_id]);
 
@@ -60,23 +62,8 @@ export default function Account() {
 		const response = await request.put("/user", body, {
 			headers: { "Content-Type": "application/json" },
 		});
-		console.log(response);
+		return response;
 	};
-
-	// const [password, setPassword] = useState();
-	// const signUpUser = async (password) => {
-	// 	apiSignUpUser({
-	// 		password,
-	// 	}).then((res) => {
-	// 		setAuth(true);
-	// 	});
-	// };
-
-	// const handleSubmit = async (e) => {
-	// 	e.preventDefault();
-	// 	await signUpUser(password);
-	// };
-
 	return (
 		<ThemeProvider theme={theme}>
 			<Container component="main" maxWidth="xs">
@@ -176,19 +163,6 @@ export default function Account() {
 									value={email}
 									name="email"
 									autoComplete="email"
-									disabled={disabledField}
-								/>
-							</Grid>
-							<Grid item xs={12}>
-								<TextField
-									onChange={(e) => setPassword(e.target.value)}
-									required
-									fullWidth
-									name="password"
-									label="Password"
-									type="password"
-									id="password"
-									autoComplete="new-password"
 									disabled={disabledField}
 								/>
 							</Grid>

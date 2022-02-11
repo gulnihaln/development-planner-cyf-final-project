@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Paper } from "@mui/material";
+import { Avatar, Box, Paper } from "@mui/material";
 import FeedbackForm from "./FeedbackForm";
 
 const Feedback = ({
@@ -11,27 +11,30 @@ const Feedback = ({
 	addFeedback,
 	activeFeedback,
 	setActiveFeedback,
-	parentId = null,
+	parent_id = null,
 }) => {
 	const canReply = Boolean(currentUserId); // just user that logged in can Reply
-	const canEdit = currentUserId === feedback.userId;
-	const canDelete = currentUserId === feedback.userId;
-	const createdAt = new Date(feedback.createdAt).toLocaleDateString();
+	const canEdit = currentUserId === feedback.user_id;
+	const canDelete = currentUserId === feedback.user_id;
+	const createdAt = new Date(feedback.create_date).toLocaleDateString();
 	const isReplying =
 		activeFeedback &&
 		activeFeedback.type === "replying" &&
-		activeFeedback.id === feedback.feedbackId;
+		activeFeedback.id === feedback.feedback_id;
 	const isEditing =
 		activeFeedback &&
 		activeFeedback.type === "editing" &&
-		activeFeedback.id === feedback.feedbackId;
-	const replyId = parentId ? parentId : feedback.feedbackId;
+		activeFeedback.id === feedback.feedback_id;
+	const replyId = parent_id ? parent_id : feedback.feedback_id;
 
 	return (
 		<Box sx={{ display: "flex", mb: 1 }}>
-			<Box sx={{ width: 450, ml: 1, justifyContent: "center" }}>
+			<Avatar sx={{ ml: 1, mt: 1 }}></Avatar>
+			<Box sx={{ width: "90%", ml: 1 }}>
 				<Box sx={{ display: "flex" }}>
-					<Box sx={{ mr: 1, ml: 1 }}>{feedback.username}</Box>
+					<Box
+						sx={{ mr: 1, ml: 1 }}
+					>{`${feedback.first_name} ${feedback.last_name}`}</Box>
 					<Box>{createdAt}</Box>
 				</Box>
 				{!isEditing && (
@@ -53,7 +56,10 @@ const Feedback = ({
 						submitLabel="Update"
 						hasCancelButton
 						initialText={feedback.description}
-						handleSubmit={(text) => updateFeedback(text, feedback.feedbackId)}
+						handleSubmit={async (text) => {
+							await updateFeedback(text, feedback.feedback_id);
+							setActiveFeedback(null);
+						}}
 						handleCancel={() => setActiveFeedback(null)}
 					/>
 				)}
@@ -71,7 +77,10 @@ const Feedback = ({
 						<Box
 							sx={{ mr: 1 }}
 							onClick={() =>
-								setActiveFeedback({ id: feedback.feedbackId, type: "replying" })
+								setActiveFeedback({
+									id: feedback.feedback_id,
+									type: "replying",
+								})
 							}
 						>
 							Reply
@@ -81,7 +90,7 @@ const Feedback = ({
 						<Box
 							sx={{ mr: 1 }}
 							onClick={() =>
-								setActiveFeedback({ id: feedback.feedbackId, type: "editing" })
+								setActiveFeedback({ id: feedback.feedback_id, type: "editing" })
 							}
 						>
 							Edit
@@ -90,24 +99,26 @@ const Feedback = ({
 					{canDelete && (
 						<Box
 							sx={{ mr: 1 }}
-							onClick={() => deleteFeedback(feedback.feedbackId)}
+							onClick={() => deleteFeedback(feedback.feedback_id)}
 						>
 							Delete
 						</Box>
 					)}
 				</Box>
 				{isReplying && (
+					<Box sx={{ width: 400, justifyContent: "center" }}>
 					<FeedbackForm
 						submitLabel="Reply"
 						handleSubmit={(text) => addFeedback(text, replyId)}
 					/>
+					</Box>
 				)}
 				{replies.length > 0 && (
 					<Box sx={{ mt: 2, ml: 3 }}>
 						{replies.map((reply) => (
 							<Feedback
 								feedback={reply}
-								key={reply.feedbackId}
+								key={reply.feedback_id}
 								replies={[]}
 								currentUserId={currentUserId}
 								deleteFeedback={deleteFeedback}
@@ -115,7 +126,7 @@ const Feedback = ({
 								addFeedback={addFeedback}
 								activeFeedback={activeFeedback}
 								setActiveFeedback={setActiveFeedback}
-								parentId={feedback.feedbackId}
+								parent_id={feedback.feedback_id}
 							/>
 							//empty array: our replies can't have nested feedbacks
 						))}

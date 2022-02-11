@@ -6,8 +6,10 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import Feedbacks from "./Feedbacks";
 
-export default function TemporaryDrawer() {
+
+ function TemporaryDrawer({ plan_id, user_id }) {
 	const [drawer, setDrawer] = useState(false); //set drawer open or not
+
 
 	return (
 		<Box>
@@ -20,7 +22,7 @@ export default function TemporaryDrawer() {
 					borderRadius: 10,
 				}}
 			>
-				Write Feedback
+				Feedbacks
 			</Button>
 			<Drawer
 				PaperProps={{ sx: { width: 500 } }}
@@ -28,8 +30,10 @@ export default function TemporaryDrawer() {
 				open={drawer}
 				onClose={() => setDrawer(false)}
 			>
-				<Feedbacks currentUserId= "1" />
+				<Feedbacks currentUserId={user_id} plan_id={plan_id} />
 			</Drawer>
 		</Box>
 	);
 }
+
+export default React.memo(TemporaryDrawer);

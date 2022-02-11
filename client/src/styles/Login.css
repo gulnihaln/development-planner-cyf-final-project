@@ -6,16 +6,21 @@
     margin-top: 20px; */
 }
 .dev-planner {
-    height: 200px;
+    /* margin-top: 10px;
+	display: block;
+	margin-left: 35%; */
+    height: 500px;
 }
 @media screen and (min-width: 480px) {
+
 }
 @media screen and (min-width: 768px) {
     .home-container {
     grid-template-columns: 1fr 1fr;
     }
     .dev-planner {
-    margin-top: 14vw;
+    /* margin-top: 3vw; */
+     margin-left: 10vw;
     }
 }
 @media screen and (min-width: 992px) {
