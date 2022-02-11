@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 export default function Login({ setAuth }) {
 	return (
 		<>
-			<Card className="home-container" sx={{ boxShadow: 0, maxWidth: 1200 }}>
+			<Card className="home-container" sx={{ boxShadow: 0, maxWidth: 1200, mt: 3 }}>
 				<Box
 					className="dev-planner"
 					component="img"
