@@ -153,17 +153,16 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			>
 				<Button
 					sx={{
-						color: "rgb(35, 108, 54)",
-						border: "1px solid #718093",
-						// backgroundColor: "rgb(50, 154, 78)",
+						color: "rgba(0, 0, 0, 0.54)",
+						border: "1px solid rgba(0, 0, 0, 0.54)",
 						"&:hover": {
 							backgroundColor: "transparent",
-							border: "1px solid #44bd32",
+							color: "rgb(50, 154, 78)",
+							border: "1px solid rgb(50, 154, 78)",
 						},
 					}}
 					onClick={editGoal}
-					// variant="outlined"
-					variant="text"
+					variant="outlined"
 				>
 					Save
 				</Button>
