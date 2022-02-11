@@ -44,7 +44,7 @@ function Dashboard() {
 					className="my-masonry-grid"
 					columnClassName="my-masonry-grid_column"
 				>
-					<Link to={"/newplan"} style={{ textDecoration: "none" }}>
+					<Link to={"/dashboard/newPlan"} style={{ textDecoration: "none" }}>
 						<Card
 							elevation={3}
 							sx={{

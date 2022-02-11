@@ -49,7 +49,7 @@ export default function Plan() {
 		<>
 			<section className="plan-container">
 				<div className="plan-intro-container">
-					<div className="title-progress-container" style={{ width: "50%" }}>
+					<div className="title-progress-container" style={{ width: "35%" }}>
 						<PlanTitle
 							plan_id={plan_id}
 							editPlan={editPlan}

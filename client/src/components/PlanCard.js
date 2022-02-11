@@ -12,7 +12,7 @@ const PlanCard = ({ plan, handleDelete }) => {
 		<>
 			<CardActionArea>
 				<Link
-					to={`/plan/${plan.id}`}
+					to={`/dashboard/plan/${plan.id}`}
 					state={{ planId: plan.id }}
 					style={{ textDecoration: "none" }}
 				>
