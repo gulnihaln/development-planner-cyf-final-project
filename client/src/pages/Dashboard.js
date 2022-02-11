@@ -10,6 +10,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { CardActionArea } from "@mui/material";
 
 function Dashboard() {
 	const [plans, setPlans] = useState([]);
@@ -56,12 +57,17 @@ function Dashboard() {
 								marginBottom: 4,
 							}}
 						>
-							<CardHeader action={<AddIcon sx={{ fontSize: "38px" }} />} />
-							<CardContent>
-								<Typography variant="body2" color="textSecondary">
-									Create new plan
-								</Typography>
-							</CardContent>
+							<CardActionArea>
+								<CardHeader
+									action={<AddIcon sx={{ color: "green", fontSize: "38px" }} />}
+								/>
+
+								<CardContent>
+									<Typography variant="body2" color="textSecondary">
+										Create new plan
+									</Typography>
+								</CardContent>
+							</CardActionArea>
 						</Card>
 					</Link>
 					{plans
