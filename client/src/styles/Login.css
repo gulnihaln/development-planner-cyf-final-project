@@ -2,14 +2,9 @@
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-    /* margin-left: 20px;
-    margin-top: 20px; */
 }
 .dev-planner {
-    /* margin-top: 10px;
-	display: block;
-	margin-left: 35%; */
-    height: 500px;
+    align-self: center;
 }
 @media screen and (min-width: 480px) {
 
@@ -17,11 +12,9 @@
 @media screen and (min-width: 768px) {
     .home-container {
     grid-template-columns: 1fr 1fr;
+    margin: auto;
     }
-    .dev-planner {
-    /* margin-top: 3vw; */
-     margin-left: 10vw;
-    }
+
 }
 @media screen and (min-width: 992px) {
 }
