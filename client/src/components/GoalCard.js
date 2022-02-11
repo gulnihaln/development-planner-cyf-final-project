@@ -79,6 +79,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			headers: { "Content-Type": "application/json" },
 		});
 	};
+
 	return (
 		<Card
 			className="goal-card"
@@ -144,7 +145,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 					/>
 
 					<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-					<AddTaskIcon newTaskHandle={newTaskHandle} />
+					<AddTaskIcon newTaskHandle={newTaskHandle} value={value} />
 				</Paper>
 			</Box>
 			<CardActions
