@@ -27,7 +27,14 @@ export default function Footer() {
 					<BottomNavigationAction
 						label={
 							<Link
-								style={{ color: "rgba(0, 0, 0, 0.87)", textDecoration: "none" }}
+								// style={{ color: "rgba(0, 0, 0, 0.87)", textDecoration: "none" }}
+								sx={{
+									fontSize: "13px",
+									textDecoration: "none",
+									color: "#000",
+								"&:hover": {
+									color: "#636e72",
+								}}}
 								href="/aboutus"
 							>
 								About us
@@ -42,12 +49,21 @@ export default function Footer() {
 								href="https://github.com/gulnihaln/development-planner-cyf-final-project"
 								target="blank_"
 							>
-								<GitHubIcon style={{ color: "#000000" }} />
+								<GitHubIcon sx={{color: "#000",
+								"&:hover": {
+									color: "#636e72",
+								}}}/>
 							</Link>
 						}
 					></BottomNavigationAction>
 					<BottomNavigationAction
-						style={{ color: "rgba(0, 0, 0, 0.87)" }}
+						// style={{ color: "rgba(0, 0, 0, 0.87)" }}
+						sx={{
+							textDecoration: "none",
+							color: "#000",
+						"&:hover": {
+							color: "#636e72",
+						}}}
 						label="Contact"
 						key="Email"
 						component="a"
