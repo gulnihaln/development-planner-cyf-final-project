@@ -15,12 +15,12 @@ const theme = createTheme();
 
 export default function forgetPassword() {
 	const [email, setEmail] = useState();
-	const [isSuccessfull, setIsSuccessfull] = useState(null);
+	const [isSuccessful, setIsSuccessful] = useState(null);
 
 	const forgotPassword = async (email) => {
 		apiForgotPassword({ email }).then((res) => {
 			const message = res.data.message;
-			setIsSuccessfull(message);
+			setIsSuccessful(message);
 			// alert(` Please ${res.data.message}`);
 		});
 	};
@@ -45,7 +45,7 @@ export default function forgetPassword() {
 						Forgot Your Password
 					</Typography>
 					<Typography sx={{ m: 3 }} component="h4" variant="h7">
-						<Box sx={{ color: "success.main" }}>{isSuccessfull}</Box>
+						<Box sx={{ color: "success.main" }}>{isSuccessful}</Box>
 					</Typography>
 					<Box
 						component="form"
@@ -53,8 +53,8 @@ export default function forgetPassword() {
 						onSubmit={handleSubmit}
 						sx={{ mt: 3 }}
 					>
-						<Grid container spacing={2}>
-							<Grid item xs={100}>
+						{/* <Grid container spacing={2}>
+							<Grid item xs={100}> */}
 								<TextField
 									onChange={(e) => setEmail(e.target.value)}
 									required
@@ -65,26 +65,25 @@ export default function forgetPassword() {
 									name="email"
 									autoComplete="email"
 								/>
-							</Grid>
-						</Grid>
+							{/* </Grid>
+						</Grid> */}
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
 							sx={{
 								mt: 3,
-								mb: 2,
-								backgroundColor: "rgb(237,67,67)",
+								mb: 1,
+								backgroundColor: "#CF2F2F",
 								"&:hover": {
-									color: "rgb(237,67,67)",
-									backgroundColor: "#EFEFEF",
+									backgroundColor: "#a62626",
 								},
 							}}
 						>
 							Send Link
 						</Button>
 						<Grid container justifyContent="flex-end">
-							<Grid item>
+							<Grid item sx={{ mt: 1 }}>
 								<Link href="/login" variant="body2">
 									Already have an account? Sign in
 								</Link>

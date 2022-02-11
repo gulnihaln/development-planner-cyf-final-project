@@ -57,8 +57,8 @@ export default function resetPassword() {
 						onSubmit={handleSubmit}
 						sx={{ mt: 3 }}
 					>
-						<Grid container spacing={2}>
-							<Grid item xs={100}>
+						{/* <Grid container spacing={2}>
+							<Grid item xs={100}> */}
 								<TextField
 									onChange={(e) => setPassword(e.target.value)}
 									required
@@ -68,19 +68,18 @@ export default function resetPassword() {
 									label="New Password"
 									name="password"
 								/>
-							</Grid>
-						</Grid>
+							{/* </Grid>
+						</Grid> */}
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
 							sx={{
 								mt: 3,
-								mb: 2,
-								backgroundColor: "rgb(237,67,67)",
+								mb: 1,
+								backgroundColor: "#CF2F2F",
 								"&:hover": {
-									color: "rgb(237,67,67)",
-									backgroundColor: "#EFEFEF",
+									backgroundColor: "#a62626",
 								},
 							}}
 						>

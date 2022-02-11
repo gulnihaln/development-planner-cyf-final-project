@@ -113,7 +113,7 @@ export default function LoginForm({ setAuth }) {
 							variant="contained"
 							aria-label="Justify"
 							sx={{
-								mt: 3,
+								mt: 1,
 								mb: 2,
 								color: "#fff",
 								backgroundColor: "#CF2F2F",
