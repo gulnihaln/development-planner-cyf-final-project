@@ -106,10 +106,12 @@ const Feedback = ({
 					)}
 				</Box>
 				{isReplying && (
+					<Box sx={{ width: 400, justifyContent: "center" }}>
 					<FeedbackForm
 						submitLabel="Reply"
 						handleSubmit={(text) => addFeedback(text, replyId)}
 					/>
+					</Box>
 				)}
 				{replies.length > 0 && (
 					<Box sx={{ mt: 2, ml: 3 }}>
