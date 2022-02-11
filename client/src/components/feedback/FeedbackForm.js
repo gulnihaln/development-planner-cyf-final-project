@@ -33,7 +33,7 @@ const FeedbackForm = ({
 			/>
 			<Button
 				type="submit"
-				sx={{ ml: 2, p: 1, borderRadius: 10, width: 450 }}
+				sx={{borderRadius: 10, width: 450}}
 				disabled={isTextareaDisabled}
 			>
 				{submitLabel}
