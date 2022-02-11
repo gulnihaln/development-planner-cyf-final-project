@@ -14,6 +14,7 @@ import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
+import DatePickerMobile from"./DatePickerMobile";
 import "../styles/Goal.css";
 import { request } from "../utils/api";
 import { Tooltip } from "@mui/material";
@@ -111,13 +112,24 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			</Box>
 			<Box sx={{ margin: 1, borderRadius: "4px" }}>
 				<Box sx={{ marginTop: 2 }}>
-					<DatePickerDesktop
-						goal_id={goal_id}
-						startDate={startDate}
-						endDate={endDate}
-						setStartDate={setStartDate}
-						setEndDate={setEndDate}
-					/>
+					<Box display={{ xs: "none", sm: "none", md: "block" }}>
+						<DatePickerDesktop
+							goal_id={goal_id}
+							startDate={startDate}
+							endDate={endDate}
+							setStartDate={setStartDate}
+							setEndDate={setEndDate}
+						/>
+					</Box>
+					<Box display={{ xs: "block", sm: "block", md: "none" }}>
+						<DatePickerMobile
+							goal_id={goal_id}
+							startDate={startDate}
+							endDate={endDate}
+							setStartDate={setStartDate}
+							setEndDate={setEndDate}
+						/>
+					</Box>
 				</Box>
 				<CardContent sx={{ overflowY: "scroll", maxHeight: 330, padding: 1 }}>
 					<TaskTicket
