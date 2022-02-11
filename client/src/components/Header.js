@@ -105,7 +105,7 @@ function Header({ setAuth }) {
 				</Button>
 			</Navbar>
 		);
-	}  else if (location.pathname.includes("/reset_password")) {
+	} else if (location.pathname.includes("/reset_password")) {
 		return (
 			<Navbar>
 				<Button
@@ -135,7 +135,7 @@ function Header({ setAuth }) {
 				</Button>
 			</Navbar>
 		);
-	}  else if (location.pathname.includes("/aboutus")) {
+	} else if (location.pathname.includes("/aboutus")) {
 		return (
 			<Navbar>
 				<Button
@@ -278,7 +278,7 @@ function Header({ setAuth }) {
 								},
 							}}
 							onClick={() => {
-								history.push("/account");
+								history.push("/dashboard/account");
 							}}
 						>
 							Account Setting
