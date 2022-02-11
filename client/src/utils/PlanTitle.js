@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { styled } from "@mui/material/styles";
 import "../styles/Plan.css";
 
@@ -9,7 +8,7 @@ const CssTextField = styled(TextField, {
 })((p) => ({
 	"& .MuiInput-underline:after": {
 		borderBottom: "1px solid",
-		borderBottomColor: "red",
+		borderBottomColor: "rgba(0, 0, 0, 0.6)",
 	},
 }));
 
@@ -57,7 +56,6 @@ export default function PlanTitle({
 					>
 						{title}
 					</Typography>
-					<MoreVertIcon />
 				</Box>
 			)}
 			{open ? (
@@ -92,7 +90,6 @@ export default function PlanTitle({
 					>
 						{description}
 					</Typography>
-					<MoreVertIcon />
 				</Box>
 			)}
 		</div>
