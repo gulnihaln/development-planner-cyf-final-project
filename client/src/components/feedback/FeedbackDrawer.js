@@ -30,7 +30,7 @@ import Feedbacks from "./Feedbacks";
 				open={drawer}
 				onClose={() => setDrawer(false)}
 			>
-				<Feedbacks currentUserId={user_id} plan_id={plan_id} />
+				<Feedbacks currentUserId={localStorage.getItem("user_id")} plan_id={plan_id} />
 			</Drawer>
 		</Box>
 	);

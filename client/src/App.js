@@ -37,6 +37,7 @@ const App = () => {
 		async function fetchMyAPI() {
 			try {
 				let response = await verifyUser();
+				localStorage.setItem("user_id", response.id);
 				setIsAuthenticated(response);
 			} catch (err) {
 				setIsAuthenticated(false);

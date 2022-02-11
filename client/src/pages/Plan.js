@@ -76,12 +76,12 @@ export default function Plan() {
 					<div className="feedback-buttons">
 						<DropdownMenuFeedback />
 						<div className="invite-feedback">
-							<Tooltip title="Share Link">
+							<Tooltip title="url copied">
 								<IconButton>
 									<ShareButton />
 								</IconButton>
 							</Tooltip>
-							<FeedbackDrawer plan_id={plan_id} user_id={plan.user_id} />
+							<FeedbackDrawer plan_id={plan_id} />
 						</div>
 					</div>
 				</div>
