@@ -80,7 +80,7 @@ export default function AccountButton({ setAuth }) {
 						},
 					}}
 					onClick={() => {
-						history.push("/account");
+						history.push("/dashboard/account");
 					}}
 				>
 					Account Setting
