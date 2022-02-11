@@ -106,7 +106,7 @@ router.post("/register", validInfo, async (req, res) => {
 
 	const query =
 		"INSERT INTO users (first_name, last_name, region, role, email, password ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-	db.query(query, [first_name, last_name, region, role, email, bcryptPassword])
+	db.query(query, [first_name, last_name, region, role, email.toLowerCase(), bcryptPassword])
 		.then((result) => {
 			const token = tokenGenerator(result.rows[0].id);
 			res.json(token);
@@ -175,7 +175,7 @@ router.post("/users/login", validInfo, (req, res) => {
 		return res.status(400).send("Please complete all fields!");
 	}
 	const query = "SELECT * FROM users WHERE email = $1 ";
-	db.query(query, [email])
+	db.query(query, [email.toLowerCase()])
 		.then(async (result) => {
 			if (result.rowCount) {
 				const validPassword = await bcrypt.compare(
@@ -203,7 +203,7 @@ router.patch("/forgot-password", async (req, res) => {
 
 	try {
 		await db
-			.query("SELECT * FROM users WHERE email=$1", [email])
+			.query("SELECT * FROM users WHERE email=$1", [email.toLowerCase()])
 			.then((result) => {
 				const user = result.rows[0];
 				if (result.rowCount === 0) {
@@ -213,7 +213,7 @@ router.patch("/forgot-password", async (req, res) => {
 						{ user: user.email },
 						process.env.reset_secret,
 						{
-							expiresIn: "100h",
+							expiresIn: "10m",
 						}
 					);
 					db.query("UPDATE users SET resetlink=$1 WHERE id=$2 RETURNING *", [
@@ -268,7 +268,7 @@ router.patch("/reset-password/:token", async (req, res) => {
 							[bcryptPassword, reset, user.id]
 						)
 						.then((result) => {
-							res.status(200).json({ message: "Password updated" });
+							res.status(200).json({ message: "Your Password Updated!" });
 						});
 				}
 			});
@@ -697,19 +697,7 @@ router.get("/plans/:plan_id/feedbacks", auth, (req, res) => {
 					ORDER BY f.create_date`;
 	db.query(query, [plan_id])
 		.then((result) => {
-			if (result.rowCount) {
 				res.json(result.rows);
-			} else {
-				res
-					.status(404)
-					.send(
-						`This user doesn't have any feedbaks for this plan id ${plan_id}`
-					);
-			}
-		})
-		.catch((err) => {
-			console.error(err.message);
-			res.status(500).send(err.message);
 		});
 });
 
@@ -742,30 +730,30 @@ router.post("/plans/:plan_id/feedbacks", auth, async (req, res) => {
 	const { plan_id } = req.params;
 	const { description, parent_id } = req.body;
 	const user_id = req.user_id;
-	await db
-		.query(
-			`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id,f.parent_id, f.id feedback_id, p.title plan_title, p.description plan_description, f.description feedback, f.create_date
-				FROM feedbacks f
-				INNER JOIN plans p ON p.id = f.plan_id
-				INNER JOIN users as g ON g.id = p.user_id
-				INNER JOIN users as m ON f.user_id= m.id where m.id =$1 and f.plan_id=$2`,
-			[user_id, plan_id]
-		)
-		.then((result) => {
-			if (result.rows.length === 0) {
-				return res
-					.status(404)
-					.send(`User ${user_id} doesn't have a plan with id ${plan_id}`);
-			} else {
+	// await db
+	// 	.query(
+	// 		`SELECT m.id mentor_id, m.first_name mentor_name, g.first_name graduate_name ,p.id plan_id,f.parent_id, f.id feedback_id, p.title plan_title, p.description plan_description, f.description feedback, f.create_date
+	// 			FROM feedbacks f
+	// 			INNER JOIN plans p ON p.id = f.plan_id
+	// 			INNER JOIN users as g ON g.id = p.user_id
+	// 			INNER JOIN users as m ON f.user_id= m.id where p.user_id=$1 and f.plan_id=$2`,
+	// 		[user_id, plan_id]
+	// 	)
+	// 	.then((result) => {
+	// 		if (result.rows.length === 0) {
+	// 			return res
+	// 				.status(404)
+	// 				.send(`User ${user_id} doesn't have a plan with id ${plan_id}`);
+	// 		} else {
 				const query =
 					"INSERT INTO feedbacks ( user_id, plan_id, description, parent_id) VALUES ($1, $2, $3, $4) RETURNING *";
 				db.query(query, [user_id, plan_id, description, parent_id])
-					.then(() => res.send(result.rows))
+					.then((result) => res.send(result.rows))
 					.catch((err) => {
 						console.error(err.message);
 						res.status(500).send(err.message);
-					});
-			}
+					// });
+			// }
 		}).catch((err) => {
 			console.error(err);
 		});

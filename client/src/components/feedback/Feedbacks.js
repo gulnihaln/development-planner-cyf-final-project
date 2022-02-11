@@ -31,7 +31,8 @@ const Feedbacks = ({ currentUserId, plan_id }) => {
 			{
 				headers: { "Content-Type": "application/json" },
 			}
-		);
+			);
+			setActiveFeedback(null);
 		if (response.status === 200) {
 			loadFeedbacks();
 		}
