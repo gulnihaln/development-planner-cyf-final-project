@@ -698,6 +698,19 @@ router.get("/plans/:plan_id/feedbacks", auth, (req, res) => {
 	db.query(query, [plan_id])
 		.then((result) => {
 				res.json(result.rows);
+			// 	if (result.rowCount) {
+			// 		res.json(result.rows);
+			// 	} else {
+			// 		res
+			// 			.status(404)
+			// 			.send(
+			// 				`This user doesn't have any feedbaks for this plan id ${plan_id}`
+			// 			);
+			// 	}
+			// })
+			// .catch((err) => {
+			// 	console.error(err.message);
+			// 	res.status(500).send(err.message);
 		});
 });
 
