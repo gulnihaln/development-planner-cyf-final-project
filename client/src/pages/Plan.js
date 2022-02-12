@@ -76,7 +76,7 @@ export default function Plan() {
 					<div className="feedback-buttons">
 						<DropdownMenuFeedback />
 						<div className="invite-feedback">
-							<Tooltip title="url copied">
+							<Tooltip title="Copy link to clipboard">
 								<IconButton>
 									<ShareButton />
 								</IconButton>
