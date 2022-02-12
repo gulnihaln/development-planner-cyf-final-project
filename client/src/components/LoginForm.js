@@ -37,8 +37,8 @@ export default function LoginForm({ setAuth }) {
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<Box
+					className="login-form"
 					sx={{
-						marginTop: 8,
 						display: "flex",
 						flexDirection: "column",
 						alignItems: "center",

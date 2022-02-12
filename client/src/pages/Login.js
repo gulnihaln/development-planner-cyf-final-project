@@ -11,12 +11,6 @@ export default function Login({ setAuth }) {
 				<Box
 					className="dev-planner"
 					component="img"
-					sx={{
-						m: "auto",
-						mt: 12,
-						maxHeight: { xs: 273, md: 550 },
-						maxWidth: { xs: 350, md: 700 },
-					}}
 					alt="CYF Development Planner"
 					src={development}
 				/>
