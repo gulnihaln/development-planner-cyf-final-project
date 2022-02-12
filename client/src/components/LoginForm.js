@@ -17,16 +17,26 @@ const theme = createTheme();
 export default function LoginForm({ setAuth }) {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
+	const [emailError, setEmailError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 
 	const loginUser = (email, password) => {
 		apiLoginUser(email, password).then((res) => {
-			// console.log(res);
 			setAuth(true);
 		});
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setEmailError(false);
+		setPasswordError(false);
+
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) === false) {
+			setEmailError(true);
+		}
+		if (password.length < 6) {
+			setPasswordError(true);
+		}
 		await loginUser({
 			email,
 			password,
@@ -70,6 +80,10 @@ export default function LoginForm({ setAuth }) {
 									name="email"
 									autoComplete="email"
 									onChange={(e) => setEmail(e.target.value)}
+									error={emailError}
+									helperText={
+										emailError ? "Please enter a valid email address" : ""
+									}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -83,10 +97,12 @@ export default function LoginForm({ setAuth }) {
 									id="password"
 									autoComplete="new-password"
 									onChange={(e) => setPassword(e.target.value)}
+									error={passwordError}
+									helperText={passwordError ? "Password is Required" : ""}
 								/>
 							</Grid>
 						</Grid>
-						<Grid item sx={{m: 1}}>
+						<Grid item>
 							<Link href="/forgot_password" variant="body2">
 								Forgot Password
 							</Link>
