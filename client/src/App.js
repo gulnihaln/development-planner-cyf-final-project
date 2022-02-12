@@ -103,7 +103,7 @@ const App = () => {
 						/>
 						<Route
 							exact
-							path="/account"
+							path="/dashboard/account"
 							render={(props) =>
 								isAuthenticated ? (
 									<Account {...props} setAuth={setAuth} />
@@ -114,7 +114,7 @@ const App = () => {
 						/>
 						<Route
 							exact
-							path="/newplan"
+							path="/dashboard/newPlan"
 							render={(props) =>
 								isAuthenticated ? (
 									<NewPlan {...props} setAuth={setAuth} />
@@ -136,7 +136,7 @@ const App = () => {
 						/>
 						<Route
 							exact
-							path="/plan/:plan_id"
+							path="/dashboard/plan/:plan_id"
 							render={(props) =>
 								isAuthenticated ? (
 									<Plan {...props} setAuth={setAuth} />

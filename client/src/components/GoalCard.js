@@ -14,6 +14,7 @@ import AddTaskIcon from "./AddTaskIcon";
 import Box from "@mui/material/Box";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
+import DatePickerMobile from"./DatePickerMobile";
 import "../styles/Goal.css";
 import { request } from "../utils/api";
 import { Tooltip } from "@mui/material";
@@ -31,8 +32,10 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 		});
 	}, [goal_id, plan_id]);
 
-	const updateGoal = (tasks) =>{
-		const allTasksCompleted = tasks.every((task) => task.status === "completed");
+	const updateGoal = (tasks) => {
+		const allTasksCompleted = tasks.every(
+			(task) => task.status === "completed"
+		);
 		const status = allTasksCompleted ? "completed" : "uncompleted";
 		const body = { title, status, start_date: startDate, end_date: endDate };
 		request.put(`/plans/${plan_id}/goals/${goal_id}`, body, {
@@ -77,6 +80,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			headers: { "Content-Type": "application/json" },
 		});
 	};
+
 	return (
 		<Card
 			className="goal-card"
@@ -108,15 +112,26 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			</Box>
 			<Box sx={{ margin: 1, borderRadius: "4px" }}>
 				<Box sx={{ marginTop: 2 }}>
-					<DatePickerDesktop
-						goal_id={goal_id}
-						startDate={startDate}
-						endDate={endDate}
-						setStartDate={setStartDate}
-						setEndDate={setEndDate}
-					/>
+					<Box display={{ xs: "none", sm: "none", md: "block" }}>
+						<DatePickerDesktop
+							goal_id={goal_id}
+							startDate={startDate}
+							endDate={endDate}
+							setStartDate={setStartDate}
+							setEndDate={setEndDate}
+						/>
+					</Box>
+					<Box display={{ xs: "block", sm: "block", md: "none" }}>
+						<DatePickerMobile
+							goal_id={goal_id}
+							startDate={startDate}
+							endDate={endDate}
+							setStartDate={setStartDate}
+							setEndDate={setEndDate}
+						/>
+					</Box>
 				</Box>
-				<CardContent sx={{ overflowY: "scroll", maxHeight: 330 }}>
+				<CardContent sx={{ overflowY: "scroll", maxHeight: 330, padding: 1 }}>
 					<TaskTicket
 						tasks={tasks}
 						plan_id={plan_id}
@@ -142,7 +157,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 					/>
 
 					<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-					<AddTaskIcon newTaskHandle={newTaskHandle} />
+					<AddTaskIcon newTaskHandle={newTaskHandle} value={value} />
 				</Paper>
 			</Box>
 			<CardActions
@@ -151,17 +166,16 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			>
 				<Button
 					sx={{
-						color: "rgb(35, 108, 54)",
-						border: "none",
-						// backgroundColor: "rgb(50, 154, 78)",
+						color: "rgba(0, 0, 0, 0.54)",
+						border: "1px solid rgba(0, 0, 0, 0.54)",
 						"&:hover": {
 							backgroundColor: "transparent",
-							border: "none",
+							color: "rgb(50, 154, 78)",
+							border: "1px solid rgb(50, 154, 78)",
 						},
 					}}
 					onClick={editGoal}
-					// variant="outlined"
-					variant="text"
+					variant="outlined"
 				>
 					Save
 				</Button>

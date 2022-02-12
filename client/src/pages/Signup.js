@@ -17,12 +17,16 @@ import { apiSignUpUser } from "../utils/api";
 const theme = createTheme();
 
 export default function SignUpForm({ setAuth }) {
-	const [firstName, setFirstName] = useState();
-	const [lastName, setLastName] = useState();
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [region, setRegion] = useState("North West");
 	const [role, setRole] = useState("graduate");
-	const [email, setEmail] = useState();
-	const [password, setPassword] = useState();
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [firstNameError, setFirstNameError] = useState(false);
+	const [lastNameError, setLastNameError] = useState(false);
+	const [emailError, setEmailError] = useState(false);
+	const [passwordError, setPasswordError] = useState(false);
 
 	const signUpUser = async (
 		first_name,
@@ -46,7 +50,29 @@ export default function SignUpForm({ setAuth }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await signUpUser(firstName, lastName, region, role, email, password);
+
+		setFirstNameError(false);
+		setLastNameError(false);
+		setEmailError(false);
+		setPasswordError(false);
+
+		if (firstName === "") {
+			setFirstNameError(true);
+		}
+		if (lastName === "") {
+			setLastNameError(true);
+		}
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) === false) {
+			setEmailError(true);
+		}
+		if (password.length < 6) {
+			setPasswordError(true);
+		}
+		setTimeout(
+			async () =>
+				await signUpUser(firstName, lastName, region, role, email, password),
+			1000
+		);
 	};
 	return (
 		<ThemeProvider theme={theme}>
@@ -83,6 +109,8 @@ export default function SignUpForm({ setAuth }) {
 									type="text"
 									id="firstName"
 									label="First Name"
+									error={firstNameError}
+									helperText={firstNameError ? "First Name is required" : ""}
 								/>
 							</Grid>
 							<Grid item xs={12} sm={6}>
@@ -95,6 +123,8 @@ export default function SignUpForm({ setAuth }) {
 									label="Last Name"
 									name="lastName"
 									autoComplete="family-name"
+									error={lastNameError}
+									helperText={lastNameError ? "Last Name is required" : ""}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -148,6 +178,10 @@ export default function SignUpForm({ setAuth }) {
 									label="Email Address"
 									name="email"
 									autoComplete="email"
+									error={emailError}
+									helperText={
+										emailError ? "Please enter a valid email address" : ""
+									}
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -160,19 +194,14 @@ export default function SignUpForm({ setAuth }) {
 									type="password"
 									id="password"
 									autoComplete="new-password"
+									error={passwordError}
+									helperText={
+										passwordError
+											? "password is required to be more than 6 characters"
+											: ""
+									}
 								/>
 							</Grid>
-							{/* <Grid item xs={12}>
-									<TextField
-										onChange={e => onChange(e)}
-										required
-										fullWidth
-										name="passwordconfirmation"
-										label="Password Confirmation"
-										type="password"
-										id="password"
-									/>
-								</Grid> */}
 						</Grid>
 						<Button
 							type="submit"

@@ -59,9 +59,9 @@ export default function AboutUs() {
 					}}
 				>
 					We built this project for CodeYourFuture whose graduates and mentors
-					need an application for keeping track of the professional development
-					of their graduates. The application provides users a private
-					environment where they can create plans and receive feedbacks.
+					need an application for keeping track of the professional development.
+					The application provides users a private environment where they can
+					create plans and receive feedbacks.
 				</Typography>
 				<div className="hero-text">
 					<Card className="devs-card-left">
@@ -90,12 +90,12 @@ export default function AboutUs() {
 								and more.
 							</Typography>
 							<Box className="devs-social-icon" sx={{ mt: 5 }}>
-								<IconButton>
+								<IconButton sx={{ padding: 0 }}>
 									<Link
 										href="https://www.linkedin.com/in/ali-bavarsad-6ba8a916b/"
 										target="blank_"
 									>
-										<LinkedInIcon style={{ color: "currentColor" }} />
+										<LinkedInIcon style={{ color: "#0277B7" }} />
 									</Link>
 								</IconButton>
 								<IconButton>
@@ -130,7 +130,7 @@ export default function AboutUs() {
 							>
 								Gulnihal is a North West trainee, mother of two and a former
 								physics teacher. Her coding journey started with CYF. She is a
-								good team player and has a passion for learning and building
+								good team player and has passion for learning and building
 								things from beginning.
 							</Typography>
 							<Box>
@@ -139,7 +139,7 @@ export default function AboutUs() {
 										href="https://www.linkedin.com/in/gulnihalnaldoken/"
 										target="blank_"
 									>
-										<LinkedInIcon style={{ color: "currentColor" }} />
+										<LinkedInIcon style={{ color: "#0277B7" }} />
 									</Link>
 								</IconButton>
 								<IconButton>
@@ -175,7 +175,7 @@ export default function AboutUs() {
 								I am Maziar, I've joined the CYF around a year ago without any
 								background in coding. I was interested in coding after watching
 								the Matrix, but I've never considered to be a developer until I
-								heard about CYF. I really enjoy working on Front-end.
+								heard about CYF.
 							</Typography>
 							<Box>
 								<IconButton>
@@ -183,7 +183,7 @@ export default function AboutUs() {
 										href="https://uk.linkedin.com/in/maziarmajd"
 										target="blank_"
 									>
-										<LinkedInIcon style={{ color: "currentColor" }} />
+										<LinkedInIcon style={{ color: "#0277B7" }} />
 									</Link>
 								</IconButton>
 								<IconButton>
@@ -216,18 +216,16 @@ export default function AboutUs() {
 								component="div"
 								sx={{ textAlign: "center", padding: "5px" }}
 							>
-								I used to be a Telecom engineer, I have willingness of tech and
-								fun of computer, I was athletes in kickboxing I had many medals
-								in my country. I'm currently a trainee in North West class in
-								CYF.
+								Morteza is NW4 trainee, a former telecom engineer and passionate
+								about computers. He was also a champion kick-boxing.
 							</Typography>
 							<Box>
 								<IconButton>
 									<Link
-										href="https://github.com/gulnihaln/development-planner-cyf-final-project"
+										href="https://www.linkedin.com/in/morteza-khojasteh/"
 										target="blank_"
 									>
-										<LinkedInIcon style={{ color: "currentColor" }} />
+										<LinkedInIcon style={{ color: "#0277B7" }} />
 									</Link>
 								</IconButton>
 								<IconButton>

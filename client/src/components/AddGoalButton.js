@@ -11,11 +11,11 @@ export default function AddGoalButton ({ HandleNewGoal }) {
 				sx={{
 					color: "#fff",
 					backgroundColor: "#CF2F2F",
-					borderRadius: "4px",
-					marginTop: 3,
-					mb: 2,
+					borderRadius: "3px",
+					marginTop: 4,
+					mb: 3,
 					width: 300,
-					marginLeft: 4,
+					marginLeft: 0,
 					alignSelf: "center",
 					// maxWidth: "300px",
 					"&:hover": {

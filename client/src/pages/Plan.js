@@ -49,7 +49,7 @@ export default function Plan() {
 		<>
 			<section className="plan-container">
 				<div className="plan-intro-container">
-					<div className="title-progress-container" style={{ width: "50%" }}>
+					<div className="title-progress-container">
 						<PlanTitle
 							plan_id={plan_id}
 							editPlan={editPlan}
@@ -74,7 +74,7 @@ export default function Plan() {
 						/>
 					</div>
 					<div className="feedback-buttons">
-						<DropdownMenuFeedback />
+						<DropdownMenuFeedback plan_id={plan_id} user_id={plan.user_id} />
 						<div className="invite-feedback">
 							<Tooltip title="Copy link to clipboard">
 								<IconButton>
