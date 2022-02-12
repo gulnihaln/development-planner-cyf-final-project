@@ -216,14 +216,13 @@ export default function AboutUs() {
 								component="div"
 								sx={{ textAlign: "center", padding: "5px" }}
 							>
-								I used to be a Telecom engineer, always been a tech nerd. I was
-								a kick boxer and I won many trophies. I'm currently a trainee in
-								CodeYourFuture.
+								Morteza is NW4 trainee, a former telecom engineer and passionate
+								about computers. He was also a champion kick-boxing.
 							</Typography>
 							<Box>
 								<IconButton>
 									<Link
-										href="https://github.com/gulnihaln/development-planner-cyf-final-project"
+										href="https://www.linkedin.com/in/morteza-khojasteh/"
 										target="blank_"
 									>
 										<LinkedInIcon style={{ color: "#0277B7" }} />
