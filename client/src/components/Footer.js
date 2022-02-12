@@ -78,7 +78,12 @@ export default function Footer() {
 				>
 					&copy; Copyright{" "}
 					<Link
-						sx={{ textDecoration: "none", fontStyle: "italic", fontSize:"14px", color: "#000" }}
+						sx={{
+							textDecoration: "none",
+							fontStyle: "italic",
+							fontSize: "14px",
+							color: "#000",
+						}}
 						href="https://codeyourfuture.io/"
 						target="_blank"
 					>
