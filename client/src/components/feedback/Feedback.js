@@ -28,10 +28,10 @@ const Feedback = ({
 	const replyId = parent_id ? parent_id : feedback.feedback_id;
 
 	return (
-		<Box sx={{ display: "flex", mb: 1 }}>
-			<Avatar sx={{ ml: 1, mt: 1 }}></Avatar>
+		<Box sx={{ display: "flex", mb: 1, alignItems: "flex-start" }}>
+			<Avatar sx={{ ml: 1, mt: 2 }}></Avatar>
 			<Box sx={{ width: "90%", ml: 1 }}>
-				<Box sx={{ display: "flex" }}>
+				<Box sx={{ display: "flex", fontWeight: "501" }}>
 					<Box
 						sx={{ mr: 1, ml: 1 }}
 					>{`${feedback.first_name} ${feedback.last_name}`}</Box>
@@ -40,12 +40,13 @@ const Feedback = ({
 				{!isEditing && (
 					<Paper
 						sx={{
-							fontSize: 18,
+							fontSize: 16,
 							backgroundColor: "#f5f5f5",
 							pt: 0.5,
 							pb: 0.5,
 							pr: 1,
 							pl: 1,
+							width: "90%",
 						}}
 					>
 						{feedback.description}
@@ -106,11 +107,11 @@ const Feedback = ({
 					)}
 				</Box>
 				{isReplying && (
-					<Box sx={{ width: 400, justifyContent: "center" }}>
-					<FeedbackForm
-						submitLabel="Reply"
-						handleSubmit={(text) => addFeedback(text, replyId)}
-					/>
+					<Box sx={{ display: "flex", justifyContent: "center" }}>
+						<FeedbackForm
+							submitLabel="Reply"
+							handleSubmit={(text) => addFeedback(text, replyId)}
+						/>
 					</Box>
 				)}
 				{replies.length > 0 && (

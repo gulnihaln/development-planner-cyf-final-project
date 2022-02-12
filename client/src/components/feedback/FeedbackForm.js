@@ -22,7 +22,7 @@ const FeedbackForm = ({
 				variant="standard"
 				placeholder="Write your feedback here..."
 				sx={{
-					width: "90%",
+					width: 450,
 					height: 80,
 					m: "auto",
 					display: "flex",
@@ -33,7 +33,7 @@ const FeedbackForm = ({
 			/>
 			<Button
 				type="submit"
-				sx={{borderRadius: 10, width: 450}}
+				sx={{ display: "flex", justifyContent: "center", borderRadius: 10, width: "100%" }}
 				disabled={isTextareaDisabled}
 			>
 				{submitLabel}
@@ -41,7 +41,7 @@ const FeedbackForm = ({
 			{hasCancelButton && (
 				<Button
 					type="button"
-					sx={{ width: 450, p: 1, ml: 2, mt: 1, borderRadius: 5 }}
+					sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 1, borderRadius: 10 }}
 					onClick={handleCancel}
 				>
 					Cancel

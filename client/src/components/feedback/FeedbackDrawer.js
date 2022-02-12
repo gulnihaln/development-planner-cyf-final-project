@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Feedbacks from "./Feedbacks";
 
 
- function TemporaryDrawer({ plan_id, user_id }) {
+ function TemporaryDrawer({ plan_id }) {
 	const [drawer, setDrawer] = useState(false); //set drawer open or not
 
 
@@ -25,7 +25,7 @@ import Feedbacks from "./Feedbacks";
 				Feedbacks
 			</Button>
 			<Drawer
-				PaperProps={{ sx: { width: 500 } }}
+				PaperProps={{ sx: { width: 600 } }}
 				anchor={"right"}
 				open={drawer}
 				onClose={() => setDrawer(false)}
