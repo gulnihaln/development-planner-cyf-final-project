@@ -324,7 +324,7 @@ router.post("/plans", auth, (req, res) => {
 // GET a plan form specific user with plan id
 router.get("/plans/:plan_id", auth, (req, res) => {
 	const { plan_id } = req.params;
-	db.query("SELECT * FROM plans WHERE id=$1", [plan_id])
+	db.query("SELECT u.first_name, u.last_name, plans.id, plans.user_id, plans.title, plans.description, plans.create_date FROM plans INNER JOIN users u on u.id = plans.user_id WHERE plans.id=$1", [plan_id])
 		.then((result) => {
 			if (result.rowCount) {
 				res.send(result.rows[0]);
@@ -555,8 +555,8 @@ router.get("/plans/:plan_id/goals/:goal_id/tasks", auth, (req, res) => {
 	const query = `SELECT t.id, t.goal_id goal_id, t.description, t.status, t.create_date  FROM tasks t 
 						INNER JOIN goals g on t.goal_id = g.id 
 						INNER JOIN plans p on g.plan_id = p.id 
-						where p.user_id =$1 and p.id= $2 and t.goal_id=$3`;
-	db.query(query, [user_id, plan_id, goal_id])
+						where p.id= $1 and t.goal_id=$2`;
+	db.query(query, [plan_id, goal_id])
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
 			console.error(err.message);

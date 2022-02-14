@@ -13,8 +13,11 @@
     border-radius: 10px;
 }
 .feedback-buttons {
-    align-self: flex-end;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: flex-end;
 }
 .invite-feedback {
     display: none;
@@ -29,6 +32,7 @@
 }
     .invite-feedback {
     display: flex;
+    margin-top: 10px;
 }
     .select-dots {
         display: none;
