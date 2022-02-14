@@ -80,7 +80,7 @@ const Feedbacks = ({ currentUserId, plan_id }) => {
 			</Typography>
 			<Box sx={{ fontSize: 24, ml: 2 }} />
 			<FeedbackForm submitLabel="Send Feedback" handleSubmit={addFeedback} />
-			<Box sx={{ mt: 5 }}>
+			<Typography sx={{ mt: 5 }}>
 				{rootFeedbacks.map((rootFeedback) => (
 					<Feedback
 						key={rootFeedback.feedback_id}
@@ -94,7 +94,7 @@ const Feedbacks = ({ currentUserId, plan_id }) => {
 						addFeedback={addFeedback}
 					/>
 				))}
-			</Box>
+			</Typography>
 		</Box>
 	);
 };

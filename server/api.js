@@ -856,7 +856,7 @@ router.post("/refresh", (req, res) => {
 //verify a user
 router.post("/verify", auth, async (req, res) => {
 	try {
-		res.json(true);
+		res.json({id: req.user_id});
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send(err.message);
