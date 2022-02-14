@@ -102,8 +102,9 @@ export default function LoginForm({ setAuth }) {
 								/>
 							</Grid>
 						</Grid>
-						<Grid item>
-							<Link href="/forgot_password" variant="body2">
+						<Grid item sx={{
+								m: 1 }}>
+							<Link href="/forgot_password"  variant="body2">
 								Forgot Password
 							</Link>
 						</Grid>
