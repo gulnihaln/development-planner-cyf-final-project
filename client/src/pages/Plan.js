@@ -102,7 +102,7 @@ export default function Plan() {
 				</div>
 			</section>
 			<section className="goals-container">
-				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} />
+				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} canSee={canSee} />
 			</section>
 		</>
 	);
