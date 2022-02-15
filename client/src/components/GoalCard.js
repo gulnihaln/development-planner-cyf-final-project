@@ -15,7 +15,6 @@ import Box from "@mui/material/Box";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
 import DatePickerMobile from"./DatePickerMobile";
-import "../styles/Goal.css";
 import { request } from "../utils/api";
 import { Tooltip } from "@mui/material";
 
