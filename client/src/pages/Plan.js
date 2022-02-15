@@ -38,7 +38,7 @@ export default function Plan() {
 		);
 	}
 	const currentUserId = localStorage.getItem("user_id");
-	const canSee = currentUserId !== plan.user_id;
+	const canSee = currentUserId === plan.user_id;
 
 	const editPlan = async (plan_id, title, description) => {
 		const body = { title, description };
@@ -85,7 +85,7 @@ export default function Plan() {
 								mr: 2,
 							}}
 						>
-							{canSee && (
+							{!canSee && (
 								<Typography sx={{ m: "auto", maxWidth: 480 }}>
 									{`You are seeing ${plan.first_name} ${plan.last_name}'s plan`}
 								</Typography>
@@ -102,7 +102,7 @@ export default function Plan() {
 				</div>
 			</section>
 			<section className="goals-container">
-				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} />
+				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} canSee={canSee} />
 			</section>
 		</>
 	);
