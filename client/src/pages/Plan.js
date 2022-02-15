@@ -6,7 +6,7 @@ import { request } from "../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import "../styles/Plan.css";
-import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 import ShareButton from "../components/ShareButton";
 import { useCallback } from "react";
@@ -37,6 +37,8 @@ export default function Plan() {
 			</>
 		);
 	}
+	const currentUserId = localStorage.getItem("user_id");
+	const canSee = currentUserId !== plan.user_id;
 
 	const editPlan = async (plan_id, title, description) => {
 		const body = { title, description };
@@ -83,11 +85,16 @@ export default function Plan() {
 								mr: 2,
 							}}
 						>
-							<Typography sx={{ m: "auto", maxWidth: 480 }}>
-								{`You are seeing ${plan.first_name} ${plan.last_name}'s plan`}
-							</Typography>
+							{canSee && (
+								<Typography sx={{ m: "auto", maxWidth: 480 }}>
+									{`You are seeing ${plan.first_name} ${plan.last_name}'s plan`}
+								</Typography>
+							)}
 							<Box className="invite-feedback">
-								<FeedbackDrawer plan_id={plan_id} />
+								<FeedbackDrawer
+									currentUserId={currentUserId}
+									plan_id={plan_id}
+								/>
 								<ShareButton />
 							</Box>
 						</Box>

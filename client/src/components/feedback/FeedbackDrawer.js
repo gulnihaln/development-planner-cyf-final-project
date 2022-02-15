@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Feedbacks from "./Feedbacks";
 
 
- function TemporaryDrawer({ plan_id }) {
+ function TemporaryDrawer({ plan_id, currentUserId }) {
 	const [drawer, setDrawer] = useState(false); //set drawer open or not
 
 
@@ -30,7 +30,7 @@ import Feedbacks from "./Feedbacks";
 				open={drawer}
 				onClose={() => setDrawer(false)}
 			>
-				<Feedbacks currentUserId={localStorage.getItem("user_id")} plan_id={plan_id} />
+				<Feedbacks currentUserId={currentUserId} plan_id={plan_id} />
 			</Drawer>
 		</Box>
 	);
