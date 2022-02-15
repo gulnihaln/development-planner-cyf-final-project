@@ -6,7 +6,7 @@ import { request } from "../utils/api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import "../styles/Plan.css";
-import { IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
 import ShareButton from "../components/ShareButton";
 import { useCallback } from "react";
@@ -19,6 +19,7 @@ export default function Plan() {
 	const fetchData = useCallback(() => {
 		request.get(`/plans/${plan_id}`).then((res) => {
 			setPlan(res.data);
+			console.log(res.data);
 		});
 	}, [plan_id]);
 
@@ -26,23 +27,24 @@ export default function Plan() {
 		fetchData();
 	}, [fetchData]);
 
-	if(plan === null ){
-		return <>
-		<IconButton sx={{ marginLeft: 2 }}>
-			<HourglassEmptyOutlinedIcon />
-			Loading
-		</IconButton>
-		</>;
+	if (plan === null) {
+		return (
+			<>
+				<IconButton sx={{ marginLeft: 2 }}>
+					<HourglassEmptyOutlinedIcon />
+					Loading
+				</IconButton>
+			</>
+		);
 	}
+	const currentUserId = localStorage.getItem("user_id");
+	const canSee = currentUserId !== plan.user_id;
 
 	const editPlan = async (plan_id, title, description) => {
 		const body = { title, description };
-			await request.put(`/plans/${plan_id}`,
-			body,
-			{
-				headers: { "Content-Type": "application/json" },
-			}
-		);
+		await request.put(`/plans/${plan_id}`, body, {
+			headers: { "Content-Type": "application/json" },
+		});
 	};
 
 	return (
@@ -73,21 +75,34 @@ export default function Plan() {
 							}
 						/>
 					</div>
-					<div className="feedback-buttons">
+					<Box className="feedback-buttons">
 						<DropdownMenuFeedback plan_id={plan_id} user_id={plan.user_id} />
-						<div className="invite-feedback">
-							<Tooltip title="Copy link to clipboard">
-								<IconButton>
-									<ShareButton />
-								</IconButton>
-							</Tooltip>
-							<FeedbackDrawer plan_id={plan_id} />
-						</div>
-					</div>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "flex-end",
+								mr: 2,
+							}}
+						>
+							{canSee && (
+								<Typography sx={{ m: "auto", maxWidth: 480 }}>
+									{`You are seeing ${plan.first_name} ${plan.last_name}'s plan`}
+								</Typography>
+							)}
+							<Box className="invite-feedback">
+								<FeedbackDrawer
+									currentUserId={currentUserId}
+									plan_id={plan_id}
+								/>
+								<ShareButton />
+							</Box>
+						</Box>
+					</Box>
 				</div>
 			</section>
 			<section className="goals-container">
-				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} />
+				<Goals goals={goals} setGoals={setGoals} plan_id={plan_id} canSee={canSee} />
 			</section>
 		</>
 	);
