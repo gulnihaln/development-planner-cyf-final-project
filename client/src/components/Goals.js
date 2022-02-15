@@ -6,7 +6,7 @@ import { request } from "../utils/api";
 import Masonry from "react-masonry-css";
 import "../styles/Masonry.css";
 
-export default function Goals({ goals, setGoals, plan_id }) {
+export default function Goals({ goals, setGoals, plan_id, canSee }) {
 	const defaultDate = new Date();
 	useEffect(() => {
 		request.get(`/plans/${plan_id}/goals`).then((res) => {
@@ -39,8 +39,8 @@ export default function Goals({ goals, setGoals, plan_id }) {
 		700: 1,
 	};
 	return (
-		<Container>
-			<AddGoalButton HandleNewGoal={HandleNewGoal} />
+		<Container sx={{ mt: 2 }} >
+			<AddGoalButton HandleNewGoal={HandleNewGoal} canSee={canSee} />
 			<Masonry
 				breakpointCols={breakpoints}
 				className="my-masonry-grid"
@@ -58,6 +58,7 @@ export default function Goals({ goals, setGoals, plan_id }) {
 								plan_id={plan_id}
 								goal_id={goal.goal_id}
 								sx={{ mt: 1 }}
+								canSee={canSee}
 							/>
 						);
 					})}
