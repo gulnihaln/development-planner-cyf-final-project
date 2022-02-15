@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import { Box } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 
 const ShareButton = () => {
 	const [pageURL, setPageURL] = useState(0);
@@ -10,12 +9,15 @@ const ShareButton = () => {
 	}, []);
 
 	return (
-		<Box>
-			<ShareOutlinedIcon
+		<Tooltip title="Copy link to clipboard">
+			<Button
+				variant="outlined"
+				sx={{ ml: 1, color: "#CF2F2F", borderRadius: 10 }}
 				onClick={() => navigator.clipboard.writeText(pageURL)}
-				sx={{ color: "#CF2F2F" }}
-			/>
-		</Box>
+			>
+				Share
+			</Button>
+		</Tooltip>
 	);
 };
 
