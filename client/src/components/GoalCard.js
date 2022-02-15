@@ -144,7 +144,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id, canS
 					component="form"
 					sx={{
 						p: "2px 4px",
-						display: `${!canSee ? "flex" : "none"}`,
+						display: `${canSee ? "flex" : "none"}`,
 					}}
 				>
 					<InputBase
@@ -165,7 +165,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id, canS
 			>
 				<Button
 					sx={{
-						display: `${!canSee ? "flex" : "none"}`,
+						display: `${canSee ? "flex" : "none"}`,
 						color: "rgba(0, 0, 0, 0.54)",
 						border: "1px solid rgba(0, 0, 0, 0.54)",
 						"&:hover": {
@@ -181,7 +181,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id, canS
 				</Button>
 				<Tooltip title="Delete Goal">
 					<IconButton
-						sx={{ display: `${!canSee ? "flex" : "none"}` }}
+						sx={{ display: `${canSee ? "flex" : "none"}` }}
 						aria-label="delete"
 						onClick={() => handleDeleteGoal(goal_id)}
 					>

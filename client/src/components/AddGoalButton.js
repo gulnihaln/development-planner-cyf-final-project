@@ -9,7 +9,7 @@ export default function AddGoalButton ({ HandleNewGoal, canSee }) {
 				onClick={HandleNewGoal}
 				variant="outlined"
 				sx={{
-					display: `${!canSee ? "inherit" : "none"}`,
+					display: `${canSee ? "inherit" : "none"}`,
 					color: "#fff",
 					backgroundColor: "#CF2F2F",
 					borderRadius: "3px",
