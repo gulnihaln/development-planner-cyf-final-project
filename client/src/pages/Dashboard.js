@@ -57,7 +57,7 @@ function Dashboard() {
 								marginBottom: 4,
 							}}
 						>
-							{/* <CardActionArea> */}
+							{/* <CardActionArea>  */}
 								<CardHeader
 									action={<AddIcon sx={{ color: "green", fontSize: "38px" }} />}
 								/>
@@ -67,7 +67,7 @@ function Dashboard() {
 										Create new plan
 									</Typography>
 								</CardContent>
-							{/* </CardActionArea> */}
+							{/* </CardActionArea>  */}
 						</Card>
 					</Link>
 					{plans

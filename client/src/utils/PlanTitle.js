@@ -28,7 +28,7 @@ export default function PlanTitle({
 				<Box sx={{ letterSpacing: "1px" }}>
 					<CssTextField
 						// label="Edit plan title"
-						// className="plan-title"
+						// className="plan-title"  
 						variant="standard"
 						focusColor="rgba(0, 0, 0, 0.6)"
 						value={title}
