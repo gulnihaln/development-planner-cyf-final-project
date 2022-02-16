@@ -5,7 +5,6 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import MobileDateRangePicker from "@mui/lab/MobileDateRangePicker";
-import "../styles/Goal.css";
 import { styled } from "@mui/material/styles";
 
 const CssTextField = styled(TextField, {
