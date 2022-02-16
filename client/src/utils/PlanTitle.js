@@ -25,7 +25,7 @@ export default function PlanTitle({
 	return (
 		<div>
 			{open ? (
-				<Box sx={{ letterSpacing: "1.5px" }}>
+				<Box sx={{ letterSpacing: "1px" }}>
 					<CssTextField
 						// label="Edit plan title"
 						// className="plan-title"
@@ -83,7 +83,7 @@ export default function PlanTitle({
 						onClick={() => setOpen(true)}
 						sx={{
 							flexGrow: 1,
-							paddingLeft: 2,
+							paddingLeft: 0,
 							marginTop: 1,
 							cursor: "pointer",
 						}}
