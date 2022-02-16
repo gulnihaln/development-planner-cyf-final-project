@@ -19,7 +19,6 @@ export default function Plan() {
 	const fetchData = useCallback(() => {
 		request.get(`/plans/${plan_id}`).then((res) => {
 			setPlan(res.data);
-			console.log(res.data);
 		});
 	}, [plan_id]);
 
