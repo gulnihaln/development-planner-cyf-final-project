@@ -15,11 +15,10 @@ import Box from "@mui/material/Box";
 import EditableInput from "../utils/EditableInput";
 import DatePickerDesktop from "./DatePickerDesktop";
 import DatePickerMobile from"./DatePickerMobile";
-import "../styles/Goal.css";
 import { request } from "../utils/api";
 import { Tooltip } from "@mui/material";
 
-export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
+export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id, canSee }) {
 	const [title, setTitle] = useState(goal.title || "Goal title");
 	const [startDate, setStartDate] = useState(goal.start_date);
 	const [endDate, setEndDate] = useState(goal.end_date);
@@ -145,7 +144,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 					component="form"
 					sx={{
 						p: "2px 4px",
-						display: "flex",
+						display: `${canSee ? "flex" : "none"}`,
 					}}
 				>
 					<InputBase
@@ -166,6 +165,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 			>
 				<Button
 					sx={{
+						display: `${canSee ? "flex" : "none"}`,
 						color: "rgba(0, 0, 0, 0.54)",
 						border: "1px solid rgba(0, 0, 0, 0.54)",
 						"&:hover": {
@@ -181,6 +181,7 @@ export default function GoalCard({ goal, goals, setGoals, plan_id, goal_id }) {
 				</Button>
 				<Tooltip title="Delete Goal">
 					<IconButton
+						sx={{ display: `${canSee ? "flex" : "none"}` }}
 						aria-label="delete"
 						onClick={() => handleDeleteGoal(goal_id)}
 					>

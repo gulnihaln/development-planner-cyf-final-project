@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-export default function AddGoalButton ({ HandleNewGoal }) {
+export default function AddGoalButton ({ HandleNewGoal, canSee }) {
 	return (
 		<div>
 			<Button
@@ -9,6 +9,7 @@ export default function AddGoalButton ({ HandleNewGoal }) {
 				onClick={HandleNewGoal}
 				variant="outlined"
 				sx={{
+					display: `${canSee ? "inherit" : "none"}`,
 					color: "#fff",
 					backgroundColor: "#CF2F2F",
 					borderRadius: "3px",
